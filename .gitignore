@@ -8,3 +8,5 @@ themes/index.php
 themes/twentyfourteen/
 themes/twentythirteen/
 uploads/
+*.DS_Store
+themes/twentytwelve/
