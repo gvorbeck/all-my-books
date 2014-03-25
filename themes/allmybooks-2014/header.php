@@ -55,6 +55,10 @@
 		<div id="container">
 			<div id="loading-indicator"><span>*</span></div>
 			<header id="site-header" role="banner">
+				<!--div id="site-header--logo">
+					<div class="circle"><div class="ribbon"></div></div>
+					<div class="book-logo"></div>
+				</div-->
 				<?php if ( is_home() ) { $tag = h1; } else { $tag = h2; } ?>
 				<<?php echo $tag; ?> id="site-title"><a href="<?php bloginfo( 'url' ); ?>" title="Home"><?php bloginfo( 'title' ); ?></a></<?php echo $tag; ?>>
 				<div id="header-navigation">
@@ -73,8 +77,8 @@
 							</div>
 							<nav>
 								<ul>
-									<li><a href="/wordpress/wp-admin" title="AMB Admin Area" target="_blank"><span class="icon--font icon--settings"></span></a></li>
-									<li><a href="/wordpress/wp-admin/post-new.php" title="Add a New Book" target="_blank"><span class="icon--font icon--book"></span></a></li>
+									<li><a href="<?php bloginfo('url'); ?>/wordpress/wp-admin" title="AMB Admin Area" target="_blank"><span class="icon--font icon--settings"></span></a></li>
+									<li><a href="<?php bloginfo('url'); ?>/wordpress/wp-admin/post-new.php" title="Add a New Book" target="_blank"><span class="icon--font icon--book"></span></a></li>
 								</ul>
 							</nav>
 						</div>
