@@ -1,0 +1,561 @@
+@import "compass/css3";
+@import "breakpoint";
+
+/*
+** COLORS
+*/
+$color-primary: #246f99;
+$color-secondary: #F5F1D2;
+$color-tertiary: #434343;
+$color-burnt-cream: #EDDCAD;
+$color-dark-cream: #D4C18B;
+
+@function color--shadow($color) {
+	@return adjust-color($color, $hue: 0, $saturation: 3, $lightness: -7);
+}
+
+/*
+** FONTS
+*/
+$font-title: 'Petrona', serif;
+$font-text: 'Sintony', sans-serif;
+
+@include font-face( "Social", font-files( "social.woff", "social.ttf", "social.eot", "social.svg") );
+$font-social-icons: 'Social', sans-serif;
+
+@include font-face( "Icomoon", font-files( "icomoon.woff", "icomoon.ttf", "icomoon.eot", "icomoon.svg") );
+$font-web-icons: 'Icomoon', sans-serif;
+
+/*
+** TEXT SIZES
+*/
+
+/*
+** EXTENDS
+*/
+%ribbon {
+	position: relative;
+	font-size: .5625em; /* 9px */
+	top: 9px;
+	left: 18px;
+}
+%ribbon-before {
+	left: -0.3em;
+	top: -1em;
+	position: absolute;
+	content: "";
+	height: 3.25em;
+	border-bottom: 0.7em solid transparent;
+	border-right: 1em solid #f0e2b8;
+}
+%ribbon-after {
+	left: -0.7em;
+	top: -1em;
+	position: absolute;
+	content: "";
+	height: 3.25em;
+	border-bottom: 0.7em solid transparent;
+	border-left: 1em solid #f0e2b8;
+}
+
+/*
+** UNIVERSALS
+*/
+body {
+	padding: 20px 10%;
+	/* Created using http://www.patternify.com/ */
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2OUjq77zykizQADjCr5M/9/f/OUASYIFgDJwgThAjBBACtAEXlnBGGKAAAAAElFTkSuQmCC) repeat;
+	
+	@include breakpoint( max-width 735px ) {
+		padding: 20px 5%;
+	}
+	@include breakpoint( max-width 450px ) {
+		padding: 10px 2.5%;
+	}
+}
+#container {
+	/*@include background-image(
+		linear-gradient( left, $color-burnt-cream 0%, $color-secondary 15%, $color-secondary 50%, $color-secondary 85%, $color-burnt-cream 99%, $color-burnt-cream 100% )
+	);*/
+	background: $color-primary;
+	padding: 1%;
+	border-radius: 4px;
+}
+#content {
+	clear: both;
+}
+.icon--font {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/*
+** HEADER
+*/
+#site-header {
+	position: relative;
+	width: 497px;
+	margin: 0 auto;
+	
+	@include breakpoint( max-width 735px ) {
+		width: auto;
+		text-align: center;
+	}
+	
+	a {
+		color: $color-secondary;
+		text-decoration: none;
+	}
+}
+/*#site-header--logo {
+	position: absolute;
+	margin-left: -50px;
+	left: 50%;
+
+	.circle {
+		border-radius: 50px;
+		background: $color-primary;
+		width: 100px;
+		height: 100px;
+		overflow: hidden;
+		position: relative;
+		z-index: 1;
+	}
+	.ribbon {
+		@extend %ribbon;
+		left: 41px;
+	}
+	.ribbon::before {
+		@extend %ribbon-before;
+		border-right: 3em solid #f0e2b8;
+		border-bottom: 1.7em solid transparent;
+		height: 5.25em;
+	}
+	.ribbon::after {
+		@extend %ribbon-after;
+		border-left: 3em solid #f0e2b8;
+		border-bottom: 1.7em solid transparent;
+		height: 5.25em;
+	}
+	
+	.book-logo {
+		width: 65px;
+		height: 85px;
+		background: $color-primary;
+		border-top: 5px solid color--shadow($color-primary);
+		border-left: 15px solid color--shadow($color-primary);
+		border-bottom: 5px solid color--shadow($color-primary);
+	}
+	.book-logo::after {
+		background: white;
+		width: 70px;
+		height: 15px;
+		border-left: 7px solid color--shadow($color-primary);
+		display: block;
+		content: '';
+		top: 90px;
+		position: relative;
+		left: -15px;
+		border-bottom: 3px solid color--shadow($color-primary);
+	}
+}*/
+#site-title {
+	font-family: $font-title;
+	font-size: 5em;
+	font-weight: bold;
+	
+	@include breakpoint( max-width 540px ) {
+		font-size: 4.5em;
+	}
+	@include breakpoint( max-width 490px ) {
+		font-size: 4em;
+	}
+	@include breakpoint( max-width 413px ) {
+		font-size: 3.5em;
+	}
+	@include breakpoint( max-width 367px ) {
+		font-size: 3em;
+	}
+	
+	a {
+		color: $color-tertiary;
+		text-decoration: none;
+	}
+}
+/* LOADING INDICATOR */
+#loading-indicator,
+#header-navigation-button {
+	font-size: 5em;
+	color: $color-tertiary;
+	font-family: $font-title;
+	line-height: 1em;
+	display: block;
+}
+#loading-indicator {
+	top: 20px;
+	left: 1%;
+	position: fixed;
+	padding: 10px;
+	z-index: 1;
+	@include background-image(
+		linear-gradient( left, $color-burnt-cream 0%, $color-secondary 25%, $color-secondary 50%, $color-secondary 75%, $color-burnt-cream 99%, $color-burnt-cream 100% )
+	);
+	border-radius: 4px;
+	opacity: 0;
+	
+	@include breakpoint( max-width 735px ) {
+		padding: 5px;
+	}
+	
+	span {
+  	-webkit-animation:spin 2s linear infinite;
+  	-moz-animation:spin 2s linear infinite;
+  	animation:spin 2s linear infinite;
+  	height: 36px;
+  	display: block;
+  }
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+#loading-indicator.show {
+	@include transition-property(opacity);
+  @include transition-duration(1s);
+  opacity: 1;
+}
+#loading-indicator.hide {
+	@include transition-property(opacity);
+  @include transition-duration(1s);
+  opacity: 0;
+}
+
+/*
+** HEADER NAVIGATION
+*/
+#header-navigation {
+	position: absolute;
+	top: 0;
+	left: 460px;
+	z-index: 1;
+	
+	@include breakpoint( max-width 735px ) {
+		position: static;
+		margin: 0 2%;
+	}
+}
+#header-navigation-button {
+	float: left;
+	width: 36px;
+	height: 36px;
+	
+	@include breakpoint( max-width 1155px ) {
+		float: none;
+	}
+	@include breakpoint( max-width 735px ) {
+		display: none;
+	}
+}
+#header-navigation-button:hover {
+	cursor: pointer;
+}
+#header-navigation-popup {
+	display: none;
+	
+	@include breakpoint( max-width 1155px ) {
+		margin: 0 0 0 -100px;
+	}
+	@include breakpoint( max-width 855px ) {
+		margin: 0 0 0 -200px;
+	}
+	@include breakpoint( max-width 735px ) {
+		display: block;
+		margin: 0;
+	}
+}
+#header-navigation-arrow {
+	width: 0px;
+	height: 0px;
+	border-style: solid;
+	border-width: 12.5px 15px 12.5px 0;
+	border-color: transparent #434343 transparent transparent;
+	float: left;
+	margin: 10px 0 0 0;
+	
+	@include breakpoint( max-width 1155px ) {
+		border-width: 0 12.5px 15px 12.5px;
+		border-color: transparent transparent #434343 transparent;
+		margin: -15px 0 0 107px;
+	}
+	@include breakpoint( max-width 855px ) {
+		margin: -15px 0 0 206px;
+	}
+	@include breakpoint( max-width 735px ) {
+		display: none;
+	}
+}
+#header-navigation-content {
+	background: $color-tertiary;
+	padding: 20px;
+	border-bottom: 5px solid #2F2F2F;
+	box-shadow: 7px 7px 15px -2px rgba(50,50,50,0.75);
+	margin: 0 0 0 51px;
+	
+	@include breakpoint( max-width 1155px ) {
+		margin: 20px 0 0;
+	}
+	@include breakpoint( max-width 735px ) {
+		padding: 12px;
+		margin: 10px 0 40px;
+	}
+	
+	label {
+		display: none;
+	}
+	input {
+		font-family: 'Open Sans', sans-serif;
+		font-size: 1.5em;
+		width: 100%;
+		color: $color-tertiary;
+		border: 1px solid #DDDDDD;
+		margin: 0 0 20px;
+	}
+	.login-username {
+	
+		@include breakpoint( max-width 735px ) {
+			float: left;
+			margin: 0 2% 0 0;
+			width: 49%;
+		}
+	}
+	.login-password {
+	
+		@include breakpoint( max-width 735px ) {
+			width: 49%;
+			overflow: hidden;
+		}
+	}
+	#wp-submit,
+	#loginout.loginout-out a {
+		border-bottom: 4px solid color--shadow(#C0C0C0);
+		width: 254px;
+		background: #C0C0C0;
+		padding: 2px 0 3px;
+		font-size: 1.5em;
+		color: $color-tertiary;
+		display: block;
+		margin: 0 0 20px;
+		text-align: center;
+		font-family: $font-text;
+		border-radius: 5px;
+		
+		@include breakpoint( max-width 735px ) {
+			width: 100%;
+		}
+	}
+	.login-remember {
+		display: none;
+	}
+	nav li {
+		display: inline;
+		margin: 0 22px;
+		
+		a {
+			font-family: $font-title;
+			position: relative;
+		
+			@include breakpoint( max-width 735px ) {
+				font-size: 2em;
+			}
+		}		
+		a:hover {
+			border-bottom: 1px solid dashed;
+		}
+	}
+}
+.icon--settings::before {
+	content: "\eb07";
+	font-family: $font-web-icons;
+	font-size: 5em;
+	
+	@include breakpoint( max-width 735px ) {
+		font-size: 2em;
+	}
+}
+.icon--book {
+	&:before {
+		content: "\e89f";
+		font-size: 5em;
+		font-family: $font-web-icons;
+		
+		@include breakpoint( max-width 735px ) {
+			font-size: 2em;
+		}
+	}
+	&:after {
+		content: "\eba2";
+		font-family: $font-web-icons;
+		font-size: 2em;
+		color: $color-tertiary;
+		position: absolute;
+		top: -28px;
+		left: 25px;
+		
+		@include breakpoint( max-width 735px ) {
+			font-size: 1em;
+			top: -10px;
+			left: 18px;
+		}
+	}
+}
+
+/*
+** BOOK SHELF
+*/
+.book-shelf {
+	padding: 1% 2%;
+	margin: 20px 0;
+	
+	h1 {
+		background: $color-tertiary;
+		color: $color-secondary;
+		line-height: 1.5em;
+		padding: 0 35px;
+		margin: 0 0 10px;
+		border-bottom: 5px solid color--shadow($color-tertiary);
+		font-weight: normal;
+		font-family: $font-title;
+		font-size: 2em;
+	}
+		.text {
+			overflow: hidden;
+			display: block;
+			font-family: $font-text;
+		}
+		.title {
+			font-style: italic;
+		}
+		.tag {
+			font-size: .75em;
+			text-transform: lowercase;
+		}
+
+}
+#finished-read {
+	height: 0;
+	opacity: 0;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	
+	.book-list {
+		border: 5px dashed $color-tertiary;
+		border-radius: 5px;
+		padding: 10px 10px 26px;
+		min-height: 46px;
+	}
+}
+.instructions {
+	font-family: $font-text;
+	text-align: center;
+	color: $color-tertiary;
+	position: relative;
+	top: -30px;
+}
+#current-read {
+	margin: 0;
+}
+.ribbon {
+	@extend %ribbon;
+}
+.ribbon::before {
+	@extend %ribbon-before;
+}
+.ribbon::after {
+	@extend %ribbon-after;
+}
+.book {
+	background: $color-primary;
+	padding: 12px 10px 9px;
+	margin: 0 0 10px;
+	color: $color-secondary;
+	border-bottom: 4px solid color--shadow($color-primary);
+	font-family: $font-text;
+	position: relative;
+	line-height: 1.25em;
+	
+	.book--info-links {
+		line-height: 1em;
+		float: left;
+		margin: 0 10px 0 0;
+	}
+	p {
+		margin: 0;
+		padding: 0 0 0 10px;
+		overflow: hidden;
+		border-left: 2px solid color--shadow($color-primary);
+		line-height: 1.5em;
+	}
+}
+.info-link {
+	font-family: $font-social-icons;
+	color: $color-secondary;
+	text-decoration: none;
+	font-size: 1.5em;
+	text-align: center;
+	
+	span {
+		padding: 4px 0 0;
+		display: inline-block;
+	}
+}
+.amazon-info-link span {
+	margin: 0 10px 0 0;
+	
+	&:before {
+		content: "\e606";
+	}
+}
+.wiki-info-link span::before {
+	content: "\e607";
+}
+.book--genre-icon {
+	margin: 0 10px 0 0;
+}
+.genre-fantasy::before {
+	font-family: $font-web-icons;
+	content: "\edbf";
+}
+.book--title {
+	font-style: italic;
+}
+
+/*
+** FOOTER
+*/
+#site-footer {
+	margin: 20px 0 0;
+	padding: 0 0 20px;
+	color: $color-tertiary;
+	font-family: $font-text;
+	
+	a {
+		color: $color-secondary;
+	}
+	.icon--font {
+		color: $color-secondary;
+		font-family: $font-web-icons;
+		display: inline-block;
+		margin: 5px 10px 0 0;
+		font-size: 2em;
+	}
+}
+.icon--wordpress::before {
+	content: "\eb45";
+}
+.icon--html5::before {
+	content: "\eb3a";
+}
+.icon--css3::before {
+	content: "\eb3b";
+}
