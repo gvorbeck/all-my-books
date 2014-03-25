@@ -171,8 +171,8 @@ if ( ! function_exists( 'the_book_builder' ) ) {
 		$cat_tag_string = '(' . $cat_tag_string . ')';
 
 		echo '<li id="' . $post_id . '" class="book">';
+			echo '<div class="book--info-links">' . implode( ' ', get_wiki_amazon_links( $post_id ) ) . '</div>';
 			echo '<ul>';
-				echo '<li class="book--info-links">' . implode( ' ', get_wiki_amazon_links( $post_id ) ) . '</li>';
 				echo '<!--li class="book--genre-icon"><span class="icon--font ' . cat_class_builder( $post_id ) . '"></span></li-->';
 				echo '<li class="book--title">' . get_the_title( $post_id ) . '</li>';
 				echo '<li class="book--author"> by ' . get_the_post_authors_string( $post_id ) . '</li>';
