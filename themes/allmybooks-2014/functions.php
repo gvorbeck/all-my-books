@@ -87,7 +87,6 @@ if ( ! function_exists( 'get_series_list' ) ) {
 				$series_string .= trim( '<em>' . $series_title->name.'</em> #'.$series_no[0] );
 			}
 		}
-		$series_string = '[' . $series_string . ']';
 		return $series_string;
 	}
 }
@@ -168,22 +167,23 @@ if ( ! function_exists( 'the_book_builder' ) ) {
 				$cat_tag_string .= $tag_list;
 			}
 		}
-		$cat_tag_string = '(' . $cat_tag_string . ')';
 
 		echo '<li id="' . $post_id . '" class="book">';
 			echo '<div class="book--info-links">' . implode( ' ', get_wiki_amazon_links( $post_id ) ) . '</div>';
-			echo '<ul>';
-				echo '<!--li class="book--genre-icon"><span class="icon--font ' . cat_class_builder( $post_id ) . '"></span></li-->';
-				echo '<li class="book--title">' . get_the_title( $post_id ) . '</li>';
-				echo '<li class="book--author"> by ' . get_the_post_authors_string( $post_id ) . '</li>';
-				if ( '()' != $cat_tag_string ) {
-					echo '<li class="book--tags">' . $cat_tag_string . '</li>';
+			echo '<p>';
+				echo '<span class="book--title">' . get_the_title( $post_id ) . '</span>';
+				echo ' by <span class="book--author">' . get_the_post_authors_string( $post_id ) . '</span>';
+				if ( '' != $cat_tag_string ) {
+					echo ' <span class="book--tags">(' . $cat_tag_string . ')</span>';
 				}
-				if ( '[]' != get_series_list( $post_id ) ) {
-					echo '<li class="book--series">' . get_series_list( $post_id ) . '</li>';
+				if ( '' != get_series_list( $post_id ) ) {
+					echo ' <span class="book--series">[' . get_series_list( $post_id ) . ']</span>';
 				}
+			echo '</p>';
+			/*echo '<ul>';
+				echo '<li class="book--genre-icon"><span class="icon--font ' . cat_class_builder( $post_id ) . '"></span></li>';
 			echo '</ul>';
-			/*echo '<span class="links">' . implode( ' ', get_wiki_amazon_links( $post_id ) ) . '</span> ';
+			echo '<span class="links">' . implode( ' ', get_wiki_amazon_links( $post_id ) ) . '</span> ';
 			echo '<span class="text ' . cat_class_builder( $post_id ) . '">';
 				echo '<span class="title">' . get_the_title( $post_id ) . '</span>';
 				echo ' by <span class="author">' . get_the_post_authors_string( $post_id ) . '</span>';
