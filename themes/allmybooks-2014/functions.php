@@ -84,7 +84,7 @@ if ( ! function_exists( 'get_series_list' ) ) {
 					$series_string .= ', ';
 				}
 				$i++;
-				$series_string .= trim( '<em>' . $series_title->name.'</em> #'.$series_no[0] );
+				$series_string .= trim( $series_title->name.' #'.$series_no[0] );
 			}
 		}
 		return $series_string;

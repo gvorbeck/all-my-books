@@ -40,7 +40,7 @@
 		<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
 
 		<!-- google fonts -->
-		<link href='http://fonts.googleapis.com/css?family=Petrona|Sintony' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Domine|Sintony' rel='stylesheet' type='text/css'>
 
 		<!-- wordpress head functions -->
 		<?php wp_head(); ?>
