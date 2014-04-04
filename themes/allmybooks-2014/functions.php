@@ -101,14 +101,21 @@ if ( ! function_exists( 'get_series_list' ) ) {
 	}
 }
 
-if ( ! function_exists( 'get_wiki_amazon_links' ) ) {
-	function get_wiki_amazon_links( $post_id ) {
+if ( ! function_exists( 'get_action_links' ) ) {
+	function get_action_links( $post_id ) {
 		$ascii_title   = strtolower( urlencode( get_post( $post_id )->post_title ) );
 		$ascii_authors = strtolower( urlencode( str_replace( ', ', ' ', get_the_post_authors_string( $post_id ) ) ) );
+		if( ! get_field('book_file', $post_id) ) {
+			$book_missing  = 'missing';
+			$book_no_click = "onclick='return false'";
+		}
 		
 		$book_links    = array();
 		$book_links[]  = "<a class='amazon-info-link info-link' href='http://www.amazon.com/s/field-keywords=$ascii_title+$ascii_authors' target='_blank' title='Search Amazon'><span class='icon--font'></span></a>";
 		$book_links[]  = "<a class='wiki-info-link info-link' href='http://en.wikipedia.org/wiki/Special:Search?search=$ascii_title+$ascii_authors' target='_blank' title='Search Wikipedia'><span class='icon--font'></span></a>";
+		if ( is_user_logged_in() ) {
+			$book_links[] = "<a class='download-info-link info-link' href='" . get_field('book_file', $post_id) . "' title='Download " . esc_attr( get_post( $post_id )->post_title ) . "' $book_no_click ><span class='icon--font $book_missing'></span></a>";
+		}
 		
 		return $book_links;
 	}
@@ -179,7 +186,7 @@ if ( ! function_exists( 'the_book_builder' ) ) {
 		}
 
 		echo '<li id="' . $post_id . '" class="book">';
-			echo '<div class="book--info-links">' . implode( ' ', get_wiki_amazon_links( $post_id ) ) . '</div>';
+			echo '<div class="book--info-links">' . implode( ' ', get_action_links( $post_id ) ) . '</div>';
 			echo '<p>';
 				echo '<span class="book--title">' . get_the_title( $post_id ) . '</span>';
 				echo ' by <span class="book--author">' . get_the_post_authors_string( $post_id ) . '</span>';

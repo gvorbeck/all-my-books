@@ -447,6 +447,7 @@ body {
 		line-height: 1.5em;
 	}
 }
+
 .info-link {
 	font-family: $font-social-icons;
 	color: $color-secondary;
@@ -457,25 +458,38 @@ body {
 	span {
 		padding: 4px 0 0;
 		display: inline-block;
+		margin: 0 10px 0 0;
 	}
 }
 .amazon-info-link span {
-	margin: 0 10px 0 0;
 	
 	&:before {
 		content: "\e606";
 	}
 }
-.wiki-info-link span::before {
-	content: "\e607";
+.wiki-info-link span {
+	
+	&:before {
+		content: "\e607";
+	}
 }
-.book--genre-icon {
-	margin: 0 10px 0 0;
+.download-info-link {
+
+	span {
+		font-family: $font-web-icons;
+		font-size: .75em;
+		position: relative;
+		top: -3px;
+	
+		&:before {
+			content: "\eb5a";
+		}
+	}
+	.missing {
+		opacity: .5;
+	}
 }
-.genre-fantasy::before {
-	font-family: $font-web-icons;
-	content: "\edbf";
-}
+
 .book--title {
 	font-style: italic;
 }
