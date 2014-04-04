@@ -3,7 +3,7 @@
 Plugin Name: Advanced Custom Fields: Flexible Content Field
 Plugin URI: http://www.advancedcustomfields.com/
 Description: This premium Add-on adds a flexible content field type for the Advanced Custom Fields plugin
-Version: 1.1.0
+Version: 1.1.1
 Author: Elliot Condon
 Author URI: http://www.elliotcondon.com/
 License: GPL

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // vars
 $order = is_numeric($i) ? ($i + 1) : 0;
@@ -100,7 +100,7 @@ $order = is_numeric($i) ? ($i + 1) : 0;
 					// this is a normal value
 					$sub_field['value'] = $value[ $sub_field['key'] ];
 				}
-				elseif( !empty($sub_field['default_value']) )
+				elseif( isset($sub_field['default_value']) )
 				{
 					// no value, but this sub field has a default value
 					$sub_field['value'] = $sub_field['default_value'];

@@ -68,11 +68,14 @@ $atts = array(
 	'data-max'	=> $field['max']
 );
 
+$no_value_message = __('Click the "%s" button below to start creating your layout','acf');
+$no_value_message = apply_filters('acf/fields/flexible_content/no_value_message', $no_value_message, $field);
+
 ?>
 <div <?php acf_join_attr( $atts ); ?>>
 	
 	<div class="no_value_message" <?php if( $field['value'] ){ echo 'style="display:none;"'; } ?>>
-		<?php printf( __('Click the "%s" button below to start creating your layout','acf'), $field['button_label']); ?>
+		<?php printf( $no_value_message, $field['button_label'] ); ?>
 	</div>
 	
 	<div class="clones">

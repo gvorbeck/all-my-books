@@ -7,7 +7,7 @@ Requires at least: 3.0
 Tested up to: 3.5.1
 Stable tag: trunk
 Homepage: http://www.advancedcustomfields.com/add-ons/flexible-content-field/
-Version: 1.1.0
+Version: 1.1.1
 
 
 == Copyright ==
@@ -52,6 +52,11 @@ include_once('acf-flexible-content/acf-flexible-content.php');
 
 
 == Changelog ==
+
+= 1.1.1 =
+* Fixed bug causing a sub field default_value of "0" to be ignored
+* Updated CSS for WP 3.8 compatibility
+* Added filter to customize the no_value_message text
 
 = 1.1.0 =
 * Added Support for sub field conditional logic
