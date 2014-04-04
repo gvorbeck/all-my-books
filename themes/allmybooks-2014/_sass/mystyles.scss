@@ -17,7 +17,7 @@ $color-dark-cream: #D4C18B;
 /*
 ** FONTS
 */
-$font-title: 'Petrona', serif;
+$font-title: 'Domine', serif;
 $font-text: 'Sintony', sans-serif;
 
 @include font-face( "Social", font-files( "social.woff", "social.ttf", "social.eot", "social.svg") );
@@ -46,7 +46,7 @@ $font-web-icons: 'Icomoon', sans-serif;
 	content: "";
 	height: 3.25em;
 	border-bottom: 0.7em solid transparent;
-	border-right: 1em solid #f0e2b8;
+	border-right: 1em solid $color-secondary;
 }
 %ribbon-after {
 	left: -0.7em;
@@ -55,7 +55,7 @@ $font-web-icons: 'Icomoon', sans-serif;
 	content: "";
 	height: 3.25em;
 	border-bottom: 0.7em solid transparent;
-	border-left: 1em solid #f0e2b8;
+	border-left: 1em solid $color-secondary;
 }
 
 /*
@@ -74,10 +74,7 @@ body {
 	}
 }
 #container {
-	/*@include background-image(
-		linear-gradient( left, $color-burnt-cream 0%, $color-secondary 15%, $color-secondary 50%, $color-secondary 85%, $color-burnt-cream 99%, $color-burnt-cream 100% )
-	);*/
-	background: $color-primary;
+	background: $color-secondary;
 	padding: 1%;
 	border-radius: 4px;
 }
@@ -107,61 +104,9 @@ body {
 		text-decoration: none;
 	}
 }
-/*#site-header--logo {
-	position: absolute;
-	margin-left: -50px;
-	left: 50%;
-
-	.circle {
-		border-radius: 50px;
-		background: $color-primary;
-		width: 100px;
-		height: 100px;
-		overflow: hidden;
-		position: relative;
-		z-index: 1;
-	}
-	.ribbon {
-		@extend %ribbon;
-		left: 41px;
-	}
-	.ribbon::before {
-		@extend %ribbon-before;
-		border-right: 3em solid #f0e2b8;
-		border-bottom: 1.7em solid transparent;
-		height: 5.25em;
-	}
-	.ribbon::after {
-		@extend %ribbon-after;
-		border-left: 3em solid #f0e2b8;
-		border-bottom: 1.7em solid transparent;
-		height: 5.25em;
-	}
-	
-	.book-logo {
-		width: 65px;
-		height: 85px;
-		background: $color-primary;
-		border-top: 5px solid color--shadow($color-primary);
-		border-left: 15px solid color--shadow($color-primary);
-		border-bottom: 5px solid color--shadow($color-primary);
-	}
-	.book-logo::after {
-		background: white;
-		width: 70px;
-		height: 15px;
-		border-left: 7px solid color--shadow($color-primary);
-		display: block;
-		content: '';
-		top: 90px;
-		position: relative;
-		left: -15px;
-		border-bottom: 3px solid color--shadow($color-primary);
-	}
-}*/
 #site-title {
 	font-family: $font-title;
-	font-size: 5em;
+	font-size: 4.5em;
 	font-weight: bold;
 	
 	@include breakpoint( max-width 540px ) {
@@ -197,9 +142,7 @@ body {
 	position: fixed;
 	padding: 10px;
 	z-index: 1;
-	@include background-image(
-		linear-gradient( left, $color-burnt-cream 0%, $color-secondary 25%, $color-secondary 50%, $color-secondary 75%, $color-burnt-cream 99%, $color-burnt-cream 100% )
-	);
+	background: $color-secondary;
 	border-radius: 4px;
 	opacity: 0;
 	
@@ -340,7 +283,7 @@ body {
 		border-bottom: 4px solid color--shadow(#C0C0C0);
 		width: 254px;
 		background: #C0C0C0;
-		padding: 2px 0 3px;
+		padding: 5px 0 3px;
 		font-size: 1.5em;
 		color: $color-tertiary;
 		display: block;
@@ -352,6 +295,11 @@ body {
 		@include breakpoint( max-width 735px ) {
 			width: 100%;
 		}
+	}
+	#wp-submit:hover,
+	#loginout.loginout-out a:hover {
+		background: color--shadow(#C0C0C0);
+		border-bottom: 4px solid color--shadow(color--shadow(#C0C0C0));
 	}
 	.login-remember {
 		display: none;
@@ -419,8 +367,8 @@ body {
 	h1 {
 		background: $color-tertiary;
 		color: $color-secondary;
-		line-height: 1.5em;
-		padding: 0 35px;
+		line-height: 1em;
+		padding: 11px 35px 5px;
 		margin: 0 0 10px;
 		border-bottom: 5px solid color--shadow($color-tertiary);
 		font-weight: normal;
@@ -470,9 +418,11 @@ body {
 }
 .ribbon::before {
 	@extend %ribbon-before;
+	height: 3.6em;
 }
 .ribbon::after {
 	@extend %ribbon-after;
+	height: 3.6em;
 }
 .book {
 	background: $color-primary;
