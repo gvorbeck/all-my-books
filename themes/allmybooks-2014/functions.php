@@ -11,6 +11,16 @@ add_theme_support( 'automatic-feed-links' );
 if ( function_exists( 'register_nav_menus' ) ) {
 	register_nav_menus( );
 }
+
+// Custom mime types for uploading epubs
+add_filter('upload_mimes', 'custom_upload_mimes');
+function custom_upload_mimes ( $existing_mimes=array() ) {
+	// add the file extension to the array
+	$existing_mimes['epub'] = 'mime/type';
+   // call the modified list of extensions
+	return $existing_mimes;
+}
+
 /* END GETTING THEME FUNCTIONALITY SET UP */
 
 /* START THEME FUNCTIONS */
@@ -180,20 +190,6 @@ if ( ! function_exists( 'the_book_builder' ) ) {
 					echo ' <span class="book--series">[' . get_series_list( $post_id ) . ']</span>';
 				}
 			echo '</p>';
-			/*echo '<ul>';
-				echo '<li class="book--genre-icon"><span class="icon--font ' . cat_class_builder( $post_id ) . '"></span></li>';
-			echo '</ul>';
-			echo '<span class="links">' . implode( ' ', get_wiki_amazon_links( $post_id ) ) . '</span> ';
-			echo '<span class="text ' . cat_class_builder( $post_id ) . '">';
-				echo '<span class="title">' . get_the_title( $post_id ) . '</span>';
-				echo ' by <span class="author">' . get_the_post_authors_string( $post_id ) . '</span>';
-				if ( '' != get_series_list( $post_id ) ) {
-					echo ' <span class="series">[' . get_series_list( $post_id ) . ']</span>';
-				}
-				if ( '' != $cat_tag_string ) {
-					echo ' <span class="tag">(' . $cat_tag_string . ')</span>';
-				}
-			echo '</span>';*/
 		echo '</li>';
 	}
 }
