@@ -115,6 +115,7 @@ if ( ! function_exists( 'get_action_links' ) ) {
 		$book_links[]  = "<a class='wiki-info-link info-link' href='http://en.wikipedia.org/wiki/Special:Search?search=$ascii_title+$ascii_authors' target='_blank' title='Search Wikipedia'><span class='icon--font'></span></a>";
 		if ( is_user_logged_in() ) {
 			$book_links[] = "<a class='download-info-link info-link' href='" . get_field('book_file', $post_id) . "' title='Download " . esc_attr( get_post( $post_id )->post_title ) . "' $book_no_click ><span class='icon--font $book_missing'></span></a>";
+			$book_links[]  = '<a class="edit-info-link info-link" href="' . get_edit_post_link( $post_id ) . '" target="_blank" title="Edit ' . esc_attr( get_post( $post_id )->post_title ) . '"><span class="icon--font"></span></a>';
 		}
 		
 		return $book_links;
