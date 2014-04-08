@@ -474,7 +474,8 @@ body {
 	}
 }
 .download-info-link {
-
+	margin: 0 12px 0 4px;
+	
 	span {
 		font-family: $font-web-icons;
 		font-size: .75em;
@@ -487,6 +488,19 @@ body {
 	}
 	.missing {
 		opacity: .5;
+	}
+}
+.edit-info-link {
+
+	span {
+		font-family: $font-web-icons;
+		font-size: .75em;
+		position: relative;
+		top: -3px;
+		
+		&:before {
+			content: "\ebc3";
+		}
 	}
 }
 
