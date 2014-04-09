@@ -52,6 +52,7 @@
 	</head>
 
 	<body <?php body_class(); ?>>
+		<?php define('SITE_URL', $_SERVER['HTTP_HOST']); ?>
 		<div id="container">
 			<div id="loading-indicator"><span>*</span></div>
 			<header id="site-header" role="banner">
