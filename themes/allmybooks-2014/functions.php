@@ -50,6 +50,14 @@ if ( ! is_admin() && ! is_login_page() ) {
     add_action( 'wp_enqueue_scripts', 'site_scripts' );
 }
 
+// Script for New Post
+function admin_enqueue($hook) {
+    if( 'post-new.php' != $hook && 'post.php' != $hook )
+        return;
+    wp_enqueue_script( 'admin_script', get_template_directory_uri() . '/_js/admin.js' );
+}
+add_action( 'admin_enqueue_scripts', 'admin_enqueue' );
+
 if ( ! function_exists( 'get_the_slug' ) ) {
 	function get_the_slug( $phrase ) {
 	    $result = strtolower($phrase);

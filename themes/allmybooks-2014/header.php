@@ -52,13 +52,10 @@
 	</head>
 
 	<body <?php body_class(); ?>>
+		<?php define('SITE_URL', $_SERVER['HTTP_HOST']); ?>
 		<div id="container">
 			<div id="loading-indicator"><span>*</span></div>
 			<header id="site-header" role="banner">
-				<!--div id="site-header--logo">
-					<div class="circle"><div class="ribbon"></div></div>
-					<div class="book-logo"></div>
-				</div-->
 				<?php if ( is_home() ) { $tag = h1; } else { $tag = h2; } ?>
 				<<?php echo $tag; ?> id="site-title"><a href="<?php bloginfo( 'url' ); ?>" title="Home"><?php bloginfo( 'title' ); ?></a></<?php echo $tag; ?>>
 				<div id="header-navigation">
