@@ -25,7 +25,7 @@ function custom_upload_mimes ( $existing_mimes=array() ) {
 
 /* START THEME FUNCTIONS */
 function is_login_page() {
-    return in_array($GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php'));
+	return in_array($GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php'));
 }
 
 if ( ! is_admin() && ! is_login_page() ) {
@@ -50,21 +50,12 @@ if ( ! is_admin() && ! is_login_page() ) {
     add_action( 'wp_enqueue_scripts', 'site_scripts' );
 }
 
-// Script for New Post
-function admin_enqueue($hook) {
-    if( 'post-new.php' != $hook && 'post.php' != $hook )
-        return;
-    wp_enqueue_script( 'admin_script', get_template_directory_uri() . '/_js/admin.js' );
-}
-add_action( 'admin_enqueue_scripts', 'admin_enqueue' );
-
 if ( ! function_exists( 'get_the_slug' ) ) {
 	function get_the_slug( $phrase ) {
 	    $result = strtolower($phrase);
 	    $result = preg_replace("/[^a-z0-9\s-]/", "", $result);
 	    $result = trim(preg_replace("/[\s-]+/", " ", $result));
 	    $result = preg_replace("/\s/", "-", $result);
-
 	    return $result;
 	}
 }
@@ -89,23 +80,20 @@ if ( ! function_exists( 'get_the_post_authors_string' ) ) {
 
 if ( ! function_exists( 'get_series_list' ) ) {
 	function get_series_list( $post_id ) {
-		$series = wp_get_post_terms( $post_id, 'series_id' );
-		$series_string = '';
-		if ( ! empty( $series ) ) {
+		if ( have_rows( 'series_info', $post_id ) ) {
 			$i = 0;
-			foreach ( $series as $s ) {
-				$series_subject = $s->name;
-				preg_match( '/\d+$/', $series_subject, $series_no );
-				$series_slug = str_replace( '--'.$series_no[0], '', $series_subject );
-				$series_title = get_term_by( 'slug', $series_slug, 'series' );
-				if ( $i > 0 ){
+			while ( have_rows( 'series_info', $post_id ) ) {
+				the_row();
+				$series_id      = get_sub_field( 'series_name', $post_id );
+				$series_object  = get_term( $series_id, 'series', $post_id );
+				if ( $i > 0 ) {
 					$series_string .= ', ';
 				}
+				$series_string .= $series_object->name . ' #' . get_sub_field( 'series_position', $post_id );
 				$i++;
-				$series_string .= trim( $series_title->name.' #'.$series_no[0] );
 			}
+			return $series_string;
 		}
-		return $series_string;
 	}
 }
 
@@ -117,7 +105,6 @@ if ( ! function_exists( 'get_action_links' ) ) {
 			$book_missing  = 'missing';
 			$book_no_click = "onclick='return false'";
 		}
-		
 		$book_links    = array();
 		$book_links[]  = "<a class='amazon-info-link info-link' href='http://www.amazon.com/s/field-keywords=$ascii_title+$ascii_authors' target='_blank' title='Search Amazon'><span class='icon--font'></span></a>";
 		$book_links[]  = "<a class='wiki-info-link info-link' href='http://en.wikipedia.org/wiki/Special:Search?search=$ascii_title+$ascii_authors' target='_blank' title='Search Wikipedia'><span class='icon--font'></span></a>";
@@ -125,7 +112,6 @@ if ( ! function_exists( 'get_action_links' ) ) {
 			$book_links[] = "<a class='download-info-link info-link' href='" . get_field('book_file', $post_id) . "' title='Download " . esc_attr( get_post( $post_id )->post_title ) . "' $book_no_click ><span class='icon--font $book_missing'></span></a>";
 			$book_links[]  = '<a class="edit-info-link info-link" href="' . get_edit_post_link( $post_id ) . '" target="_blank" title="Edit ' . esc_attr( get_post( $post_id )->post_title ) . '"><span class="icon--font"></span></a>';
 		}
-		
 		return $book_links;
 	}
 }
@@ -149,7 +135,6 @@ if ( ! function_exists( 'cat_class_builder' ) ) {
 
 if ( ! function_exists( 'the_book_builder' ) ) {
 	function the_book_builder( $post_id ) {
-	
 		// Set up category data (ommiting Uncategorized, of course).
 		$cats = get_the_category( $post_id );
 		$cat_list = '';
@@ -165,7 +150,6 @@ if ( ! function_exists( 'the_book_builder' ) ) {
 				}
 			}
 		}
-		
 		// Set up tag data.
 		$tags = wp_get_post_terms( $post_id, 'post_tag' );
 		$tag_list = '';
@@ -179,7 +163,6 @@ if ( ! function_exists( 'the_book_builder' ) ) {
 				$tag_list .= trim( $tag->name );
 			}
 		}
-		
 		// Combine category and tag data.
 		$cat_tag_string = '';
 		if ( ! empty( $cat_list ) || ! empty( $tag_list ) ) {
@@ -193,7 +176,6 @@ if ( ! function_exists( 'the_book_builder' ) ) {
 				$cat_tag_string .= $tag_list;
 			}
 		}
-
 		echo '<li id="' . $post_id . '" class="book">';
 			echo '<div class="book--info-links">' . implode( ' ', get_action_links( $post_id ) ) . '</div>';
 			echo '<p>';
