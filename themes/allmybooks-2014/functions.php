@@ -181,11 +181,11 @@ if ( ! function_exists( 'the_book_builder' ) ) {
 			echo '<p>';
 				echo '<span class="book--title">' . get_the_title( $post_id ) . '</span>';
 				echo ' by <span class="book--author">' . get_the_post_authors_string( $post_id ) . '</span>';
-				if ( '' != $cat_tag_string ) {
-					echo ' <span class="book--tags">(' . $cat_tag_string . ')</span>';
-				}
 				if ( '' != get_series_list( $post_id ) ) {
 					echo ' <span class="book--series">[' . get_series_list( $post_id ) . ']</span>';
+				}
+				if ( '' != $cat_tag_string ) {
+					echo ' <span class="book--tags">(' . $cat_tag_string . ')</span>';
 				}
 			echo '</p>';
 		echo '</li>';
