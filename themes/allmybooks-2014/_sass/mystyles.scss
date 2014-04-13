@@ -1,8 +1,6 @@
 @import "compass/css3";
 @import "breakpoint";
 
-/* NOTE: MAX WIDTH 1679px before popup arrow disconnects with popup content */
-
 /*
 ** COLORS
 */
@@ -68,6 +66,9 @@ body {
 	/* Created using http://www.patternify.com/ */
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2OUjq77zykizQADjCr5M/9/f/OUASYIFgDJwgThAjBBACtAEXlnBGGKAAAAAElFTkSuQmCC) repeat;
 	
+	@include breakpoint( max-width 798px ) {
+		padding: 20px 5%;
+	}
 	@include breakpoint( min-width 1679px ) {
 		padding: 20px 0;
 	}

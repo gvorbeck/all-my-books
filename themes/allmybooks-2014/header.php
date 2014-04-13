@@ -52,7 +52,11 @@
 	</head>
 
 	<body <?php body_class(); ?>>
-		<?php define('SITE_URL', $_SERVER['HTTP_HOST']); ?>
+		<?php
+		if ( 'localhost:8888' == SITE_URL ) {
+			echo "<div id='dev--window-width' class='dev-env-element'></div>";
+		}	
+		?>
 		<div id="container">
 			<header id="site-header">
 				<h1><?php bloginfo('title'); ?><span class="navigation--button">*<span class="navigation--popup-arrow"></span></span></h1>

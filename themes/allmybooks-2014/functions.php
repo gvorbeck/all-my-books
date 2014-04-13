@@ -7,6 +7,9 @@ add_theme_support( 'post-thumbnails' );
 // Add theme support for Automatic Feeds Links
 add_theme_support( 'automatic-feed-links' );
 
+// Define SITE_URL global variable for dev purposes.
+define('SITE_URL', $_SERVER['HTTP_HOST']);
+
 // Register Custom Menus
 if ( function_exists( 'register_nav_menus' ) ) {
 	register_nav_menus( );
@@ -33,21 +36,25 @@ if ( ! is_admin() && ! is_login_page() ) {
 	if ( ! function_exists( 'site_styles' ) ) {
 		function site_styles() {
 			wp_register_style( 'main', get_bloginfo( 'template_directory' ) . '/_css/main.css', false, date('W.0') );
-    		wp_enqueue_style( 'main' );
+    	wp_enqueue_style( 'main' );
+    	if ( 'localhost:8888' == SITE_URL ) {
+				wp_register_style( 'dev', get_bloginfo( 'template_directory' ) . '/_css/dev.css', false, date('W.0') );
+				wp_enqueue_style( 'dev' );
     	}
     }
-    add_action( 'init', 'site_styles' );
+  }
+  add_action( 'init', 'site_styles' );
 
-    // Enqueue Scripts
-    if ( ! function_exists( 'site_scripts' ) ) {
-	    function site_scripts() {
-	    	wp_register_script( 'site-js', get_template_directory_uri() . '/_js/site.js', array('jquery'), date('W.0'), true );
-				wp_enqueue_script( 'jquery' );
-				wp_enqueue_script( 'jquery-ui-sortable' );
-				wp_enqueue_script( 'site-js' );
-	    }
-		}
-    add_action( 'wp_enqueue_scripts', 'site_scripts' );
+  // Enqueue Scripts
+  if ( ! function_exists( 'site_scripts' ) ) {
+	  function site_scripts() {
+	  	wp_register_script( 'site-js', get_template_directory_uri() . '/_js/site.js', array('jquery'), date('W.0'), true );
+			wp_enqueue_script( 'jquery' );
+			wp_enqueue_script( 'jquery-ui-sortable' );
+			wp_enqueue_script( 'site-js' );
+	  }
+	}
+  add_action( 'wp_enqueue_scripts', 'site_scripts' );
 }
 
 if ( ! function_exists( 'get_the_slug' ) ) {
