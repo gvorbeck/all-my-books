@@ -66,11 +66,14 @@ body {
 	/* Created using http://www.patternify.com/ */
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2OUjq77zykizQADjCr5M/9/f/OUASYIFgDJwgThAjBBACtAEXlnBGGKAAAAAElFTkSuQmCC) repeat;
 	
+	@include breakpoint( min-width 1679px ) {
+		padding: 20px 0;
+	}
 	@include breakpoint( max-width 798px ) {
 		padding: 20px 5%;
 	}
-	@include breakpoint( min-width 1679px ) {
-		padding: 20px 0;
+	@include breakpoint( max-width 670px ) {
+		padding: 20px 2%;
 	}
 }
 #container {
@@ -104,6 +107,13 @@ body {
 		font-family: $font-title;
 		color: $color-tertiary;
 		font-weight: bold;
+		
+		@include breakpoint( max-width 707px ) {
+			font-size: 4.188em;
+		}
+		@include breakpoint( max-width 545px ) {
+			font-size: 3.125em;
+		}
 	}
 }
 .navigation--button {
