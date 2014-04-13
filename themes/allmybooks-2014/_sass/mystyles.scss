@@ -90,13 +90,8 @@ body {
 ** HEADER
 */
 #site-header {
-	position: relative;
-	width: 497px;
-	margin: 0 auto;
 	
 	@include breakpoint( max-width 735px ) {
-		width: auto;
-		text-align: center;
 	}
 	
 	a {
@@ -106,20 +101,21 @@ body {
 }
 #site-title {
 	font-family: $font-title;
-	font-size: 4.5em;
+	font-size: 5.188em;
 	font-weight: bold;
+	text-align: center;
 	
 	@include breakpoint( max-width 540px ) {
-		font-size: 4.5em;
+		/* font-size: 4.5em; */
 	}
 	@include breakpoint( max-width 490px ) {
-		font-size: 4em;
+		/* font-size: 4em; */
 	}
 	@include breakpoint( max-width 413px ) {
-		font-size: 3.5em;
+		/* font-size: 3.5em; */
 	}
 	@include breakpoint( max-width 367px ) {
-		font-size: 3em;
+		/* font-size: 3em; */
 	}
 	
 	a {
@@ -128,8 +124,7 @@ body {
 	}
 }
 /* LOADING INDICATOR */
-#loading-indicator,
-#header-navigation-button {
+#loading-indicator {
 	font-size: 5em;
 	color: $color-tertiary;
 	font-family: $font-title;
@@ -176,34 +171,29 @@ body {
 /*
 ** HEADER NAVIGATION
 */
-#header-navigation {
-	position: absolute;
-	top: 0;
-	left: 460px;
-	z-index: 1;
-	
-	@include breakpoint( max-width 735px ) {
-		position: static;
-		margin: 0 2%;
-	}
-}
 #header-navigation-button {
-	float: left;
-	width: 36px;
-	height: 36px;
+	font-family: $font-title;
 	
 	@include breakpoint( max-width 1155px ) {
-		float: none;
+		/* float: none; */
 	}
 	@include breakpoint( max-width 735px ) {
-		display: none;
+		/* display: none; */
 	}
 }
 #header-navigation-button:hover {
 	cursor: pointer;
 }
+#header-navigation {
+	overflow: hidden;
+	
+	@include breakpoint( max-width 735px ) {
+	}
+}
 #header-navigation-popup {
 	display: none;
+	position: absolute;
+	z-index: 1;
 	
 	@include breakpoint( max-width 1155px ) {
 		margin: 0 0 0 -100px;
