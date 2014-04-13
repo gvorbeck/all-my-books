@@ -58,9 +58,7 @@
 			<header id="site-header" role="banner">
 				<?php if ( is_home() ) { $tag = h1; } else { $tag = h2; } ?>
 				<<?php echo $tag; ?> id="site-title">
-					<a href="<?php bloginfo( 'url' ); ?>" title="Home">
-						<?php bloginfo( 'title' ); ?>
-					</a>
+					<a href="<?php bloginfo( 'url' ); ?>" title="Home"><?php bloginfo( 'title' ); ?></a>
 					<span id="header-navigation-button">*</span>
 				</<?php echo $tag; ?>>
 				<div id="header-navigation">

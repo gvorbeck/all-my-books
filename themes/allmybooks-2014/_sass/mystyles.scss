@@ -123,56 +123,13 @@ body {
 		text-decoration: none;
 	}
 }
-/* LOADING INDICATOR */
-#loading-indicator {
-	font-size: 5em;
-	color: $color-tertiary;
-	font-family: $font-title;
-	line-height: 1em;
-	display: block;
-}
-#loading-indicator {
-	top: 20px;
-	left: 1%;
-	position: fixed;
-	padding: 10px;
-	z-index: 1;
-	background: $color-secondary;
-	border-radius: 4px;
-	opacity: 0;
-	
-	@include breakpoint( max-width 735px ) {
-		padding: 5px;
-	}
-	
-	span {
-  	-webkit-animation:spin 2s linear infinite;
-  	-moz-animation:spin 2s linear infinite;
-  	animation:spin 2s linear infinite;
-  	height: 36px;
-  	display: block;
-  }
-}
-@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
-
-#loading-indicator.show {
-	@include transition-property(opacity);
-  @include transition-duration(1s);
-  opacity: 1;
-}
-#loading-indicator.hide {
-	@include transition-property(opacity);
-  @include transition-duration(1s);
-  opacity: 0;
-}
 
 /*
 ** HEADER NAVIGATION
 */
 #header-navigation-button {
 	font-family: $font-title;
+	font-weight: normal;
 	
 	@include breakpoint( max-width 1155px ) {
 		/* float: none; */
@@ -345,6 +302,51 @@ body {
 			left: 18px;
 		}
 	}
+}
+
+/* LOADING INDICATOR */
+#loading-indicator {
+	font-size: 5em;
+	color: $color-tertiary;
+	font-family: $font-title;
+	line-height: 1em;
+	display: block;
+}
+#loading-indicator {
+	top: 20px;
+	left: 1%;
+	position: fixed;
+	padding: 10px;
+	z-index: 1;
+	background: $color-secondary;
+	border-radius: 4px;
+	opacity: 0;
+	
+	@include breakpoint( max-width 735px ) {
+		padding: 5px;
+	}
+	
+	span {
+  	-webkit-animation:spin 2s linear infinite;
+  	-moz-animation:spin 2s linear infinite;
+  	animation:spin 2s linear infinite;
+  	height: 36px;
+  	display: block;
+  }
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+#loading-indicator.show {
+	@include transition-property(opacity);
+  @include transition-duration(1s);
+  opacity: 1;
+}
+#loading-indicator.hide {
+	@include transition-property(opacity);
+  @include transition-duration(1s);
+  opacity: 0;
 }
 
 /*
