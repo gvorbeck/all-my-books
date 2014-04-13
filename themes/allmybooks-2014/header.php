@@ -54,35 +54,28 @@
 	<body <?php body_class(); ?>>
 		<?php define('SITE_URL', $_SERVER['HTTP_HOST']); ?>
 		<div id="container">
-			<div id="loading-indicator"><span>*</span></div>
-			<header id="site-header" role="banner">
-				<?php if ( is_home() ) { $tag = h1; } else { $tag = h2; } ?>
-				<<?php echo $tag; ?> id="site-title">
-					<a href="<?php bloginfo( 'url' ); ?>" title="Home"><?php bloginfo( 'title' ); ?></a>
-					<span id="header-navigation-button">*</span>
-				</<?php echo $tag; ?>>
-				<div id="header-navigation">
-					<div id="header-navigation-popup">
-						<div id="header-navigation-arrow"></div>
-						<div id="header-navigation-content">
-							<div id="loginout" class="<?php if ( is_user_logged_in() ) { echo 'loginout-out'; } else { echo 'loginout-in'; } ?>">
-								<?php
-								if ( ! is_user_logged_in() ) {
-									wp_login_form();
-								} else {
-									wp_loginout( '/' );
-								}
-								?>
-							</div>
-							<nav>
-								<ul>
-									<li><a href="<?php bloginfo('url'); ?>/wordpress/wp-admin" title="AMB Admin Area" target="_blank"><span class="icon--font icon--settings"></span></a></li>
-									<li><a href="<?php bloginfo('url'); ?>/wordpress/wp-admin/post-new.php" title="Add a New Book" target="_blank"><span class="icon--font icon--book"></span></a></li>
-								</ul>
-							</nav>
+			<header id="site-header">
+				<h1><?php bloginfo('title'); ?><span>*</span></h1>
+				<div id="navigation--popup">
+					<div class="navigation--popup-arrow"></div>
+					<div class="navigation--popup-content">
+						<div id="loginout" class="<?php if ( is_user_logged_in() ) { echo 'loginout-out'; } else { echo 'loginout-in'; } ?>">
+							<?php
+							if ( ! is_user_logged_in() ) {
+								wp_login_form();
+							} else {
+								wp_loginout( get_bloginfo('url') );
+							}
+							?>
 						</div>
+						<nav>
+							<ul>
+								<li><a href="<?php bloginfo('url'); ?>/wordpress/wp-admin" title="AMB Admin Area" target="_blank"><span class="icon--font icon--settings"></span></a></li>
+								<li><a href="<?php bloginfo('url'); ?>/wordpress/wp-admin/post-new.php" title="Add a New Book" target="_blank"><span class="icon--font icon--book"></span></a></li>
+							</ul>
+						</nav>
 					</div>
 				</div>
-			</header> <!-- end header -->
+			</header>
 
 			<main id="content">
