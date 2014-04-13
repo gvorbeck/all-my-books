@@ -1,6 +1,8 @@
 @import "compass/css3";
 @import "breakpoint";
 
+/* NOTE: MAX WIDTH 1679px before popup arrow disconnects with popup content */
+
 /*
 ** COLORS
 */
@@ -66,17 +68,20 @@ body {
 	/* Created using http://www.patternify.com/ */
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2OUjq77zykizQADjCr5M/9/f/OUASYIFgDJwgThAjBBACtAEXlnBGGKAAAAAElFTkSuQmCC) repeat;
 	
-	@include breakpoint( max-width 735px ) {
-		padding: 20px 5%;
-	}
-	@include breakpoint( max-width 450px ) {
-		padding: 10px 2.5%;
+	@include breakpoint( min-width 1679px ) {
+		padding: 20px 0;
 	}
 }
 #container {
 	background: $color-secondary;
 	padding: 1%;
 	border-radius: 4px;
+	@include box-sizing(border-box);
+	
+	@include breakpoint( min-width 1679px ) {
+		width: 1331px;
+		margin: 0 auto;
+	}
 }
 #content {
 	clear: both;
@@ -98,28 +103,36 @@ body {
 		font-family: $font-title;
 		color: $color-tertiary;
 		font-weight: bold;
-		
-		span {
-			font-weight: normal;
-			
-			&:hover {
-				cursor: pointer;
-			}
-		}
 	}
+}
+.navigation--button {
+	font-weight: normal;
+	position: relative;
+	
+	&:hover {
+		cursor: pointer;
+	}
+}
+.navigation--popup-arrow {
+	width: 0px;
+	height: 0px;
+	border-style: solid;
+	border-width: 0 16px 24px 16px;
+	border-color: transparent transparent #434343 transparent;
+	position: absolute;
+	top: 48px;
+	right: 4px;
+	/*display: none;*/
 }
 #navigation--popup {
 	position: absolute;
-	top: 0;
-	right: 0;
+	top: 66px;
+	right: 18px;
 	z-index: 1;
-	/*display: none;*/
-	
-}
-.navigation--popup-content {
 	background: $color-tertiary;
 	border-bottom: 5px solid color--shadow($color-tertiary);
 	padding: 10px;
+	/*display: none;*/
 	
 	a {
 		color: $color-secondary;
@@ -136,6 +149,19 @@ body {
 		&:last-child {
 			margin: 0;
 		}
+		span:hover {
+			color: color--shadow($color-secondary);
+		}
+	}
+}
+.logged-in #navigation--popup {
+	right: 240px;
+	
+	@include breakpoint( max-width 1352px ) {
+		right: 76px;
+	}
+	@include breakpoint( max-width 934px ) {
+		right: -66px;
 	}
 }
 #user_login,
@@ -178,26 +204,20 @@ body {
 #loginout.loginout-out a:hover {
 	background: color--shadow(#C0C0C0);
 	border-bottom: 4px solid color--shadow(color--shadow(#C0C0C0));
+	cursor: pointer;
 }
 .icon--settings::before {
 	content: "\eb07";
 	font-family: $font-web-icons;
 	font-size: 5em;
-	
-	@include breakpoint( max-width 735px ) {
-		font-size: 2em;
-	}
 }
 .icon--book {
 	position: relative;
+	
 	&:before {
 		content: "\e89f";
 		font-size: 5em;
 		font-family: $font-web-icons;
-		
-		@include breakpoint( max-width 735px ) {
-			font-size: 2em;
-		}
 	}
 	&:after {
 		content: "\eba2";

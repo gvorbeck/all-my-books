@@ -115,9 +115,10 @@ jQuery( document ).ready( function() {
 	} ).disableSelection();
 	
 	// Show navigation/login menu.
-	/*jQuery( '#site-header h1 span, #navigation--popup').hover( function(i) {
+	jQuery( '#navigation--popup, .navigation--button').hover( function(i) {
 		jQuery( '#navigation--popup' ).toggle();
-	} );*/
+		jQuery( '.navigation--popup-arrow' ).toggle();
+	} );
 	
 	/*jQuery( '#header-navigation-button, #header-navigation' ).hover( function( index ) {
 		if ( browserSize > 720 ) {

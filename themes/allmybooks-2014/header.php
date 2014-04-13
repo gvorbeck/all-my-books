@@ -55,10 +55,8 @@
 		<?php define('SITE_URL', $_SERVER['HTTP_HOST']); ?>
 		<div id="container">
 			<header id="site-header">
-				<h1><?php bloginfo('title'); ?><span>*</span></h1>
+				<h1><?php bloginfo('title'); ?><span class="navigation--button">*<span class="navigation--popup-arrow"></span></span></h1>
 				<div id="navigation--popup">
-					<div class="navigation--popup-arrow"></div>
-					<div class="navigation--popup-content">
 						<div id="loginout" class="<?php if ( is_user_logged_in() ) { echo 'loginout-out'; } else { echo 'loginout-in'; } ?>">
 							<?php
 							if ( ! is_user_logged_in() ) {
@@ -74,7 +72,6 @@
 								<li><a href="<?php bloginfo('url'); ?>/wordpress/wp-admin/post-new.php" title="Add a New Book" target="_blank"><span class="icon--font icon--book"></span></a></li>
 							</ul>
 						</nav>
-					</div>
 				</div>
 			</header>
 
