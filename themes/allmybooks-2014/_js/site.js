@@ -86,8 +86,11 @@ function showFinishedList() {
 jQuery( document ).ready( function() {
 
 	// Get browser window size. Will be 15px smaller than what Chrome reports.
-	jQuery( '#dev--window-width' ).text( jQuery( document ).width() + 15 );
+	var pageWidth = jQuery( document ).width() + 15;
+	console.log(pageWidth);
+	jQuery( '#dev--window-width' ).text( pageWidth );
 	jQuery( window ).resize( function(i) {
+		pageWidth = jQuery( document ).width() + 15;
 		jQuery( '#dev--window-width' ).text( jQuery( document ).width() + 15 );
 	});
 	
@@ -110,8 +113,10 @@ jQuery( document ).ready( function() {
 	
 	// Show navigation/login menu.
 	jQuery( '#navigation--popup, .navigation--button').hover( function(i) {
-		jQuery( '#navigation--popup' ).toggle();
-		jQuery( '.navigation--popup-arrow' ).toggle();
+		if ( pageWidth > 785 ) {
+			jQuery( '#navigation--popup' ).toggle();
+			jQuery( '.navigation--popup-arrow' ).toggle();
+		}
 	} );
 	
 } );

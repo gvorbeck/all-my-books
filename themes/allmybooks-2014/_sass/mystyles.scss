@@ -62,28 +62,28 @@ $font-web-icons: 'Icomoon', sans-serif;
 ** UNIVERSALS
 */
 body {
-	padding: 20px 10%;
+	padding: 1.5%;
 	/* Created using http://www.patternify.com/ */
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2OUjq77zykizQADjCr5M/9/f/OUASYIFgDJwgThAjBBACtAEXlnBGGKAAAAAElFTkSuQmCC) repeat;
 	
-	@include breakpoint( min-width 1679px ) {
-		padding: 20px 0;
-	}
-	@include breakpoint( max-width 798px ) {
+	@include breakpoint( min-width 465px ) {
 		padding: 20px 5%;
 	}
-	@include breakpoint( max-width 670px ) {
-		padding: 20px 2%;
+	@include breakpoint( min-width 732px ) {
+		padding: 20px 10%;
+	}
+	@include breakpoint( min-width 1650px ) {
+		padding: 20px 0;
 	}
 }
 #container {
 	background: $color-secondary;
-	padding: 1%;
+	padding: 1% 3%;
 	border-radius: 4px;
 	@include box-sizing(border-box);
 	
-	@include breakpoint( min-width 1679px ) {
-		width: 1331px;
+	@include breakpoint( min-width 1650px ) {
+		width: 1308px;
 		margin: 0 auto;
 	}
 }
@@ -102,26 +102,30 @@ body {
 	position: relative;
 	
 	h1 {
-		font-size: 5.188em;
+		font-size: 3.125em;
 		text-align: center;
 		font-family: $font-title;
 		color: $color-tertiary;
 		font-weight: bold;
 		
-		@include breakpoint( max-width 707px ) {
+		@include breakpoint( min-width 533px ) {
 			font-size: 4.188em;
 		}
-		@include breakpoint( max-width 545px ) {
-			font-size: 3.125em;
+		@include breakpoint( min-width 653px ) {
+			font-size: 5.188em;
 		}
 	}
 }
 .navigation--button {
 	font-weight: normal;
 	position: relative;
+	display: none;
 	
 	&:hover {
 		cursor: pointer;
+	}
+	@include breakpoint( min-width 785px ) {
+		display: inline;
 	}
 }
 .navigation--popup-arrow {
@@ -133,18 +137,25 @@ body {
 	position: absolute;
 	top: 48px;
 	right: 4px;
-	display: none;
+	
+	@include breakpoint( min-width 785px ) {
+		display: none;
+	}
 }
 #navigation--popup {
-	position: absolute;
 	top: 66px;
-	right: 18px;
 	z-index: 1;
 	background: $color-tertiary;
 	border-bottom: 5px solid color--shadow($color-tertiary);
 	padding: 10px;
-	display: none;
+	margin: 3% 0;
 	
+	@include breakpoint( min-width 785px ) {
+		display: none;
+		position: absolute;
+		margin: 0;
+		right: 0;
+	}
 	a {
 		color: $color-secondary;
 		text-decoration: none;
@@ -166,13 +177,13 @@ body {
 	}
 }
 .logged-in #navigation--popup {
-	right: 240px;
+	right: 0;
 	
-	@include breakpoint( max-width 1352px ) {
-		right: 76px;
+	@include breakpoint( min-width 1180px ) {
+		right: 149px;
 	}
-	@include breakpoint( max-width 934px ) {
-		right: -66px;
+	@include breakpoint( min-width 1585px ) {
+		right: 300px;
 	}
 }
 #user_login,
@@ -182,6 +193,8 @@ body {
 	padding: 5px;
 }
 #loginout {
+	text-align: center;
+	
 	label {
 		display: none;
 	}
@@ -209,7 +222,6 @@ body {
 	font-family: $font-text;
 	border-radius: 5px;
 	display: block;
-	text-align: center;
 }
 #wp-submit:hover,
 #loginout.loginout-out a:hover {
@@ -220,24 +232,38 @@ body {
 .icon--settings::before {
 	content: "\eb07";
 	font-family: $font-web-icons;
-	font-size: 5em;
+	font-size: 3em;
+		
+	@include breakpoint( min-width 785px ) {
+		font-size: 5em;
+	}
 }
 .icon--book {
 	position: relative;
 	
 	&:before {
 		content: "\e89f";
-		font-size: 5em;
+		font-size: 3em;
 		font-family: $font-web-icons;
+		
+		@include breakpoint( min-width 785px ) {
+			font-size: 5em;
+		}
 	}
 	&:after {
 		content: "\eba2";
 		font-family: $font-web-icons;
-		font-size: 2em;
+		font-size: 1em;
 		color: $color-tertiary;
 		position: absolute;
-		top: -28px;
-		left: 25px;
+		top: -10px;
+		left: 18px;
+		
+		@include breakpoint( min-width 785px ) {
+			font-size: 2em;
+		  top: -28px;
+			left: 25px;
+		}
 	}
 }
 
@@ -245,7 +271,7 @@ body {
 ** BOOK SHELF
 */
 .book-shelf {
-	padding: 1% 2%;
+	padding: 1% 0;
 	margin: 20px 0;
 	
 	h1 {
@@ -323,7 +349,7 @@ body {
 		float: left;
 		margin: 0 10px 0 0;
 		
-		@include breakpoint( max-width 735px ) {
+		@include breakpoint( max-width 785px ) {
 			float: none;
 		}
 	}
@@ -334,7 +360,7 @@ body {
 		border-left: 2px solid color--shadow($color-primary);
 		line-height: 1.5em;
 		
-		@include breakpoint( max-width 735px ) {
+		@include breakpoint( max-width 785px ) {
 			border-left: none;
 			border-top: 2px solid color--shadow($color-primary);
 			padding: 10px 0 0;
