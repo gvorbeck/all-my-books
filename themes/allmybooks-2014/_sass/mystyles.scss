@@ -62,21 +62,30 @@ $font-web-icons: 'Icomoon', sans-serif;
 ** UNIVERSALS
 */
 body {
-	padding: 20px 10%;
+	padding: 1.5%;
 	/* Created using http://www.patternify.com/ */
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2OUjq77zykizQADjCr5M/9/f/OUASYIFgDJwgThAjBBACtAEXlnBGGKAAAAAElFTkSuQmCC) repeat;
 	
-	@include breakpoint( max-width 735px ) {
+	@include breakpoint( min-width 465px ) {
 		padding: 20px 5%;
 	}
-	@include breakpoint( max-width 450px ) {
-		padding: 10px 2.5%;
+	@include breakpoint( min-width 732px ) {
+		padding: 20px 10%;
+	}
+	@include breakpoint( min-width 1650px ) {
+		padding: 20px 0;
 	}
 }
 #container {
 	background: $color-secondary;
-	padding: 1%;
+	padding: 1% 3%;
 	border-radius: 4px;
+	@include box-sizing(border-box);
+	
+	@include breakpoint( min-width 1650px ) {
+		width: 1308px;
+		margin: 0 auto;
+	}
 }
 #content {
 	clear: both;
@@ -86,273 +95,174 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-/*
+/* 
 ** HEADER
 */
 #site-header {
 	position: relative;
-	width: 497px;
-	margin: 0 auto;
 	
-	@include breakpoint( max-width 735px ) {
-		width: auto;
+	h1 {
+		font-size: 3.125em;
 		text-align: center;
+		font-family: $font-title;
+		color: $color-tertiary;
+		font-weight: bold;
+		
+		@include breakpoint( min-width 533px ) {
+			font-size: 4.188em;
+		}
+		@include breakpoint( min-width 653px ) {
+			font-size: 5.188em;
+		}
 	}
+}
+.navigation--button {
+	font-weight: normal;
+	position: relative;
+	display: none;
 	
+	&:hover {
+		cursor: pointer;
+	}
+	@include breakpoint( min-width 785px ) {
+		display: inline;
+	}
+}
+.navigation--popup-arrow {
+	width: 0px;
+	height: 0px;
+	border-style: solid;
+	border-width: 0 16px 24px 16px;
+	border-color: transparent transparent #434343 transparent;
+	position: absolute;
+	top: 48px;
+	right: 4px;
+	
+	@include breakpoint( min-width 785px ) {
+		display: none;
+	}
+}
+#navigation--popup {
+	top: 66px;
+	z-index: 1;
+	background: $color-tertiary;
+	border-bottom: 5px solid color--shadow($color-tertiary);
+	padding: 10px;
+	margin: 3% 0;
+	
+	@include breakpoint( min-width 785px ) {
+		display: none;
+		position: absolute;
+		margin: 0;
+		right: 0;
+	}
 	a {
 		color: $color-secondary;
 		text-decoration: none;
 	}
+	ul {
+		margin: 10px 0 0;
+		text-align: center;
+	}
+	li {
+		display: inline;
+		margin: 0 10px 0 0;
+		
+		&:last-child {
+			margin: 0;
+		}
+		span:hover {
+			color: color--shadow($color-secondary);
+		}
+	}
 }
-#site-title {
-	font-family: $font-title;
-	font-size: 4.5em;
-	font-weight: bold;
+.logged-in #navigation--popup {
+	right: 0;
 	
-	@include breakpoint( max-width 540px ) {
-		font-size: 4.5em;
+	@include breakpoint( min-width 1180px ) {
+		right: 149px;
 	}
-	@include breakpoint( max-width 490px ) {
-		font-size: 4em;
-	}
-	@include breakpoint( max-width 413px ) {
-		font-size: 3.5em;
-	}
-	@include breakpoint( max-width 367px ) {
-		font-size: 3em;
-	}
-	
-	a {
-		color: $color-tertiary;
-		text-decoration: none;
+	@include breakpoint( min-width 1585px ) {
+		right: 300px;
 	}
 }
-/* LOADING INDICATOR */
-#loading-indicator,
-#header-navigation-button {
-	font-size: 5em;
-	color: $color-tertiary;
-	font-family: $font-title;
-	line-height: 1em;
-	display: block;
+#user_login,
+#user_pass {
+	font-size: 1em;
+	border: none;
+	padding: 5px;
 }
-#loading-indicator {
-	top: 20px;
-	left: 1%;
-	position: fixed;
-	padding: 10px;
-	z-index: 1;
-	background: $color-secondary;
-	border-radius: 4px;
-	opacity: 0;
-	
-	@include breakpoint( max-width 735px ) {
-		padding: 5px;
-	}
-	
-	span {
-  	-webkit-animation:spin 2s linear infinite;
-  	-moz-animation:spin 2s linear infinite;
-  	animation:spin 2s linear infinite;
-  	height: 36px;
-  	display: block;
-  }
-}
-@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
-
-#loading-indicator.show {
-	@include transition-property(opacity);
-  @include transition-duration(1s);
-  opacity: 1;
-}
-#loading-indicator.hide {
-	@include transition-property(opacity);
-  @include transition-duration(1s);
-  opacity: 0;
-}
-
-/*
-** HEADER NAVIGATION
-*/
-#header-navigation {
-	position: absolute;
-	top: 0;
-	left: 460px;
-	z-index: 1;
-	
-	@include breakpoint( max-width 735px ) {
-		position: static;
-		margin: 0 2%;
-	}
-}
-#header-navigation-button {
-	float: left;
-	width: 36px;
-	height: 36px;
-	
-	@include breakpoint( max-width 1155px ) {
-		float: none;
-	}
-	@include breakpoint( max-width 735px ) {
-		display: none;
-	}
-}
-#header-navigation-button:hover {
-	cursor: pointer;
-}
-#header-navigation-popup {
-	display: none;
-	
-	@include breakpoint( max-width 1155px ) {
-		margin: 0 0 0 -100px;
-	}
-	@include breakpoint( max-width 855px ) {
-		margin: 0 0 0 -200px;
-	}
-	@include breakpoint( max-width 735px ) {
-		display: block;
-		margin: 0;
-	}
-}
-#header-navigation-arrow {
-	width: 0px;
-	height: 0px;
-	border-style: solid;
-	border-width: 12.5px 15px 12.5px 0;
-	border-color: transparent #434343 transparent transparent;
-	float: left;
-	margin: 10px 0 0 0;
-	
-	@include breakpoint( max-width 1155px ) {
-		border-width: 0 12.5px 15px 12.5px;
-		border-color: transparent transparent #434343 transparent;
-		margin: -15px 0 0 107px;
-	}
-	@include breakpoint( max-width 855px ) {
-		margin: -15px 0 0 206px;
-	}
-	@include breakpoint( max-width 735px ) {
-		display: none;
-	}
-}
-#header-navigation-content {
-	background: $color-tertiary;
-	padding: 20px;
-	border-bottom: 5px solid #2F2F2F;
-	box-shadow: 7px 7px 15px -2px rgba(50,50,50,0.75);
-	margin: 0 0 0 51px;
-	
-	@include breakpoint( max-width 1155px ) {
-		margin: 20px 0 0;
-	}
-	@include breakpoint( max-width 735px ) {
-		padding: 12px;
-		margin: 10px 0 40px;
-	}
+#loginout {
+	text-align: center;
 	
 	label {
 		display: none;
 	}
-	input {
-		font-family: 'Open Sans', sans-serif;
-		font-size: 1.5em;
-		width: 100%;
-		color: $color-tertiary;
-		border: 1px solid #DDDDDD;
-		margin: 0 0 20px;
-	}
-	.login-username {
-	
-		@include breakpoint( max-width 735px ) {
-			float: left;
-			margin: 0 2% 0 0;
-			width: 49%;
-		}
-	}
-	.login-password {
-	
-		@include breakpoint( max-width 735px ) {
-			width: 49%;
-			overflow: hidden;
-		}
-	}
-	#wp-submit,
-	#loginout.loginout-out a {
-		border-bottom: 4px solid color--shadow(#C0C0C0);
-		width: 254px;
-		background: #C0C0C0;
-		padding: 5px 0 3px;
-		font-size: 1.5em;
-		color: $color-tertiary;
-		display: block;
-		margin: 0 0 20px;
-		text-align: center;
-		font-family: $font-text;
-		border-radius: 5px;
-		
-		@include breakpoint( max-width 735px ) {
-			width: 100%;
-		}
-	}
-	#wp-submit:hover,
-	#loginout.loginout-out a:hover {
-		background: color--shadow(#C0C0C0);
-		border-bottom: 4px solid color--shadow(color--shadow(#C0C0C0));
-	}
-	.login-remember {
-		display: none;
-	}
-	nav li {
+	p {
 		display: inline;
-		margin: 0 22px;
-		
-		a {
-			font-family: $font-title;
-			position: relative;
-		
-			@include breakpoint( max-width 735px ) {
-				font-size: 2em;
-			}
-		}		
-		a:hover {
-			border-bottom: 1px solid dashed;
-		}
 	}
+	.login-submit {
+		display: block;
+	}
+}
+#wp-submit {
+	margin: 10px 0 0;
+}
+#wp-submit,
+#loginout.loginout-out a {
+	border-bottom: 4px solid color--shadow(#C0C0C0);
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	background: #C0C0C0;
+	padding: 5px 0 3px;
+	width: 100%;
+	font-size: 1em;
+	color: $color-tertiary;
+	font-family: $font-text;
+	border-radius: 5px;
+	display: block;
+}
+#wp-submit:hover,
+#loginout.loginout-out a:hover {
+	background: color--shadow(#C0C0C0);
+	border-bottom: 4px solid color--shadow(color--shadow(#C0C0C0));
+	cursor: pointer;
 }
 .icon--settings::before {
 	content: "\eb07";
 	font-family: $font-web-icons;
-	font-size: 5em;
-	
-	@include breakpoint( max-width 735px ) {
-		font-size: 2em;
+	font-size: 3em;
+		
+	@include breakpoint( min-width 785px ) {
+		font-size: 5em;
 	}
 }
 .icon--book {
+	position: relative;
+	
 	&:before {
 		content: "\e89f";
-		font-size: 5em;
+		font-size: 3em;
 		font-family: $font-web-icons;
 		
-		@include breakpoint( max-width 735px ) {
-			font-size: 2em;
+		@include breakpoint( min-width 785px ) {
+			font-size: 5em;
 		}
 	}
 	&:after {
 		content: "\eba2";
 		font-family: $font-web-icons;
-		font-size: 2em;
+		font-size: 1em;
 		color: $color-tertiary;
 		position: absolute;
-		top: -28px;
-		left: 25px;
+		top: -10px;
+		left: 18px;
 		
-		@include breakpoint( max-width 735px ) {
-			font-size: 1em;
-			top: -10px;
-			left: 18px;
+		@include breakpoint( min-width 785px ) {
+			font-size: 2em;
+		  top: -28px;
+			left: 25px;
 		}
 	}
 }
@@ -361,7 +271,7 @@ body {
 ** BOOK SHELF
 */
 .book-shelf {
-	padding: 1% 2%;
+	padding: 1% 0;
 	margin: 20px 0;
 	
 	h1 {
@@ -439,7 +349,7 @@ body {
 		float: left;
 		margin: 0 10px 0 0;
 		
-		@include breakpoint( max-width 735px ) {
+		@include breakpoint( max-width 785px ) {
 			float: none;
 		}
 	}
@@ -450,7 +360,7 @@ body {
 		border-left: 2px solid color--shadow($color-primary);
 		line-height: 1.5em;
 		
-		@include breakpoint( max-width 735px ) {
+		@include breakpoint( max-width 785px ) {
 			border-left: none;
 			border-top: 2px solid color--shadow($color-primary);
 			padding: 10px 0 0;

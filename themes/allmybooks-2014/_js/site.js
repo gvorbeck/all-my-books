@@ -86,16 +86,13 @@ function showFinishedList() {
 jQuery( document ).ready( function() {
 
 	// Get browser window size. Will be 15px smaller than what Chrome reports.
-	var browserSize = jQuery( window ).width();
-	jQuery( window ).resize( function() {
-		browserSize = jQuery( window ).width();
-		if ( browserSize <= 720 ) {
-			jQuery( '#header-navigation-popup' ).css( 'display', 'block' );
-		}
-		if ( browserSize > 720 ) {
-			jQuery( '#header-navigation-popup' ).css( 'display', 'none' );
-		}
-	} );
+	var pageWidth = jQuery( document ).width() + 15;
+	console.log(pageWidth);
+	jQuery( '#dev--window-width' ).text( pageWidth );
+	jQuery( window ).resize( function(i) {
+		pageWidth = jQuery( document ).width() + 15;
+		jQuery( '#dev--window-width' ).text( jQuery( document ).width() + 15 );
+	});
 	
 	// Set the two list's LIs as sortable.
 	jQuery( "#current-read-list, #future-read-list, #finished-read-list" ).sortable( {
@@ -115,13 +112,10 @@ jQuery( document ).ready( function() {
 	} ).disableSelection();
 	
 	// Show navigation/login menu.
-	jQuery( '#header-navigation' ).hover( function( index ) {
-		if ( browserSize > 720 ) {
-			jQuery( '#header-navigation-popup' ).css( 'display', 'block' );
-		}
-	}, function( index ) {
-		if ( browserSize > 720 ) {
-			jQuery( '#header-navigation-popup' ).css( 'display', 'none' );
+	jQuery( '#navigation--popup, .navigation--button').hover( function(i) {
+		if ( pageWidth > 785 ) {
+			jQuery( '#navigation--popup' ).toggle();
+			jQuery( '.navigation--popup-arrow' ).toggle();
 		}
 	} );
 	
