@@ -86,12 +86,11 @@ function showFinishedList() {
 jQuery( document ).ready( function() {
 
 	// Get browser window size. Will be 15px smaller than what Chrome reports.
-	var pageWidth = jQuery( document ).width() + 15;
-	console.log(pageWidth);
+	var pageWidth = jQuery( document ).width();
 	jQuery( '#dev--window-width' ).text( pageWidth );
 	jQuery( window ).resize( function(i) {
-		pageWidth = jQuery( document ).width() + 15;
-		jQuery( '#dev--window-width' ).text( jQuery( document ).width() + 15 );
+		pageWidth = jQuery( document ).width();
+		jQuery( '#dev--window-width' ).text( jQuery( document ).width());
 	});
 	
 	// Set the two list's LIs as sortable.
@@ -105,7 +104,11 @@ jQuery( document ).ready( function() {
 		},
 		// Show Finished list.
 		activate: function( event, ui ) {
-			showFinishedList();
+			var clickedID = ui.item[0].id;
+			// This makes sure the finished list never shows unless I am moving a book from the currently-read list.
+			if ('current-read-list' == jQuery( '#' + clickedID ).parent().attr('id')){
+				showFinishedList();
+			}
 		},
 		// Connect the two lists.
   	connectWith: ".book-list"
