@@ -300,12 +300,7 @@ body {
 
 }
 #finished-read {
-	height: 0;
-	opacity: 0;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	box-sizing: border-box;
+	display: none;
 	
 	.book-list {
 		border: 5px dashed $color-tertiary;
