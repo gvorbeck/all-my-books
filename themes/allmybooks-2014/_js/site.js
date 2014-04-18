@@ -72,13 +72,13 @@ function updateFutureList() {
 }
 
 function showFinishedList() {
-	var autoHeight = jQuery( '#finished-read' ).css( 'height', 'auto' );
+	var autoHeight = jQuery( '#finished-read' ).css( 'height', 'auto' ).height();
 	jQuery( '#finished-read' ).animate( {
 		opacity: 1,
 		height: autoHeight,
-		padding: "1% 2%",
 		margin: "20px 0 20px",
 	}, 250, function() {
+		jQuery( '#finished-read' ).css( 'height', 'auto' ).css( 'overflow', 'visible' ).css( 'min-height', autoHeight ).css( 'height', 'auto' );
 	} );
 }
 
