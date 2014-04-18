@@ -71,17 +71,6 @@ function updateFutureList() {
 	
 }
 
-function showFinishedList() {
-	var autoHeight = jQuery( '#finished-read' ).css( 'height', 'auto' ).height();
-	jQuery( '#finished-read' ).animate( {
-		opacity: 1,
-		height: autoHeight,
-		margin: "20px 0 20px",
-	}, 250, function() {
-		jQuery( '#finished-read' ).css( 'height', 'auto' ).css( 'overflow', 'visible' ).css( 'min-height', autoHeight ).css( 'height', 'auto' );
-	} );
-}
-
 /* DOC READY START */
 jQuery( document ).ready( function() {
 
@@ -107,7 +96,9 @@ jQuery( document ).ready( function() {
 			var clickedID = ui.item[0].id;
 			// This makes sure the finished list never shows unless I am moving a book from the currently-read list.
 			if ('current-read-list' == jQuery( '#' + clickedID ).parent().attr('id')){
-				showFinishedList();
+				jQuery( "#finished-read" ).slideDown( "slow", function() {
+				    // Animation complete.
+				} );
 			}
 		},
 		// Connect the two lists.
