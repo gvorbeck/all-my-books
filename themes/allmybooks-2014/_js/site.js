@@ -75,11 +75,11 @@ function updateFutureList() {
 jQuery( document ).ready( function() {
 
 	// Get browser window size. Will be 15px smaller than what Chrome reports.
-	var pageWidth = jQuery( document ).width();
+	var pageWidth = jQuery( document ).width()+15;
 	jQuery( '#dev--window-width' ).text( pageWidth );
 	jQuery( window ).resize( function(i) {
 		pageWidth = jQuery( document ).width();
-		jQuery( '#dev--window-width' ).text( jQuery( document ).width());
+		jQuery( '#dev--window-width' ).text( pageWidth+15 );
 	});
 	
 	// Set the two list's LIs as sortable.
@@ -107,9 +107,9 @@ jQuery( document ).ready( function() {
 	
 	// Show navigation/login menu.
 	jQuery( '#navigation--popup, .navigation--button').hover( function(i) {
-		if ( pageWidth > 785 ) {
+		if ( pageWidth > (770) ) {
 			jQuery( '#navigation--popup' ).toggle();
-			jQuery( '.navigation--popup-arrow' ).toggle();
+			//jQuery( '.navigation--popup-arrow' ).toggle();
 		}
 	} );
 	

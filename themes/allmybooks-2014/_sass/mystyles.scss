@@ -123,6 +123,10 @@ body {
 	
 	&:hover {
 		cursor: pointer;
+		
+		.navigation--popup-arrow {
+			display: block;
+		}
 	}
 	@include breakpoint( min-width 785px ) {
 		display: inline;
@@ -155,6 +159,9 @@ body {
 		position: absolute;
 		margin: 0;
 		right: 0;
+	}
+	@include breakpoint( min-width 1200px ) {
+		right: 156px;
 	}
 	a {
 		color: $color-secondary;
@@ -198,15 +205,9 @@ body {
 	label {
 		display: none;
 	}
-	p {
-		display: inline;
+	.login-password {
+		margin: 10px 0;
 	}
-	.login-submit {
-		display: block;
-	}
-}
-#wp-submit {
-	margin: 10px 0 0;
 }
 #wp-submit,
 #loginout.loginout-out a {
