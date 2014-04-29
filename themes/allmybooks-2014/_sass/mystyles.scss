@@ -394,7 +394,7 @@ body {
 .download-info-link {
 	margin: 0 12px 0 4px;
 	
-	span {
+	/*span {
 		font-family: $font-web-icons;
 		font-size: .75em;
 		position: relative;
@@ -403,7 +403,7 @@ body {
 		&:before {
 			content: "\eb5a";
 		}
-	}
+	}*/
 	.missing {
 		opacity: .5;
 	}
