@@ -72,8 +72,8 @@
 						</div>
 						<nav>
 							<ul>
-								<li><a href="<?php bloginfo('url'); ?>/wordpress/wp-admin" title="AMB Admin Area" target="_blank"><span class="icon--font icon--settings"></span></a></li>
-								<li><a href="<?php bloginfo('url'); ?>/wordpress/wp-admin/post-new.php" title="Add a New Book" target="_blank"><span class="icon--font icon--book"></span></a></li>
+								<li><a class="navigation--popup-link" href="<?php bloginfo('url'); ?>/wordpress/wp-admin" title="AMB Admin Area" target="_blank"><?php echo file_get_contents( locate_template( "_images/icons/cog.svg" ) ); ?></a></li>
+								<li><a class="navigation--popup-link" href="<?php bloginfo('url'); ?>/wordpress/wp-admin/post-new.php" title="Add a New Book" target="_blank"><?php echo file_get_contents( locate_template( "_images/icons/book.svg" ) ); ?></a></li>
 							</ul>
 						</nav>
 				</div>
