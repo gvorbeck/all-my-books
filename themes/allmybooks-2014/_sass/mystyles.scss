@@ -344,7 +344,6 @@ body {
 	.book--info-links {
 		line-height: 1em;
 		float: left;
-		margin: 0 10px 0 0;
 		
 		@include breakpoint( max-width 785px ) {
 			float: none;
@@ -372,6 +371,14 @@ body {
 	text-decoration: none;
 	font-size: 1.5em;
 	text-align: center;
+	position: relative;
+	padding: 0 15px 0 0;
+	
+	svg {
+		fill: $color-secondary;
+		height: 24px;
+		width: 24px;
+	}
 	
 	span {
 		padding: 4px 0 0;
@@ -379,46 +386,28 @@ body {
 		margin: 0 10px 0 0;
 	}
 }
-.amazon-info-link span {
-	
-	&:before {
-		content: "\e606";
-	}
+.info-link.missing {
+	opacity: 0.4;
 }
-.wiki-info-link span {
-	
-	&:before {
-		content: "\e607";
+.amazon-info-link {
+	top: 4px;
+}
+.wiki-info-link {
+	top: 4px;
+
+	svg {
+		width: 28px;
+		height: 28px;
 	}
 }
 .download-info-link {
-	margin: 0 12px 0 4px;
-	
-	/*span {
-		font-family: $font-web-icons;
-		font-size: .75em;
-		position: relative;
-		top: -3px;
-	
-		&:before {
-			content: "\eb5a";
-		}
-	}*/
-	.missing {
-		opacity: .5;
-	}
 }
 .edit-info-link {
-
-	span {
-		font-family: $font-web-icons;
-		font-size: .75em;
-		position: relative;
-		top: -3px;
-		
-		&:before {
-			content: "\ebc3";
-		}
+	top: 1px;
+	
+	svg {
+		width: 22px;
+		height: 22px;
 	}
 }
 
