@@ -11,13 +11,15 @@ function updateFinishedList(fid) {
 	var updatedList = updatedArray.join(",");
 	
 	// Send array to PHP
-	jQuery( '#loading-indicator' ).removeClass( 'hide' ).addClass( 'show' );
+	//jQuery( '#loading-container' ).hide().fadeIn(3000);
+	jQuery( '#loading-container' ).toggle();
 	jQuery.ajax( {
 		type: 'POST',
 		url: templateDirectory + '/_php/save-reading-list.php',
 		data: 'id=' + fid + '&finishedlist=' + updatedList,
 		success: function() {
-			jQuery( '#loading-indicator' ).removeClass( 'show' ).addClass( 'hide' );
+			//jQuery( '#loading-container' ).fadeOut();
+			jQuery( '#loading-container' ).toggle();
 		}
 	} );
 	

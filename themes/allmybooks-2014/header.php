@@ -58,6 +58,7 @@
 		}	
 		?>
 		<div id="container">
+			<div id="loading-container"><div class="loading-spinner"></div></div>
 			<header id="site-header">
 				<h1><?php bloginfo('title'); ?><span class="navigation--button">*<span class="navigation--popup-arrow"></span></span></h1>
 				<div id="navigation--popup">
