@@ -60,8 +60,11 @@
 		<div id="container">
 			<div id="loading-container"><div class="loading-spinner"></div></div>
 			<header id="site-header">
-				<h1><?php bloginfo('title'); ?><span class="navigation--button">*<span class="navigation--popup-arrow"></span></span></h1>
+				<h1><?php bloginfo('title'); ?></h1>
+				<div class="navigation--button">*</div>
 				<div id="navigation--popup">
+					<div class="navigation--popup-arrow"></div>
+					<div class="navigation--popup-content">
 						<div id="loginout" class="<?php if ( is_user_logged_in() ) { echo 'loginout-out'; } else { echo 'loginout-in'; } ?>">
 							<?php
 							if ( ! is_user_logged_in() ) {
@@ -77,6 +80,7 @@
 								<li><a class="navigation--popup-link" href="<?php bloginfo('url'); ?>/wordpress/wp-admin/post-new.php" title="Add a New Book" target="_blank"><?php echo file_get_contents( locate_template( "_images/icons/book.svg" ) ); ?></a></li>
 							</ul>
 						</nav>
+					</div>
 				</div>
 			</header>
 

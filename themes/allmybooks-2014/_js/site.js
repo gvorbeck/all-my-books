@@ -108,10 +108,9 @@ jQuery( document ).ready( function() {
 	} ).disableSelection();
 	
 	// Show navigation/login menu.
-	jQuery( '#navigation--popup, .navigation--button').hover( function(i) {
+	jQuery( '.navigation--button, #navigation--popup').hover( function(i) {
 		if ( pageWidth > (770) ) {
 			jQuery( '#navigation--popup' ).toggle();
-			//jQuery( '.navigation--popup-arrow' ).toggle();
 		}
 	} );
 	

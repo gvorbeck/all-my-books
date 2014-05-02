@@ -155,20 +155,36 @@ body {
 		}
 	}
 }
+
+/*
+** HEADER NAVIGATION
+*/
 .navigation--button {
 	font-weight: normal;
-	position: relative;
+	font-family: $font-title;
+	color: $color-tertiary;
+	font-size: 5.188em;
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 0;
 	display: none;
 	
 	&:hover {
 		cursor: pointer;
-		
-		.navigation--popup-arrow {
-			display: block;
-		}
 	}
 	@include breakpoint( min-width 785px ) {
-		display: inline;
+		display: block;
+	}
+}
+#navigation--popup {
+	
+	@include breakpoint( min-width 785px ) {
+		display: none;
+		position: absolute;
+		z-index: 1;
+		top: 40px;
+		right: 3px;
 	}
 }
 .navigation--popup-arrow {
@@ -176,36 +192,20 @@ body {
 	height: 0px;
 	border-style: solid;
 	border-width: 0 16px 24px 16px;
-	border-color: transparent transparent #434343 transparent;
-	position: absolute;
-	top: 48px;
-	right: 4px;
+	border-color: transparent transparent $color-tertiary transparent;
+	float: right;
+	display: none;
 	
 	@include breakpoint( min-width 785px ) {
-		display: none;
+		display: block;
 	}
 }
-#navigation--popup {
-	top: 66px;
-	z-index: 1;
+.navigation--popup-content {
 	background: $color-tertiary;
 	border-bottom: 5px solid color--shadow($color-tertiary);
 	padding: 10px;
 	margin: 3% 0;
 	
-	@include breakpoint( min-width 785px ) {
-		display: none;
-		position: absolute;
-		margin: 0;
-		right: 0;
-	}
-	@include breakpoint( min-width 1200px ) {
-		right: 156px;
-	}
-	a {
-		color: $color-secondary;
-		text-decoration: none;
-	}
 	ul {
 		margin: 10px 0 0;
 		text-align: center;
@@ -214,27 +214,23 @@ body {
 		display: inline;
 		margin: 0 10px 0 0;
 		
-		svg {
-			width: 85px;
-			height: 85px;
-		}
-		
 		&:last-child {
 			margin: 0;
 		}
-		span:hover {
-			color: color--shadow($color-secondary);
+	}
+	svg {
+		width: 85px;
+		height: 85px;
+		fill: $color-secondary;
+		
+		&:hover {
+			fill: color--shadow($color-secondary);
 		}
 	}
-}
-.logged-in #navigation--popup {
-	right: 0;
 	
-	@include breakpoint( min-width 1180px ) {
-		right: 149px;
-	}
-	@include breakpoint( min-width 1585px ) {
-		right: 300px;
+	@include breakpoint( min-width 785px ) {
+		margin: 0;
+		clear: right;
 	}
 }
 #user_login,
@@ -273,21 +269,6 @@ body {
 	background: color--shadow(#C0C0C0);
 	border-bottom: 4px solid color--shadow(color--shadow(#C0C0C0));
 	cursor: pointer;
-}
-.navigation--popup-link  {
-	width: 80px;
-	height: 80px;
-	
-	svg {
-		fill: $color-secondary;
-	}
-	
-	&:hover {
-		
-		svg {
-			fill: color--shadow($color-secondary);
-		}
-	}
 }
 
 /*
