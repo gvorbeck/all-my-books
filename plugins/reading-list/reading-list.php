@@ -23,7 +23,8 @@ Text Domain: reading-list
 */
 
 register_activation_hook( __FILE__, 'reading_list_install' );
-register_activation_hook( __FILE__, 'reading_list_install_data' );
+//UNCOMMENT THE BELOW LINE AND ITS CORRESPONDING FUNCTION TO TEST INSTALL DATA
+//register_activation_hook( __FILE__, 'reading_list_install_data' );
 
 global $reading_list_db_version;
 $reading_list_db_version = "1.0";
@@ -37,9 +38,7 @@ function reading_list_install() {
    $sql = "CREATE TABLE $table_name (
   id mediumint(9) NOT NULL AUTO_INCREMENT,
   time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-  name tinytext NOT NULL,
   bid bigint(20) NOT NULL,
-  url VARCHAR(55) DEFAULT '' NOT NULL,
   UNIQUE KEY id (id)
     );";
 
@@ -49,10 +48,10 @@ function reading_list_install() {
    add_option( "reading_list_db_version", $reading_list_db_version );
 }
 
-function reading_list_install_data() {
+/*function reading_list_install_data() {
    global $wpdb;
    $welcome_name = "Mr. WordPress";
    $welcome_bid = 1751;
    $table_name = $wpdb->prefix . "reading_list";
-   $rows_affected = $wpdb->insert( $table_name, array( 'time' => current_time('mysql'), 'name' => $welcome_name, 'bid' => $welcome_bid ) );
-}
+   $rows_affected = $wpdb->insert( $table_name, array( 'time' => current_time('mysql'), 'bid' => $welcome_bid ) );
+}*/
