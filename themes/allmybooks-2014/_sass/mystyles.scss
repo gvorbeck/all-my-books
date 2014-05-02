@@ -214,6 +214,11 @@ body {
 		display: inline;
 		margin: 0 10px 0 0;
 		
+		svg {
+			width: 85px;
+			height: 85px;
+		}
+		
 		&:last-child {
 			margin: 0;
 		}
