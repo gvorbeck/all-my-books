@@ -141,7 +141,7 @@ if ( ! function_exists( 'cat_class_builder' ) ) {
 }
 
 if ( ! function_exists( 'the_book_builder' ) ) {
-	function the_book_builder( $post_id ) {
+	function the_book_builder( $post_id, $list_order ) {
 		// Set up category data (ommiting Uncategorized, of course).
 		$cats = get_the_category( $post_id );
 		$cat_list = '';
@@ -183,7 +183,7 @@ if ( ! function_exists( 'the_book_builder' ) ) {
 				$cat_tag_string .= $tag_list;
 			}
 		}
-		echo '<li id="' . $post_id . '" class="book">';
+		echo "<li id='$post_id' class='book' data-order='$list_order'>";
 			echo '<div class="book--info-links">' . implode( ' ', get_action_links( $post_id ) ) . '</div>';
 			echo '<p>';
 				echo '<span class="book--title">' . get_the_title( $post_id ) . '</span>';
