@@ -290,19 +290,6 @@ body {
 		font-family: $font-title;
 		font-size: 1.75em;
 	}
-		.text {
-			overflow: hidden;
-			display: block;
-			font-family: $font-text;
-		}
-		.title {
-			font-style: italic;
-		}
-		.tag {
-			font-size: .75em;
-			text-transform: lowercase;
-		}
-
 }
 #finished-read {
 	display: none;
@@ -413,6 +400,7 @@ body {
 }
 .book--tags {
 	font-size: .563em;
+	text-transform: lowercase;
 }
 .book--tags, .book--series {
 	display: block;
