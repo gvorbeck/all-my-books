@@ -50,7 +50,7 @@ function updateCurrentList() {
 function updateFutureList() {
 	
 	// Get array of newly arranged LIs (updatedArray)
-	var updatedArray = [];
+	var updatedArray = {};
 	var expectedOrder = 1;
 	jQuery( '#future-read-list li' ).each( function( index ) {
 		var readingOrder = jQuery( this ).data( 'order' );
@@ -65,10 +65,10 @@ function updateFutureList() {
 	
 	// Send array to PHP
 	jQuery.ajax( {
-		type: 'POST',
-		url: templateDirectory + '/_php/save-reading-list.php',
-		data: updatedArray,
-		success: function() {
+		'type': 'POST',
+		'url': templateDirectory + '/_php/save-reading-list.php',
+		'data': updatedArray,
+		'success': function() {
 			console.log(updatedArray);
 		}
 	} );

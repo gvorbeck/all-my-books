@@ -21,7 +21,7 @@ if ( $current_query->have_posts() ) {
 	echo '<section id="current-read" class="book-shelf"><div class="ribbon"></div><h1>I\'m Reading These</h1><ul id="current-read-list" class="book-list">';
 	while ( $current_query->have_posts() ) {
 		$current_query->the_post();
-		the_book_builder( $post->ID );
+		the_book_builder( $post->ID, 0 );
 	}
 	echo '</ul></section>';
 }
