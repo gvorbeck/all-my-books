@@ -117,7 +117,7 @@ if ( ! function_exists( 'get_action_links' ) ) {
 		$book_links[]  = "<a class='wiki-action-link action-link' href='http://en.wikipedia.org/wiki/Special:Search?search=$ascii_title+$ascii_authors' target='_blank' title='Search Wikipedia'>" . file_get_contents( locate_template( "_images/icons/wikipedia.svg" ) ) . "</a>";
 		if ( is_user_logged_in() ) {
 			$book_links[] = "<a class='download-action-link action-link $book_missing' href='" . get_field('book_file', $post_id) . "' title='Download " . esc_attr( get_post( $post_id )->post_title ) . "' $book_no_click >" . file_get_contents( locate_template( "_images/icons/download.svg" ) ) . "</a>";
-			$book_links[]  = '<a class="edit-action-link action-link" href="' . get_edit_post_link( $post_id ) . '" target="_blank" title="Edit ' . esc_attr( get_post( $post_id )->post_title ) . '">' . file_get_contents( locate_template( "_images/icons/open.svg" ) ) . '</a>';
+			$book_links[]  = '<a class="edit-action-link action-link" href="' . get_edit_post_link( $post_id ) . '" target="_blank" title="Edit ' . esc_attr( get_post( $post_id )->post_title ) . '">' . file_get_contents( locate_template( "_images/icons/edit.svg" ) ) . '</a>';
 		}
 		return $book_links;
 	}
