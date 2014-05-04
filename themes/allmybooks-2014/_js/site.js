@@ -37,13 +37,11 @@ function updateCurrentList() {
 	var updatedList = updatedArray.join(",");
 	
 	// Send array to PHP
-	jQuery( '#loading-indicator' ).removeClass( 'hide' ).addClass( 'show' );
 	jQuery.ajax( {
 		type: 'POST',
 		url: templateDirectory + '/_php/save-reading-list.php',
 		data: 'currentlist=' + updatedList,
 		success: function() {
-			jQuery( '#loading-indicator' ).removeClass( 'show' ).addClass( 'hide' );
 		}
 	} );
 	
@@ -61,13 +59,11 @@ function updateFutureList() {
 	var updatedList = updatedArray.join(",");
 	
 	// Send array to PHP
-	jQuery( '#loading-indicator' ).removeClass( 'hide' ).addClass( 'show' );
 	jQuery.ajax( {
 		type: 'POST',
 		url: templateDirectory + '/_php/save-reading-list.php',
 		data: 'futurelist=' + updatedList,
 		success: function() {
-			jQuery( '#loading-indicator' ).removeClass( 'show' ).addClass( 'hide' );
 		}
 	} );
 	
