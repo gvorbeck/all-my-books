@@ -41,9 +41,11 @@ $args = array(
 $future_query = new WP_Query( $args );
 // 2. GO THROUGH THEME AND FIND OUT IF THE 'READING LIST' TABLE HAS ANY PROBLEMS WITH THIS INFORMATION.
 if ( $future_query->have_posts() ) {
+	$wtr_array = array();
 	while ( $future_query->have_posts() ) {
 		$future_query->the_post();
-		$results = $wpdb->get_results( 'SELECT * FROM wp_reading_list WHERE bid = ' . $post->ID, ARRAY_N );
+		$wtr_array[] = $post->ID;
+		$results     = $wpdb->get_results( 'SELECT * FROM wp_reading_list WHERE bid = ' . $post->ID, ARRAY_N );
 		
 		if ( count( $results ) > 1 ) {
 			// THERE ARE DUPLICATES OF THIS BOOK IN THE TABLE!!!
@@ -57,7 +59,7 @@ if ( $future_query->have_posts() ) {
 			}
 		}
 		if ( count( $results ) > 0 ) {
-			// THIS BOOK IS ALREADY PRESENT IN THE TABLE ...SO DO NOTHING.
+			// THIS BOOK IS ALREADY PRESENT IN THE TABLE ...
 		} else {
 			// THIS BOOK IS NOT IN THE TABLE ...SO PUT IT IN THERE.
 			global $wpdb;
@@ -74,11 +76,18 @@ if ( $future_query->have_posts() ) {
 	}
 }
 wp_reset_postdata();
+
 // AT THIS POINT YOU HAVE CLEANED UP YOUR TABLE, NOW START LAYING IT  OUT IN CODE.
 $future_list = $wpdb->get_results( 'SELECT * FROM wp_reading_list ORDER BY listorder ASC', ARRAY_N );
 echo '<section id="future-read" class="book-shelf"><div class="ribbon"></div><h1>I Want To Read These</h1><ul id="future-read-list" class="book-list">';
 foreach ( $future_list as &$f ) {
-	the_book_builder( $f[2], $f[3] );
+	// MAKE SURE EACH ITEM IN TABLE IS STILL MARKED AS WTR.
+	if ( in_array( $f[2], $wtr_array ) ) {
+		the_book_builder( $f[2], $f[3] );
+	} else {
+		// IF IT ISN'T, DELETE IT.
+		$wpdb->delete( 'wp_reading_list', array( 'bid' => $f[2] ) );
+	}
 }
 
 get_footer();

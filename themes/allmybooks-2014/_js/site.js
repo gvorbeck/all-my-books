@@ -2,7 +2,7 @@
 function updateFinishedList(fid) {
 	
 	// Get array of newly arranged LIs (updatedArray)
-	/*var updatedArray = [];
+	var updatedArray = [];
 	jQuery( '#finished-read-list li' ).each( function( index ) {
 		updatedArray.push( this.id );
 	} );
@@ -11,24 +11,22 @@ function updateFinishedList(fid) {
 	var updatedList = updatedArray.join(",");
 	
 	// Send array to PHP
-	//jQuery( '#loading-container' ).hide().fadeIn(3000);
 	jQuery( '#loading-container' ).toggle();
 	jQuery.ajax( {
 		type: 'POST',
 		url: templateDirectory + '/_php/save-reading-list.php',
 		data: 'id=' + fid + '&finishedlist=' + updatedList,
 		success: function() {
-			//jQuery( '#loading-container' ).fadeOut();
 			jQuery( '#loading-container' ).toggle();
 		}
-	} );*/
+	} );
 	
 }
 
 function updateCurrentList() {
 	
 	// Get array of newly arranged LIs (updatedArray)
-	/*var updatedArray = [];
+	var updatedArray = [];
 	jQuery( '#current-read-list li' ).each( function( index ) {
 		updatedArray.push( this.id );
 	} );
@@ -43,7 +41,7 @@ function updateCurrentList() {
 		data: 'currentlist=' + updatedList,
 		success: function() {
 		}
-	} );*/
+	} );
 	
 }
 
