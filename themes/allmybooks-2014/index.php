@@ -61,9 +61,15 @@ if ( $future_query->have_posts() ) {
 		} else {
 			// THIS BOOK IS NOT IN THE TABLE ...SO PUT IT IN THERE.
 			global $wpdb;
+			$i_obj				 = $wpdb->get_results( "SELECT MAX(listorder) as maxColumn FROM wp_reading_list WHERE 1" );
+			if ( NULL == $i_obj[0]->maxColumn ) {
+				$i = 1;
+			} else {
+				$i = ( $i_obj[0]->maxColumn ) + 1;
+			}
 			$bid           = $post->ID;
 			$table_name    = $wpdb->prefix . "reading_list";
-			$rows_affected = $wpdb->insert( $table_name, array( 'time' => current_time('mysql'), 'bid' => $bid ) );
+			$rows_affected = $wpdb->insert( $table_name, array( 'time' => current_time('mysql'), 'bid' => $bid, 'listorder' => $i ) );
 		}
 	}
 }

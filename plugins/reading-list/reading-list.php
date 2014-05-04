@@ -39,6 +39,7 @@ function reading_list_install() {
   id mediumint(9) NOT NULL AUTO_INCREMENT,
   time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
   bid bigint(20) NOT NULL,
+  listorder bigint(20) NOT NULL,
   UNIQUE KEY id (id)
     );";
 
