@@ -50,26 +50,28 @@ function updateCurrentList() {
 function updateFutureList() {
 	
 	// Get array of newly arranged LIs (updatedArray)
-	var updatedArray = {};
+	var updatedArray = [];
 	var expectedOrder = 1;
 	jQuery( '#future-read-list li' ).each( function( index ) {
 		var readingOrder = jQuery( this ).data( 'order' );
 		if ( readingOrder != expectedOrder ) {
-			updatedArray[this.id] = expectedOrder;
+			updatedArray.push( this.id + ':' + expectedOrder );
 		}
 		expectedOrder++;
 	} );
 	
 	// Turn updatedArray into comma seperated list (updatedList)
-	//var updatedList = updatedArray.join(",");
+	var updatedList = updatedArray.join(",");
 	
 	// Send array to PHP
+	jQuery( '#loading-container' ).toggle();
 	jQuery.ajax( {
 		'type': 'POST',
-		'url': templateDirectory + '/_php/save-reading-list.php',
-		'data': updatedArray,
-		'success': function() {
-			console.log(updatedArray);
+		'url': templateDirectory + '/_php/save-future-list.php',
+		'data': 'future_list=' + updatedList,
+		'success': function(data) {
+			// data variable is anything echoed in above php file.
+			jQuery( '#loading-container' ).toggle();
 		}
 	} );
 	
