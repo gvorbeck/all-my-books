@@ -2,7 +2,7 @@
 function updateFinishedList(fid) {
 	
 	// Get array of newly arranged LIs (updatedArray)
-	var updatedArray = [];
+	/*var updatedArray = [];
 	jQuery( '#finished-read-list li' ).each( function( index ) {
 		updatedArray.push( this.id );
 	} );
@@ -21,14 +21,14 @@ function updateFinishedList(fid) {
 			//jQuery( '#loading-container' ).fadeOut();
 			jQuery( '#loading-container' ).toggle();
 		}
-	} );
+	} );*/
 	
 }
 
 function updateCurrentList() {
 	
 	// Get array of newly arranged LIs (updatedArray)
-	var updatedArray = [];
+	/*var updatedArray = [];
 	jQuery( '#current-read-list li' ).each( function( index ) {
 		updatedArray.push( this.id );
 	} );
@@ -43,20 +43,21 @@ function updateCurrentList() {
 		data: 'currentlist=' + updatedList,
 		success: function() {
 		}
-	} );
+	} );*/
 	
 }
 
 function updateFutureList() {
 	
 	// Get array of newly arranged LIs (updatedArray)
-	var updatedArray = [];
+	//var updatedArray = [];
 	jQuery( '#future-read-list li' ).each( function( index ) {
-		updatedArray.push( this.id );
+		//updatedArray.push( this.id );
+		console.log( jQuery( this ).data( 'order' ) );
 	} );
 	
 	// Turn updatedArray into comma seperated list (updatedList)
-	var updatedList = updatedArray.join(",");
+	/*var updatedList = updatedArray.join(",");
 	
 	// Send array to PHP
 	jQuery.ajax( {
@@ -65,7 +66,7 @@ function updateFutureList() {
 		data: 'futurelist=' + updatedList,
 		success: function() {
 		}
-	} );
+	} );*/
 	
 }
 
