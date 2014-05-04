@@ -78,8 +78,7 @@ wp_reset_postdata();
 $future_list = $wpdb->get_results( 'SELECT * FROM wp_reading_list ORDER BY listorder ASC', ARRAY_N );
 echo '<section id="future-read" class="book-shelf"><div class="ribbon"></div><h1>I Want To Read These</h1><ul id="future-read-list" class="book-list">';
 foreach ( $future_list as &$f ) {
-	//var_dump($f);
-	the_book_builder( $f[2] );
+	the_book_builder( $f[2], $f[3] );
 }
 
 get_footer();
