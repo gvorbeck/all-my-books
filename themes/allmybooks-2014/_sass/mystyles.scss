@@ -344,31 +344,20 @@ body {
 	position: relative;
 	line-height: 1.25em;
 	
-	.book--info-links {
+	.book--action-links {
 		line-height: 1em;
-		float: left;
-		
-		@include breakpoint( max-width 785px ) {
-			float: none;
-		}
+		float: none;
+		padding: 0 0 0 5px;
 	}
 	p {
-		margin: 0;
-		padding: 0 0 0 10px;
-		overflow: hidden;
-		border-left: 2px solid color--shadow($color-primary);
-		line-height: 1.5em;
-		
-		@include breakpoint( max-width 785px ) {
-			border-left: none;
-			border-top: 2px solid color--shadow($color-primary);
-			padding: 10px 0 0;
-			margin: 10px 0 0;
-		}
+		border-left: none;
+		border-top: 2px solid color--shadow($color-primary);
+		padding: 10px 0 0;
+		margin: 6px 0 0;
 	}
 }
 
-.info-link {
+.action-link {
 	font-family: $font-social-icons;
 	color: $color-secondary;
 	text-decoration: none;
@@ -389,24 +378,25 @@ body {
 		margin: 0 10px 0 0;
 	}
 }
-.info-link.missing {
+.action-link.missing {
 	opacity: 0.4;
 }
-.amazon-info-link {
-	top: 4px;
+.amazon-action-link {
+	//top: 4px;
 }
-.wiki-info-link {
-	top: 4px;
+.wiki-action-link {
+	//top: 4px;
 
 	svg {
 		width: 28px;
 		height: 28px;
 	}
 }
-.download-info-link {
+.download-action-link {
+	top: -3px;
 }
-.edit-info-link {
-	top: 1px;
+.edit-action-link {
+	top: -3px;
 	
 	svg {
 		width: 22px;
