@@ -79,15 +79,22 @@ wp_reset_postdata();
 
 // AT THIS POINT YOU HAVE CLEANED UP YOUR TABLE, NOW START LAYING IT  OUT IN CODE.
 $future_list = $wpdb->get_results( 'SELECT * FROM wp_reading_list ORDER BY listorder ASC', ARRAY_N );
-echo '<section id="future-read" class="book-shelf"><div class="ribbon"></div><h1>I Want To Read These</h1><ul id="future-read-list" class="book-list">';
-foreach ( $future_list as &$f ) {
-	// MAKE SURE EACH ITEM IN TABLE IS STILL MARKED AS WTR.
-	if ( in_array( $f[2], $wtr_array ) ) {
-		the_book_builder( $f[2], $f[3] );
-	} else {
-		// IF IT ISN'T, DELETE IT.
-		$wpdb->delete( 'wp_reading_list', array( 'bid' => $f[2] ) );
+echo '<section id="future-read" class="book-shelf"><div class="ribbon"></div><h1>I Want To Read These</h1>';
+if ( $future_list ) {
+	echo '<ul id="future-read-list" class="book-list">';
+	foreach ( $future_list as &$f ) {
+		// MAKE SURE EACH ITEM IN TABLE IS STILL MARKED AS WTR.
+		if ( in_array( $f[2], $wtr_array ) ) {
+			the_book_builder( $f[2], $f[3] );
+		} else {
+			// IF IT ISN'T, DELETE IT.
+			$wpdb->delete( 'wp_reading_list', array( 'bid' => $f[2] ) );
+		}
 	}
+	echo '</ul>';
+} else {
+	echo '<p class="instructions">Error: Make sure that the Reading List plugin is activated <a href="' . get_admin_url() . 'plugins.php">here</a>.</p>';
 }
+echo '</section>';
 
 get_footer();
