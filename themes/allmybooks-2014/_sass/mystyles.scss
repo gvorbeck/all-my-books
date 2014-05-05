@@ -415,18 +415,18 @@ body {
 #site-footer {
 	margin: 20px 0 0;
 	padding: 0 0 20px;
-	color: $color-tertiary;
+	color: color--shadow($color-tertiary);
 	font-family: $font-text;
 	
 	a {
 		color: $color-secondary;
 	}
-	.icon--font {
-		color: $color-secondary;
-		font-family: $font-web-icons;
+	p svg {
+		fill: $color-secondary;
 		display: inline-block;
+		height: 25px;
+		width: 25px;
 		margin: 5px 10px 0 0;
-		font-size: 2em;
 	}
 }
 .icon--wordpress::before {
