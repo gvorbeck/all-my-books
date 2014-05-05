@@ -76,8 +76,8 @@
 						</div>
 						<nav>
 							<ul>
-								<li><a class="navigation--popup-link" href="<?php bloginfo('url'); ?>/wordpress/wp-admin" title="AMB Admin Area" target="_blank"><?php echo file_get_contents( locate_template( "_images/icons/cms.svg" ) ); ?></a></li>
-								<li><a class="navigation--popup-link" href="<?php bloginfo('url'); ?>/wordpress/wp-admin/post-new.php" title="Add a New Book" target="_blank"><?php echo file_get_contents( locate_template( "_images/icons/book.svg" ) ); ?></a></li>
+								<li><a class="navigation--popup-link" href="<?php echo get_admin_url(); ?>" title="AMB Admin Area" target="_blank"><?php echo file_get_contents( locate_template( "_images/icons/cms.svg" ) ); ?></a></li>
+								<li><a class="navigation--popup-link" href="<?php echo get_admin_url(); ?>post-new.php" title="Add a New Book" target="_blank"><?php echo file_get_contents( locate_template( "_images/icons/book.svg" ) ); ?></a></li>
 							</ul>
 						</nav>
 					</div>

@@ -300,13 +300,15 @@ body {
 		padding: 10px 10px 26px;
 		min-height: 46px;
 	}
+	.instructions {
+		position: relative;
+		top: -30px;
+	}
 }
 .instructions {
 	font-family: $font-text;
 	text-align: center;
 	color: $color-tertiary;
-	position: relative;
-	top: -30px;
 }
 #current-read {
 	margin: 0;
