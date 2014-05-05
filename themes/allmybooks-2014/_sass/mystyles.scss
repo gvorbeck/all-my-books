@@ -372,27 +372,27 @@ body {
 .action-link.missing {
 	opacity: 0.4;
 }
-.amazon-action-link {
+#amazon-action-link {
 	//top: 4px;
 }
-.wiki-action-link {
+#wiki-action-link {
 	//top: 4px;
 
-	svg {
+	/*svg {
 		width: 28px;
 		height: 28px;
-	}
+	}*/
 }
-.download-action-link {
+#download-action-link {
 	top: -3px;
 }
-.edit-action-link {
+#edit-action-link {
 	top: -4px;
 	
-	svg {
+	/*svg {
 		width: 22px;
 		height: 22px;
-	}
+	}*/
 }
 
 .book--title {

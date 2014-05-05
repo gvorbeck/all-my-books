@@ -113,8 +113,9 @@ if ( ! function_exists( 'get_action_links' ) ) {
 			$book_no_click = "onclick='return false'";
 		}
 		$book_links    = array();
-		$book_links[]  = "<a class='amazon-action-link action-link' href='http://www.amazon.com/s/field-keywords=$ascii_title+$ascii_authors' target='_blank' title='Search Amazon'>" . file_get_contents( locate_template( "_images/icons/amazon.svg" ) ) . "</a>";
-		$book_links[]  = "<a class='wiki-action-link action-link' href='http://en.wikipedia.org/wiki/Special:Search?search=$ascii_title+$ascii_authors' target='_blank' title='Search Wikipedia'>" . file_get_contents( locate_template( "_images/icons/wikipedia.svg" ) ) . "</a>";
+		$book_links[]  = "<a id='amazon-action-link' class='action-link' href='http://www.amazon.com/s/field-keywords=$ascii_title+$ascii_authors' target='_blank' title='Search Amazon'>" . file_get_contents( locate_template( "_images/icons/amazon.svg" ) ) . "</a>";
+		$book_links[]  = "<a id='wiki-action-link' class='action-link' href='http://en.wikipedia.org/wiki/Special:Search?search=$ascii_title+$ascii_authors' target='_blank' title='Search Wikipedia'>" . file_get_contents( locate_template( "_images/icons/wikipedia.svg" ) ) . "</a>";
+		$book_links[]  = "<a id='luzme-action-link' class='action-link' href='http://luzme.com/search_all?keyword=$ascii_title+$ascii_authors' target='_blank' title='Shop Luzme'>" . file_get_contents( locate_template( "_images/icons/store.svg" ) ) . "</a>";
 		if ( is_user_logged_in() ) {
 			$book_links[] = "<a class='download-action-link action-link $book_missing' href='" . get_field('book_file', $post_id) . "' title='Download " . esc_attr( get_post( $post_id )->post_title ) . "' $book_no_click >" . file_get_contents( locate_template( "_images/icons/download.svg" ) ) . "</a>";
 			$book_links[]  = '<a class="edit-action-link action-link" href="' . get_edit_post_link( $post_id ) . '" target="_blank" title="Edit ' . esc_attr( get_post( $post_id )->post_title ) . '">' . file_get_contents( locate_template( "_images/icons/edit.svg" ) ) . '</a>';
