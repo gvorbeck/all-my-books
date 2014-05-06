@@ -1,26 +1,15 @@
 // VAR fid = ID of finished book.
 function updateFinishedList(fid) {
-	
-	// Get array of newly arranged LIs (updatedArray)
-	var updatedArray = [];
-	jQuery( '#finished-read-list li' ).each( function( index ) {
-		updatedArray.push( this.id );
-	} );
-	
-	// Turn updatedArray into comma seperated list (updatedList)
-	var updatedList = updatedArray.join(",");
-	
-	// Send array to PHP
 	jQuery( '#loading-container' ).toggle();
 	jQuery.ajax( {
 		type: 'POST',
-		url: templateDirectory + '/_php/save-reading-list.php',
-		data: 'id=' + fid + '&finishedlist=' + updatedList,
-		success: function() {
+		url: templateDirectory + '/_php/save-finished-list.php',
+		data: 'id=' + fid,
+		success: function(data) {
 			jQuery( '#loading-container' ).toggle();
+			console.log(data);
 		}
 	} );
-	
 }
 
 function updateCurrentList() {
