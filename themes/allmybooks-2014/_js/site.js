@@ -90,15 +90,18 @@ jQuery( document ).ready( function() {
 	jQuery( "#current-read-list, #future-read-list, #finished-read-list" ).sortable( {
 		update: function( event, ui ) {
 			if (this === ui.item.parent()[0]) { // Usually update fires for every list linked. Anything in here will only fire once.
-				//updateFinishedList(ui.item.attr('id')); // Send the ID of the element sent to the Finished List.
 				//console.log(ui.item.attr('id')); // BOOK ID
 				//console.log(ui.item.parent()[0].id); // LIST ID
 				if ( 'future-read-list' == ui.item.parent()[0].id ) {
 					updateFutureList();
-					console.log('fart');
+				}
+				if ( 'current-read-list' == ui.item.parent()[0].id ) {
+					updateCurrentList();
+				}
+				if ( 'finished-read-list' == ui.item.parent()[0].id ) {
+					updateFinishedList(ui.item.attr('id'));
 				}
 			}
-			//updateCurrentList();
 			//console.log(ui);
 		},
 		// Show Finished list.
