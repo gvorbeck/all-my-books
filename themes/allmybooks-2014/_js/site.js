@@ -1,37 +1,29 @@
-// VAR fid = ID of finished book.
-function updateFinishedList(fid) {
+// VAR bid = ID of book.
+function updateFinishedList(bid) {
 	jQuery( '#loading-container' ).toggle();
 	jQuery.ajax( {
 		type: 'POST',
 		url: templateDirectory + '/_php/save-finished-list.php',
-		data: 'id=' + fid,
+		data: 'id=' + bid,
 		success: function(data) {
 			jQuery( '#loading-container' ).toggle();
-			console.log(data);
+			//console.log(data);
 		}
 	} );
 }
 
-function updateCurrentList() {
-	
-	// Get array of newly arranged LIs (updatedArray)
-	var updatedArray = [];
-	jQuery( '#current-read-list li' ).each( function( index ) {
-		updatedArray.push( this.id );
-	} );
-	
-	// Turn updatedArray into comma seperated list (updatedList)
-	var updatedList = updatedArray.join(",");
-	
-	// Send array to PHP
+// VAR bid = ID of book.
+function updateCurrentList(bid) {
+	jQuery( '#loading-container' ).toggle();
 	jQuery.ajax( {
 		type: 'POST',
-		url: templateDirectory + '/_php/save-reading-list.php',
-		data: 'currentlist=' + updatedList,
-		success: function() {
+		url: templateDirectory + '/_php/save-current-list.php',
+		data: 'id=' + bid,
+		success: function(data) {
+			jQuery( '#loading-container' ).toggle();
+			//console.log(data);
 		}
 	} );
-	
 }
 
 function updateFutureList() {
@@ -85,7 +77,7 @@ jQuery( document ).ready( function() {
 					updateFutureList();
 				}
 				if ( 'current-read-list' == ui.item.parent()[0].id ) {
-					updateCurrentList();
+					updateCurrentList(ui.item.attr('id'));
 				}
 				if ( 'finished-read-list' == ui.item.parent()[0].id ) {
 					updateFinishedList(ui.item.attr('id'));
