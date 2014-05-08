@@ -1,14 +1,4 @@
 <?php
-
-// THIS IS COMMENTED OUT. CURRENTLY IT DOES NOT LOOK TO SEE IF LISTORDER COLUMN NUMBER IS ALREADY PRESENT SO YOU RESULT IN SEVERAL OF EACH LISTORDER NUMBER (EX: 1, 1, 1, 1, 2, 2, 2, 2, ETC ).
-
-if ( '::1' == $_SERVER["REMOTE_ADDR"] ) {
-	// IF THIS IS A LOCALHOST ENVIRONMENT
-	// IF YOU GET 500 INTERNAL SERVER ERRORS ON LOCAL HOST, EDIT THIS
-	require_once($_SERVER['DOCUMENT_ROOT'].'/allmybooks/wordpress/wp-config.php');
-} else {
-	require_once($_SERVER['DOCUMENT_ROOT'].'/wordpress/wp-config.php');
-}
 $future_list = $_POST['future_list'];
 echo $future_list;
 global $wpdb;
