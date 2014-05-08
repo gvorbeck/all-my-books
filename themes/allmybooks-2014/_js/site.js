@@ -1,48 +1,29 @@
-// VAR fid = ID of finished book.
-function updateFinishedList(fid) {
-	
-	// Get array of newly arranged LIs (updatedArray)
-	var updatedArray = [];
-	jQuery( '#finished-read-list li' ).each( function( index ) {
-		updatedArray.push( this.id );
-	} );
-	
-	// Turn updatedArray into comma seperated list (updatedList)
-	var updatedList = updatedArray.join(",");
-	
-	// Send array to PHP
+// VAR bid = ID of book.
+function updateFinishedList(bid) {
 	jQuery( '#loading-container' ).toggle();
 	jQuery.ajax( {
 		type: 'POST',
-		url: templateDirectory + '/_php/save-reading-list.php',
-		data: 'id=' + fid + '&finishedlist=' + updatedList,
-		success: function() {
+		url: templateDirectory + '/_php/save-finished-list.php',
+		data: 'id=' + bid,
+		success: function(data) {
 			jQuery( '#loading-container' ).toggle();
+			//console.log(data);
 		}
 	} );
-	
 }
 
-function updateCurrentList() {
-	
-	// Get array of newly arranged LIs (updatedArray)
-	var updatedArray = [];
-	jQuery( '#current-read-list li' ).each( function( index ) {
-		updatedArray.push( this.id );
-	} );
-	
-	// Turn updatedArray into comma seperated list (updatedList)
-	var updatedList = updatedArray.join(",");
-	
-	// Send array to PHP
+// VAR bid = ID of book.
+function updateCurrentList(bid) {
+	jQuery( '#loading-container' ).toggle();
 	jQuery.ajax( {
 		type: 'POST',
-		url: templateDirectory + '/_php/save-reading-list.php',
-		data: 'currentlist=' + updatedList,
-		success: function() {
+		url: templateDirectory + '/_php/save-current-list.php',
+		data: 'id=' + bid,
+		success: function(data) {
+			jQuery( '#loading-container' ).toggle();
+			//console.log(data);
 		}
 	} );
-	
 }
 
 function updateFutureList() {
@@ -70,6 +51,7 @@ function updateFutureList() {
 		'success': function(data) {
 			// data variable is anything echoed in above php file.
 			jQuery( '#loading-container' ).toggle();
+			//console.log(data);
 		}
 	} );
 	
@@ -90,10 +72,19 @@ jQuery( document ).ready( function() {
 	jQuery( "#current-read-list, #future-read-list, #finished-read-list" ).sortable( {
 		update: function( event, ui ) {
 			if (this === ui.item.parent()[0]) { // Usually update fires for every list linked. Anything in here will only fire once.
-				updateFinishedList(ui.item.attr('id')); // Send the ID of the element sent to the Finished List.
+				//console.log(ui.item.attr('id')); // BOOK ID
+				//console.log(ui.item.parent()[0].id); // LIST ID
+				if ( 'future-read-list' == ui.item.parent()[0].id ) {
+					updateFutureList();
+				}
+				if ( 'current-read-list' == ui.item.parent()[0].id ) {
+					updateCurrentList(ui.item.attr('id'));
+				}
+				if ( 'finished-read-list' == ui.item.parent()[0].id ) {
+					updateFinishedList(ui.item.attr('id'));
+				}
 			}
-			updateCurrentList();
-			updateFutureList();
+			//console.log(ui);
 		},
 		// Show Finished list.
 		activate: function( event, ui ) {
