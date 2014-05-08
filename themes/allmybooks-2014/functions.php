@@ -200,3 +200,148 @@ if ( ! function_exists( 'the_book_builder' ) ) {
 	}
 }
 /* END THEME FUNCTIONS */
+/* CUSTOM FIELD CODE */
+if(function_exists("register_field_group"))
+{
+	register_field_group(array (
+		'id' => 'acf_book-data',
+		'title' => 'Book Data',
+		'fields' => array (
+			array (
+				'key' => 'field_533efbfd26ca0',
+				'label' => 'Book File',
+				'name' => 'book_file',
+				'type' => 'file',
+				'instructions' => 'Upload the e-book file here.',
+				'save_format' => 'url',
+				'library' => 'all',
+			),
+			array (
+				'key' => 'field_5345e5255e78d',
+				'label' => 'Series Info',
+				'name' => 'series_info',
+				'type' => 'repeater',
+				'sub_fields' => array (
+					array (
+						'key' => 'field_5345f762c6e37',
+						'label' => 'Series Name',
+						'name' => 'series_name',
+						'type' => 'taxonomy',
+						'column_width' => '',
+						'taxonomy' => 'series',
+						'field_type' => 'select',
+						'allow_null' => 0,
+						'load_save_terms' => 0,
+						'return_format' => 'id',
+						'multiple' => 0,
+					),
+					array (
+						'key' => 'field_5345f87655fe5',
+						'label' => 'Series Position',
+						'name' => 'series_position',
+						'type' => 'number',
+						'column_width' => '',
+						'default_value' => '',
+						'placeholder' => '',
+						'prepend' => '',
+						'append' => '',
+						'min' => '',
+						'max' => '',
+						'step' => 1,
+					),
+				),
+				'row_min' => '',
+				'row_limit' => '',
+				'layout' => 'table',
+				'button_label' => 'Add Series',
+			),
+			array (
+				'key' => 'field_4fa81bf2a77dd',
+				'label' => 'Read Records',
+				'name' => 'read_records',
+				'type' => 'repeater',
+				'sub_fields' => array (
+					array (
+						'key' => 'field_4fa81bf2a8786',
+						'label' => 'Read Year',
+						'name' => 'read_year',
+						'type' => 'text',
+						'column_width' => '',
+						'default_value' => '',
+						'placeholder' => '',
+						'prepend' => '',
+						'append' => '',
+						'formatting' => 'html',
+						'maxlength' => '',
+					),
+				),
+				'row_min' => '',
+				'row_limit' => '',
+				'layout' => 'table',
+				'button_label' => 'Add Read Year',
+			),
+		),
+		'location' => array (
+			array (
+				array (
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'post',
+					'order_no' => 0,
+					'group_no' => 0,
+				),
+			),
+		),
+		'options' => array (
+			'position' => 'normal',
+			'layout' => 'default',
+			'hide_on_screen' => array (
+				0 => 'custom_fields',
+				1 => 'discussion',
+				2 => 'comments',
+				3 => 'slug',
+				4 => 'author',
+			),
+		),
+		'menu_order' => 0,
+	));
+	register_field_group(array (
+		'id' => 'acf_reading-state-fields',
+		'title' => 'Reading State Fields',
+		'fields' => array (
+			array (
+				'key' => 'field_52d951d585923',
+				'label' => 'Reading State',
+				'name' => 'reading_state',
+				'type' => 'radio',
+				'choices' => array (
+					0 => 'Read',
+					1 => 'Currently Reading',
+					2 => 'Want To Read',
+				),
+				'other_choice' => 0,
+				'save_other_choice' => 0,
+				'default_value' => 2,
+				'layout' => 'vertical',
+			),
+		),
+		'location' => array (
+			array (
+				array (
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'post',
+					'order_no' => 0,
+					'group_no' => 0,
+				),
+			),
+		),
+		'options' => array (
+			'position' => 'side',
+			'layout' => 'default',
+			'hide_on_screen' => array (
+			),
+		),
+		'menu_order' => 0,
+	));
+}
