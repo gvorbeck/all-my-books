@@ -337,6 +337,9 @@ body {
 	&:last-child {
 		margin: 0;
 	}
+	&.ui-sortable-helper {
+		box-shadow: rgba(0, 0, 0, 0.4) 6px 6px 12px;
+	}
 	.book--action-links {
 		line-height: 1em;
 		float: none;
@@ -375,26 +378,14 @@ body {
 	opacity: 0.4;
 }
 #amazon-action-link {
-	//top: 4px;
 }
 #wiki-action-link {
-	//top: 4px;
-
-	/*svg {
-		width: 28px;
-		height: 28px;
-	}*/
 }
 #download-action-link {
 	top: -3px;
 }
 #edit-action-link {
 	top: -4px;
-	
-	/*svg {
-		width: 22px;
-		height: 22px;
-	}*/
 }
 
 .book--title {
