@@ -142,7 +142,7 @@ if ( ! function_exists( 'cat_class_builder' ) ) {
 }
 
 if ( ! function_exists( 'the_book_builder' ) ) {
-	function the_book_builder( $post_id, $list_order ) {
+	function the_book_builder( $post_id, $list_order, $class = '' ) {
 		// Set up category data (ommiting Uncategorized, of course).
 		$cats = get_the_category( $post_id );
 		$cat_list = '';
@@ -184,7 +184,7 @@ if ( ! function_exists( 'the_book_builder' ) ) {
 				$cat_tag_string .= $tag_list;
 			}
 		}
-		echo "<li id='$post_id' class='book' data-order='$list_order'>";
+		echo "<li id='$post_id' class='book $class' data-order='$list_order'>";
 			echo '<div class="book--action-links">' . implode( ' ', get_action_links( $post_id ) ) . '</div>';
 			echo '<p>';
 				echo '<span class="book--title">' . get_the_title( $post_id ) . '</span>';
@@ -200,7 +200,8 @@ if ( ! function_exists( 'the_book_builder' ) ) {
 	}
 }
 /* END THEME FUNCTIONS */
-/* CUSTOM FIELD CODE */
+
+/* CUSTOM FIELD CODE START */
 if(function_exists("register_field_group"))
 {
 	register_field_group(array (
@@ -345,3 +346,4 @@ if(function_exists("register_field_group"))
 		'menu_order' => 0,
 	));
 }
+/* CUSTOM FIELD CODE END */
