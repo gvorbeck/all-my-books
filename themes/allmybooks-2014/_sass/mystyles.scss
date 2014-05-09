@@ -410,12 +410,14 @@ body {
 	padding: 0 0 20px;
 	color: color--shadow($color-tertiary);
 	font-family: $font-text;
-	
+	position: relative;
+		
 	a {
 		color: $color-secondary;
 	}
 	p {
-	
+		margin: 0 0 10px;
+		
 		svg {
 			fill: $color-secondary;
 			display: inline-block;
@@ -426,10 +428,18 @@ body {
 	}
 }
 #github-link {
-	color: color--shadow($color-tertiary);
-	text-decoration: none;
+	position: absolute;
+	top: -12px;
+	right: -9px;
 	
-	&:hover {
-		text-decoration: underline;
+	a {
+		text-decoration: none;
+		
+		span {
+			text-decoration: underline;
+			margin: 0 0 2px;
+			display: inline-block;
+			overflow: hidden;
+		}
 	}
 }
