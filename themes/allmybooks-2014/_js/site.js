@@ -68,6 +68,16 @@ jQuery( document ).ready( function() {
 		jQuery( '#dev--window-width' ).text( pageWidth+15 );
 	});
 	
+	// Hide the bloat of the wtr list.
+	jQuery('#show-full-list-button').click(function() {
+		jQuery('#future-read-list .overflow').toggle();
+		if ( 'Expand' == jQuery(this).text() ) {
+			jQuery(this).text('Collapse');
+		} else {
+			jQuery(this).text('Expand');
+		};
+	});
+	
 	// Set the two list's LIs as sortable.
 	jQuery( "#current-read-list, #future-read-list, #finished-read-list" ).sortable( {
 		update: function( event, ui ) {

@@ -20,22 +20,28 @@ $color-dark-cream: #D4C18B;
 $font-title: 'Domine', serif;
 $font-text: 'Sintony', sans-serif;
 
-@include font-face( "Social", font-files( "social.woff", "social.ttf", "social.eot", "social.svg") );
-$font-social-icons: 'Social', sans-serif;
-
-@include font-face( "Icomoon", font-files( "icomoon.woff", "icomoon.ttf", "icomoon.eot", "icomoon.svg") );
-$font-web-icons: 'Icomoon', sans-serif;
-
 /*
 ** TEXT SIZES
+** http://lifehacker.com/stick-to-these-font-sizes-to-simplify-designs-and-more-1531615325
 */
+$font-size-05: 0.313em; // 5px
+$font-size-07: 0.438em; // 7px
+$font-size-09: 0.563em; // 9px
+$font-size-12: 0.750em; // 12px
+$font-size-16: 1em;			// 16px
+$font-size-21: 1.313em; // 21px
+$font-size-28: 1.750em; // 28px
+$font-size-37: 2.313em; // 37px
+$font-size-50: 3.125em; // 50px
+$font-size-67: 4.188em; // 67px
+$font-size-83: 5.188em; // 83px
 
 /*
 ** EXTENDS
 */
 %ribbon {
 	position: relative;
-	font-size: .5625em; /* 9px */
+	font-size: $font-size-09;
 	top: 9px;
 	left: 18px;
 }
@@ -56,6 +62,31 @@ $font-web-icons: 'Icomoon', sans-serif;
 	height: 3.25em;
 	border-bottom: 0.7em solid transparent;
 	border-left: 1em solid $color-secondary;
+}
+%button {
+	border-bottom: 4px solid color--shadow(#C0C0C0);
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	background: #C0C0C0;
+	padding: 5px 5px 3px;
+	font-size: $font-size-16;
+	color: $color-tertiary;
+	font-family: $font-text;
+	border-radius: 5px;
+	text-decoration: none;
+	text-align: center;
+	box-sizing: border-box;
+}
+%button-hover {
+	background: color--shadow(#C0C0C0);
+	border-bottom: 4px solid color--shadow(color--shadow(#C0C0C0));
+	cursor: pointer;
+}
+%input {
+	font-size: 1em;
+	border: none;
+	padding: 5px;
 }
 
 /*
@@ -142,17 +173,17 @@ body {
 	padding: 1% 0;
 	
 	h1 {
-		font-size: 3.125em;
+		font-size: $font-size-50;
 		text-align: center;
 		font-family: $font-title;
 		color: $color-tertiary;
 		font-weight: bold;
 		
 		@include breakpoint( min-width 533px ) {
-			font-size: 4.188em;
+			font-size: $font-size-67;
 		}
 		@include breakpoint( min-width 653px ) {
-			font-size: 5.188em;
+			font-size: $font-size-83;
 		}
 	}
 }
@@ -164,7 +195,7 @@ body {
 	font-weight: normal;
 	font-family: $font-title;
 	color: $color-tertiary;
-	font-size: 5.188em;
+	font-size: $font-size-83;
 	display: none;
 	position: absolute;
 	top: 10px;
@@ -234,14 +265,13 @@ body {
 		clear: right;
 	}
 }
-#user_login,
+#user_login {
+	@extend %input;
+}
 #user_pass {
-	font-size: 1em;
-	border: none;
-	padding: 5px;
+	@extend %input;
 }
 #loginout {
-	text-align: center;
 	
 	label {
 		display: none;
@@ -250,27 +280,23 @@ body {
 		margin: 10px 0;
 	}
 }
-#wp-submit,
-#loginout.loginout-out a {
-	border-bottom: 4px solid color--shadow(#C0C0C0);
-	border-top: none;
-	border-right: none;
-	border-left: none;
-	background: #C0C0C0;
-	padding: 5px 0 3px;
+#wp-submit {
+	@extend %button;
 	width: 100%;
-	font-size: 1em;
-	color: $color-tertiary;
-	font-family: $font-text;
-	border-radius: 5px;
 	display: block;
-	text-decoration: none;
+	
+	&:hover {
+		@extend %button-hover;
+	}
 }
-#wp-submit:hover,
-#loginout.loginout-out a:hover {
-	background: color--shadow(#C0C0C0);
-	border-bottom: 4px solid color--shadow(color--shadow(#C0C0C0));
-	cursor: pointer;
+#loginout.loginout-out a {
+	@extend %button;
+	width: 100%;
+	display: block;
+	
+	&:hover {
+		@extend %button-hover;
+	}
 }
 
 /*
@@ -282,13 +308,13 @@ body {
 	h1 {
 		background: $color-tertiary;
 		color: $color-secondary;
-		line-height: 1em;
+		line-height: $font-size-16;
 		padding: 11px 35px 5px;
 		margin: 0 0 10px;
 		border-bottom: 5px solid color--shadow($color-tertiary);
 		font-weight: normal;
 		font-family: $font-title;
-		font-size: 1.75em;
+		font-size: $font-size-28;
 	}
 }
 #finished-read {
@@ -340,8 +366,11 @@ body {
 	&.ui-sortable-helper {
 		box-shadow: rgba(0, 0, 0, 0.4) 6px 6px 12px;
 	}
+	&.overflow {
+		display: none;
+	}
 	.book--action-links {
-		line-height: 1em;
+		line-height: $font-size-16;
 		float: none;
 		padding: 0 0 0 5px;
 	}
@@ -354,10 +383,7 @@ body {
 }
 
 .action-link {
-	font-family: $font-social-icons;
-	color: $color-secondary;
 	text-decoration: none;
-	font-size: 1.5em;
 	text-align: center;
 	position: relative;
 	padding: 0 15px 0 0;
@@ -387,19 +413,28 @@ body {
 #edit-action-link {
 	top: -4px;
 }
-
 .book--title {
 	font-style: italic;
 }
 .book--series {
-	font-size: .75em;
+	font-size: $font-size-12;
 }
 .book--tags {
-	font-size: .563em;
+	font-size: $font-size-09;
 	text-transform: lowercase;
 }
 .book--tags, .book--series {
 	display: block;
+}
+#show-full-list-button {
+	@extend %button;
+	width: 320px;
+	display: block;
+	margin: 3% auto 0;
+	
+	&:hover {
+		@extend %button-hover;
+	}
 }
 
 /*
