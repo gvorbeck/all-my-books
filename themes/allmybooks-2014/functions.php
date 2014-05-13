@@ -347,3 +347,58 @@ if(function_exists("register_field_group"))
 	));
 }
 /* CUSTOM FIELD CODE END */
+/* CUSTOM TAXONOMY CODE START */
+// Series
+add_action('init', 'cptui_register_my_taxes_series');
+function cptui_register_my_taxes_series() {
+register_taxonomy( 'series',array (
+  0 => 'post',
+),
+array( 'hierarchical' => false,
+	'label' => 'Series',
+	'show_ui' => true,
+	'query_var' => true,
+	'show_admin_column' => false,
+	'labels' => array (
+  'search_items' => 'Series',
+  'popular_items' => '',
+  'all_items' => '',
+  'parent_item' => '',
+  'parent_item_colon' => '',
+  'edit_item' => '',
+  'update_item' => '',
+  'add_new_item' => '',
+  'new_item_name' => '',
+  'separate_items_with_commas' => '',
+  'add_or_remove_items' => '',
+  'choose_from_most_used' => '',
+)
+) ); 
+}
+// Author
+add_action('init', 'cptui_register_my_taxes_authors');
+function cptui_register_my_taxes_authors() {
+register_taxonomy( 'authors',array (
+  0 => 'post',
+),
+array( 'hierarchical' => false,
+	'label' => 'Author(s)',
+	'show_ui' => true,
+	'query_var' => true,
+	'show_admin_column' => false,
+	'labels' => array (
+  'search_items' => 'Author',
+  'popular_items' => '',
+  'all_items' => '',
+  'parent_item' => '',
+  'parent_item_colon' => '',
+  'edit_item' => '',
+  'update_item' => '',
+  'add_new_item' => '',
+  'new_item_name' => '',
+  'separate_items_with_commas' => '',
+  'add_or_remove_items' => '',
+  'choose_from_most_used' => '',
+)
+) ); 
+}
