@@ -503,22 +503,25 @@ button:focus {
 	a {
 		color: $color-secondary;
 	}
-	p {
-		margin: 0 0 10px;
-		
-		svg {
-			fill: $color-secondary;
-			display: inline-block;
-			height: 25px;
-			width: 25px;
-			margin: 5px 10px 0 0;
-		}
+	svg {
+		fill: $color-secondary;
+		display: inline-block;
+		height: 25px;
+		width: 25px;
+		margin: 5px 0 0;
 	}
 }
+#copyright {
+	margin: 0 0 10px;
+}
 #github-link {
-	position: absolute;
-	top: -12px;
-	right: -9px;
+	margin: 0;
+	text-align: left;
+	
+	@include breakpoint( min-width 625px ) {
+		text-align: right;
+		margin: -28px 0 0;
+	}
 	
 	a {
 		text-decoration: none;
