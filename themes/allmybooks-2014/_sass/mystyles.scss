@@ -98,13 +98,13 @@ body {
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2OUjq77zykizQADjCr5M/9/f/OUASYIFgDJwgThAjBBACtAEXlnBGGKAAAAAElFTkSuQmCC) repeat;
 	
 	@include breakpoint( min-width 465px ) {
-		padding: 20px 5%;
+		padding: 2.5% 5%;
 	}
 	@include breakpoint( min-width 732px ) {
-		padding: 20px 10%;
+		padding: 2.5% 10%;
 	}
 	@include breakpoint( min-width 1650px ) {
-		padding: 20px 0;
+		padding: 2.5% 0;
 	}
 }
 #container {
@@ -442,7 +442,6 @@ body {
 */
 #site-footer {
 	margin: 20px 0 0;
-	padding: 0 0 20px;
 	color: color--shadow($color-tertiary);
 	font-family: $font-text;
 	position: relative;
