@@ -84,9 +84,15 @@ $font-size-83: 5.188em; // 83px
 	cursor: pointer;
 }
 %input {
-	font-size: 1em;
+	font-size: $font-size-21;
 	border: none;
-	padding: 5px;
+	padding: 10px;
+	background: $color-tertiary;
+	border: 2px solid color--shadow($color-tertiary);
+	color: $color-secondary;
+}
+%input-focus {
+	border: 2px solid $color-secondary;
 }
 
 /*
@@ -126,7 +132,12 @@ body {
 	margin: 10px;
 	display: none;
 }
-
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
 /* This is from https://github.com/tobiasahlin/SpinKit/blob/master/1-rotating-plane.html */
 /* Look into compass/sass config */
 .loading-spinner {
@@ -267,9 +278,17 @@ body {
 }
 #user_login {
 	@extend %input;
+	
+	&:focus {
+		@extend %input-focus;
+	}
 }
 #user_pass {
 	@extend %input;
+	
+	&:focus {
+		@extend %input-focus;
+	}
 }
 #loginout {
 	
