@@ -61,11 +61,11 @@ function updateFutureList() {
 jQuery( document ).ready( function() {
 
 	// Get browser window size. Will be 15px smaller than what Chrome reports.
-	var pageWidth = jQuery( document ).width()+15;
+	var pageWidth = jQuery( window).width()+15;
 	jQuery( '#dev--window-width' ).text( pageWidth );
 	jQuery( window ).resize( function(i) {
-		pageWidth = jQuery( document ).width();
-		jQuery( '#dev--window-width' ).text( pageWidth+15 );
+		pageWidth = jQuery( window ).width()+15;
+		jQuery( '#dev--window-width' ).text( pageWidth );
 	});
 	
 	// Hide the bloat of the wtr list.
@@ -111,9 +111,13 @@ jQuery( document ).ready( function() {
 	} ).disableSelection();
 	
 	// Show navigation/login menu.
-	jQuery( '.navigation--button, #navigation--popup').hover( function(i) {
-		if ( pageWidth > (770) ) {
-			jQuery( '#navigation--popup' ).toggle();
+	jQuery( '.navigation--button, #navigation--popup').hover( function() {
+		if ( pageWidth > (785) ) {
+			jQuery('#navigation--popup').show();
+		}
+	}, function() {
+		if ( pageWidth > (785) ) {
+			jQuery('#navigation--popup').hide();
 		}
 	} );
 	

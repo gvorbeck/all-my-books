@@ -70,13 +70,20 @@ $font-size-83: 5.188em; // 83px
 	border-left: none;
 	background: #C0C0C0;
 	padding: 5px 5px 3px;
-	font-size: $font-size-16;
+	font-size: $font-size-28;
 	color: $color-tertiary;
 	font-family: $font-text;
 	border-radius: 5px;
 	text-decoration: none;
 	text-align: center;
 	box-sizing: border-box;
+	width: 320px;
+	display: block;
+	margin: 0 auto;
+	
+	@include breakpoint( min-width 785px ) {
+		width: 100%;
+	}
 }
 %button-hover {
 	background: color--shadow(#C0C0C0);
@@ -84,12 +91,19 @@ $font-size-83: 5.188em; // 83px
 	cursor: pointer;
 }
 %input {
-	font-size: $font-size-21;
-	border: none;
-	padding: 10px;
 	background: $color-tertiary;
 	border: 2px solid color--shadow($color-tertiary);
+	box-sizing: border-box;
 	color: $color-secondary;
+	display: block;
+	font-size: $font-size-21;
+	margin: 0 auto;
+	padding: 10px;
+	width: 320px;
+	
+	@include breakpoint( min-width 785px ) {
+		width: 100%;
+	}
 }
 %input-focus {
 	border: 2px solid $color-secondary;
@@ -246,12 +260,22 @@ button:focus {
 .navigation--popup-content {
 	background: $color-tertiary;
 	border-bottom: 5px solid color--shadow($color-tertiary);
-	padding: 10px;
 	margin: 3% 0;
+	padding: 3.188%;
+	box-sizing: border-box;
+	z-index: 1;
+	
+	@include breakpoint( min-width 785px ) {
+		padding: 8.203%
+	}
 	
 	ul {
-		margin: 10px 0 0;
+		margin: 4% 0 0;
 		text-align: center;
+	
+		@include breakpoint( min-width 785px ) {
+			margin: 10% 0 0;
+		}
 	}
 	li {
 		display: inline;
@@ -285,6 +309,11 @@ button:focus {
 }
 #user_pass {
 	@extend %input;
+	margin: 3.411% auto;
+	
+	@include breakpoint( min-width 785px ) {
+		margin: 10% auto;
+	}
 	
 	&:focus {
 		@extend %input-focus;
@@ -296,13 +325,10 @@ button:focus {
 		display: none;
 	}
 	.login-password {
-		margin: 10px 0;
 	}
 }
 #wp-submit {
 	@extend %button;
-	width: 100%;
-	display: block;
 	
 	&:hover {
 		@extend %button-hover;
@@ -310,8 +336,6 @@ button:focus {
 }
 #loginout.loginout-out a {
 	@extend %button;
-	width: 100%;
-	display: block;
 	
 	&:hover {
 		@extend %button-hover;
@@ -447,8 +471,6 @@ button:focus {
 }
 #show-full-list-button {
 	@extend %button;
-	width: 320px;
-	display: block;
 	margin: 3% auto 0;
 	
 	&:hover {
