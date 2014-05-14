@@ -395,7 +395,7 @@ button:focus {
 }
 .book {
 	background: $color-primary;
-	padding: 12px 10px 9px;
+	padding: 12px 1% 1%;
 	margin: 0 0 10px;
 	color: $color-secondary;
 	border-bottom: 4px solid color--shadow($color-primary);
@@ -468,6 +468,19 @@ button:focus {
 }
 .book--tags, .book--series {
 	display: block;
+}
+.book--want-date {
+	position: absolute;
+	color: color--shadow($color-primary);
+	bottom: 1%;
+	right: 1%;
+	text-transform: uppercase;
+	font-style: italic;
+	display: none;
+	
+	@include breakpoint( min-width 785px ) {
+		display: inline-block;
+	}
 }
 #show-full-list-button {
 	@extend %button;

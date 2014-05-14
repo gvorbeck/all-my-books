@@ -21,7 +21,7 @@ function updateCurrentList(bid) {
 		data: 'id=' + bid,
 		success: function(data) {
 			jQuery( '#loading-container' ).toggle();
-			//console.log(data);
+			console.log(data);
 		}
 	} );
 }

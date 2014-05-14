@@ -142,7 +142,7 @@ if ( ! function_exists( 'cat_class_builder' ) ) {
 }
 
 if ( ! function_exists( 'the_book_builder' ) ) {
-	function the_book_builder( $post_id, $list_order, $class = '' ) {
+	function the_book_builder( $post_id, $list_order, $class = '', $time = '' ) {
 		// Set up category data (ommiting Uncategorized, of course).
 		$cats = get_the_category( $post_id );
 		$cat_list = '';
@@ -194,6 +194,9 @@ if ( ! function_exists( 'the_book_builder' ) ) {
 				}
 				if ( '' != $cat_tag_string ) {
 					echo ' <span class="book--tags">(' . $cat_tag_string . ')</span>';
+				}
+				if ( '' != $time ) {
+					echo "<span class='book--want-date'>since $time</span>";
 				}
 			echo '</p>';
 		echo '</li>';

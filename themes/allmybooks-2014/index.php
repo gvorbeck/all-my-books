@@ -86,9 +86,10 @@ if ( $future_list ) {
 	$class = '';
 	foreach ( $future_list as &$f ) {
 		if ( 9 < $i ) { $class = 'overflow'; }
+		$time = date( 'M \'y', strtotime( $f[1] ) );
 		// MAKE SURE EACH ITEM IN TABLE IS STILL MARKED AS WTR.
 		if ( in_array( $f[2], $wtr_array ) ) {
-			the_book_builder( $f[2], $f[3], $class );
+			the_book_builder( $f[2], $f[3], $class, $time );
 			$i++;
 		} else {
 			// IF IT ISN'T, DELETE IT.
