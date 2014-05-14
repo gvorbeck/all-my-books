@@ -385,7 +385,7 @@ register_taxonomy( 'authors',array (
   0 => 'post',
 ),
 array( 'hierarchical' => false,
-	'label' => 'Author(s)',
+	'label' => 'Authors',
 	'show_ui' => true,
 	'query_var' => true,
 	'show_admin_column' => false,
