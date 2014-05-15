@@ -77,13 +77,10 @@ $font-size-83: 5.188em; // 83px
 	text-decoration: none;
 	text-align: center;
 	box-sizing: border-box;
-	width: 320px;
+	max-width: 272px;
+	width: 100%;
 	display: block;
 	margin: 0 auto;
-	
-	@include breakpoint( min-width 785px ) {
-		width: 100%;
-	}
 }
 %button-hover {
 	background: color--shadow(#C0C0C0);
@@ -264,6 +261,7 @@ button:focus {
 	padding: 3.188%;
 	box-sizing: border-box;
 	z-index: 1;
+	min-width: 221px;
 	
 	@include breakpoint( min-width 785px ) {
 		padding: 8.203%
