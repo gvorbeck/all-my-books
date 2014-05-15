@@ -518,7 +518,7 @@ button:focus {
 	margin: 0;
 	text-align: left;
 	
-	@include breakpoint( min-width 625px ) {
+	@include breakpoint( min-width 855px ) {
 		text-align: right;
 		margin: -28px 0 0;
 	}

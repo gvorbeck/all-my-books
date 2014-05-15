@@ -61,10 +61,10 @@ function updateFutureList() {
 jQuery( document ).ready( function() {
 
 	// Get browser window size. Will be 15px smaller than what Chrome reports.
-	var pageWidth = jQuery( window).width()+15;
+	var pageWidth = jQuery( window).width();
 	jQuery( '#dev--window-width' ).text( pageWidth );
 	jQuery( window ).resize( function(i) {
-		pageWidth = jQuery( window ).width()+15;
+		pageWidth = jQuery( window ).width();
 		jQuery( '#dev--window-width' ).text( pageWidth );
 	});
 	
