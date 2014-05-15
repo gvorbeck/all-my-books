@@ -78,18 +78,30 @@ jQuery( document ).ready( function() {
 		};
 	});
 	
-	jQuery('#finished-read-list, #current-read-list, #future-read-list').sortable({
+	// Make lists sortable and connected to one another.
+	// https://github.com/farhadi/html5sortable
+	jQuery( '#finished-read-list, #current-read-list, #future-read-list' ).sortable( {
     connectWith: '.connected'
+	} ).bind( 'sortupdate', function() {
+    console.log( 'This is the control: ' + jQuery( this ).attr( 'id' ) );
+    switch ( jQuery( this ).attr( 'id' ) ) {
+	    case 'future-read-list':
+	    	updateFutureList();
+	    	break;
+	    case 'current-read-list':
+	    	alert('fart-o-rama');
+	    	break;
+    }
 	});
 	
 	// Show navigation/login menu.
-	jQuery( '.navigation--button, #navigation--popup').hover( function() {
+	jQuery( '.navigation--button, #navigation--popup' ).hover( function() {
 		if ( pageWidth > (785) ) {
-			jQuery('#navigation--popup').show();
+			jQuery( '#navigation--popup' ).show();
 		}
 	}, function() {
 		if ( pageWidth > (785) ) {
-			jQuery('#navigation--popup').hide();
+			jQuery( '#navigation--popup' ).hide();
 		}
 	} );
 	
