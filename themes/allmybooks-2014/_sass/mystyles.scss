@@ -1,14 +1,13 @@
 @import "compass/css3";
 @import "breakpoint";
 
+
 /*
 ** COLORS
 */
 $color-primary: #246f99;
 $color-secondary: #F5F1D2;
 $color-tertiary: #434343;
-$color-burnt-cream: #EDDCAD;
-$color-dark-cream: #D4C18B;
 
 @function color--shadow($color) {
 	@return adjust-color($color, $hue: 0, $saturation: 3, $lightness: -7);
@@ -485,6 +484,17 @@ button:focus {
 	&:hover {
 		@extend %button-hover;
 	}
+}
+
+/*
+** SORTING (http://farhadi.ir/projects/html5sortable/)
+*/
+.sortable-dragging {}
+.sortable-placeholder {
+	border: 1px dashed #CCC;
+	background: color--shadow($color-secondary);
+	height: 100px;
+	margin: 0 0 10px;
 }
 
 /*
