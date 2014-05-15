@@ -24,24 +24,24 @@ $font-text: 'Sintony', sans-serif;
 ** TEXT SIZES
 ** http://lifehacker.com/stick-to-these-font-sizes-to-simplify-designs-and-more-1531615325
 */
-$font-size-05: 0.313em; // 5px
-$font-size-07: 0.438em; // 7px
-$font-size-09: 0.563em; // 9px
-$font-size-12: 0.750em; // 12px
-$font-size-16: 1em;			// 16px
-$font-size-21: 1.313em; // 21px
-$font-size-28: 1.750em; // 28px
-$font-size-37: 2.313em; // 37px
-$font-size-50: 3.125em; // 50px
-$font-size-67: 4.188em; // 67px
-$font-size-83: 5.188em; // 83px
+$text-size-05: 0.313em; // 5px
+$text-size-07: 0.438em; // 7px
+$text-size-09: 0.563em; // 9px
+$text-size-12: 0.750em; // 12px
+$text-size-16: 1em;			// 16px
+$text-size-21: 1.313em; // 21px
+$text-size-28: 1.750em; // 28px
+$text-size-37: 2.313em; // 37px
+$text-size-50: 3.125em; // 50px
+$text-size-67: 4.188em; // 67px
+$text-size-83: 5.188em; // 83px
 
 /*
 ** EXTENDS
 */
 %ribbon {
 	position: relative;
-	font-size: $font-size-09;
+	font-size: $text-size-09;
 	top: 9px;
 	left: 18px;
 }
@@ -70,7 +70,7 @@ $font-size-83: 5.188em; // 83px
 	border-left: none;
 	background: #C0C0C0;
 	padding: 5px 5px 3px;
-	font-size: $font-size-28;
+	font-size: $text-size-28;
 	color: $color-tertiary;
 	font-family: $font-text;
 	border-radius: 5px;
@@ -93,14 +93,12 @@ $font-size-83: 5.188em; // 83px
 	box-sizing: border-box;
 	color: $color-secondary;
 	display: block;
-	font-size: $font-size-21;
+	font-family: $font-text;
+	font-size: $text-size-21;
 	margin: 0 auto;
 	padding: 10px;
-	width: 320px;
-	
-	@include breakpoint( min-width 785px ) {
-		width: 100%;
-	}
+	max-width: 272px;
+	width: 100%;
 }
 %input-focus {
 	border: 2px solid $color-secondary;
@@ -195,17 +193,17 @@ button:focus {
 	padding: 1% 0;
 	
 	h1 {
-		font-size: $font-size-50;
+		font-size: $text-size-50;
 		text-align: center;
 		font-family: $font-title;
 		color: $color-tertiary;
 		font-weight: bold;
 		
 		@include breakpoint( min-width 533px ) {
-			font-size: $font-size-67;
+			font-size: $text-size-67;
 		}
 		@include breakpoint( min-width 653px ) {
-			font-size: $font-size-83;
+			font-size: $text-size-83;
 		}
 	}
 }
@@ -217,7 +215,7 @@ button:focus {
 	font-weight: normal;
 	font-family: $font-title;
 	color: $color-tertiary;
-	font-size: $font-size-83;
+	font-size: $text-size-83;
 	display: none;
 	position: absolute;
 	top: 10px;
@@ -349,13 +347,13 @@ button:focus {
 	h1 {
 		background: $color-tertiary;
 		color: $color-secondary;
-		line-height: $font-size-16;
+		line-height: $text-size-16;
 		padding: 11px 35px 5px;
 		margin: 0 0 10px;
 		border-bottom: 5px solid color--shadow($color-tertiary);
 		font-weight: normal;
 		font-family: $font-title;
-		font-size: $font-size-28;
+		font-size: $text-size-28;
 	}
 }
 #finished-read {
@@ -411,7 +409,7 @@ button:focus {
 		display: none;
 	}
 	.book--action-links {
-		line-height: $font-size-16;
+		line-height: $text-size-16;
 		float: none;
 		padding: 0 0 0 5px;
 	}
@@ -458,10 +456,10 @@ button:focus {
 	font-style: italic;
 }
 .book--series {
-	font-size: $font-size-12;
+	font-size: $text-size-12;
 }
 .book--tags {
-	font-size: $font-size-09;
+	font-size: $text-size-09;
 	text-transform: lowercase;
 }
 .book--tags, .book--series {
