@@ -48,6 +48,7 @@ if ( ! is_admin() && ! is_login_page() ) {
   // Enqueue Scripts
   if ( ! function_exists( 'site_scripts' ) ) {
 	  function site_scripts() {
+	  	// https://github.com/voidberg/html5sortable
 	  	wp_register_script( 'html5-sortable', get_template_directory_uri() . '/_js/jquery.sortable.js', array('jquery'), date('W.0'), true );
 	  	wp_register_script( 'site-js', get_template_directory_uri() . '/_js/site.js', array('jquery'), date('W.0'), true );
 			wp_enqueue_script( 'jquery' );

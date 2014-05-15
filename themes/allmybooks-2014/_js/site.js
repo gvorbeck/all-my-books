@@ -79,7 +79,7 @@ jQuery( document ).ready( function() {
 	});
 	
 	// Make lists sortable and connected to one another.
-	// https://github.com/farhadi/html5sortable
+	// https://github.com/voidberg/html5sortable
 	jQuery( '#finished-read-list, #current-read-list, #future-read-list' ).sortable( {
     connectWith: '.connected'
 	} ).bind( 'sortupdate', function() {
