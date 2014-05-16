@@ -401,9 +401,6 @@ button:focus {
 	&:last-child {
 		margin: 0;
 	}
-	&.ui-sortable-helper {
-		box-shadow: rgba(0, 0, 0, 0.4) 6px 6px 12px;
-	}
 	&.overflow {
 		display: none;
 	}
