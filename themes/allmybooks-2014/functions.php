@@ -48,9 +48,11 @@ if ( ! is_admin() && ! is_login_page() ) {
   // Enqueue Scripts
   if ( ! function_exists( 'site_scripts' ) ) {
 	  function site_scripts() {
+	  	// https://github.com/voidberg/html5sortable
+	  	wp_register_script( 'html5-sortable', get_template_directory_uri() . '/_js/jquery.sortable.js', array('jquery'), date('W.0'), true );
 	  	wp_register_script( 'site-js', get_template_directory_uri() . '/_js/site.js', array('jquery'), date('W.0'), true );
 			wp_enqueue_script( 'jquery' );
-			wp_enqueue_script( 'jquery-ui-sortable' );
+			wp_enqueue_script( 'html5-sortable' );
 			wp_enqueue_script( 'site-js' );
 	  }
 	}
@@ -385,7 +387,7 @@ register_taxonomy( 'authors',array (
   0 => 'post',
 ),
 array( 'hierarchical' => false,
-	'label' => 'Author(s)',
+	'label' => 'Authors',
 	'show_ui' => true,
 	'query_var' => true,
 	'show_admin_column' => false,

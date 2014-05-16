@@ -1,4 +1,9 @@
-// VAR bid = ID of book.
+/**
+ * Marks a book as finished.
+ * @param {Integer} bid - Wordpress ID of the book to be marked as finished.
+ * @param {String} templateDirectory - Absolute path to template directory on the server. Defined in header.php
+ * @param {Mixed}  data - anything that is echoed in the called PHP file.
+ */
 function updateFinishedList(bid) {
 	jQuery( '#loading-container' ).toggle();
 	jQuery.ajax( {
@@ -12,7 +17,12 @@ function updateFinishedList(bid) {
 	} );
 }
 
-// VAR bid = ID of book.
+/**
+ * Marks a book as currently being read.
+ * @param {Integer} bid - Wordpress ID of the book to be marked as being read.
+ * @param {String} templateDirectory - Absolute path to template directory on the server. Defined in header.php
+ * @param {Mixed}  data - anything that is echoed in the called PHP file.
+ */
 function updateCurrentList(bid) {
 	jQuery( '#loading-container' ).toggle();
 	jQuery.ajax( {
@@ -21,27 +31,32 @@ function updateCurrentList(bid) {
 		data: 'id=' + bid,
 		success: function(data) {
 			jQuery( '#loading-container' ).toggle();
-			console.log(data);
+			//console.log(data);
 		}
 	} );
 }
 
+/**
+ * Saves the order of books marked as wanting to be read.
+ * @param {Array}   updatedArray - An array of book LIs that have been moved. Formatted as ID:ORDER#
+ * @param {Integer} expectedOrder - Integer of order number.
+ * @param {Integer} readingOrder - value of the data-order attribute in the LI.
+ * @param {String}  templateDirectory - Absolute path to template directory on the server. Defined in header.php
+ * @param {Mixed}   data - anything that is echoed in the called PHP file.
+ */
 function updateFutureList() {
-	
 	// Get array of newly arranged LIs (updatedArray)
 	var updatedArray = [];
 	var expectedOrder = 1;
-	jQuery( '#future-read-list li' ).each( function( index ) {
+	jQuery( '#future-read-list li' ).each( function() {
 		var readingOrder = jQuery( this ).data( 'order' );
 		if ( readingOrder != expectedOrder ) {
 			updatedArray.push( this.id + ':' + expectedOrder );
 		}
 		expectedOrder++;
 	} );
-	
 	// Turn updatedArray into comma seperated list (updatedList)
 	var updatedList = updatedArray.join(",");
-	
 	// Send array to PHP
 	jQuery( '#loading-container' ).toggle();
 	jQuery.ajax( {
@@ -54,20 +69,17 @@ function updateFutureList() {
 			//console.log(data);
 		}
 	} );
-	
 }
 
 /* DOC READY START */
 jQuery( document ).ready( function() {
-
 	// Get browser window size. Will be 15px smaller than what Chrome reports.
-	var pageWidth = jQuery( window).width()+15;
+	var pageWidth = jQuery( window).width();
 	jQuery( '#dev--window-width' ).text( pageWidth );
 	jQuery( window ).resize( function(i) {
-		pageWidth = jQuery( window ).width()+15;
+		pageWidth = jQuery( window ).width();
 		jQuery( '#dev--window-width' ).text( pageWidth );
 	});
-	
 	// Hide the bloat of the wtr list.
 	jQuery('#show-full-list-button').click(function() {
 		jQuery('#future-read-list .overflow').toggle();
@@ -77,49 +89,55 @@ jQuery( document ).ready( function() {
 			jQuery(this).text('Expand');
 		};
 	});
-	
-	// Set the two list's LIs as sortable.
-	jQuery( "#current-read-list, #future-read-list, #finished-read-list" ).sortable( {
-		update: function( event, ui ) {
-			if (this === ui.item.parent()[0]) { // Usually update fires for every list linked. Anything in here will only fire once.
-				//console.log(ui.item.attr('id')); // BOOK ID
-				//console.log(ui.item.parent()[0].id); // LIST ID
-				if ( 'future-read-list' == ui.item.parent()[0].id ) {
-					updateFutureList();
-				}
-				if ( 'current-read-list' == ui.item.parent()[0].id ) {
-					updateCurrentList(ui.item.attr('id'));
-				}
-				if ( 'finished-read-list' == ui.item.parent()[0].id ) {
-					updateFinishedList(ui.item.attr('id'));
-				}
-			}
-			//console.log(ui);
-		},
-		// Show Finished list.
-		activate: function( event, ui ) {
-			var clickedID = ui.item[0].id;
-			// This makes sure the finished list never shows unless I am moving a book from the currently-read list.
-			if ('current-read-list' == jQuery( '#' + clickedID ).parent().attr('id')){
-				jQuery( "#finished-read" ).slideDown( "slow", function() {
-				    // Animation complete.
-				} );
-			}
-		},
-		// Connect the two lists.
-  	connectWith: ".book-list"
-	} ).disableSelection();
-	
+	// Make lists sortable and connected to one another.
+	// SOURCE: https://github.com/voidberg/html5sortable
+	jQuery( '#finished-read-list, #current-read-list, #future-read-list' ).sortable( {
+    connectWith: '.connected',
+    forcePlaceholderSize: true,
+    items: ':not(.disabled)'
+	} ).bind( 'sortupdate', function(e, ui) {
+		var bid = ui.item[0].id;
+		switch ( jQuery( this ).attr( 'id' ) ) {
+	    case 'future-read-list':
+	    	updateFutureList();
+	    	break;
+	    case 'current-read-list':
+	    	updateCurrentList(bid);
+	    	break;
+	    case 'finished-read-list':
+	    	updateFinishedList(bid);
+	    	break;
+    }
+	} );
+	// Detect the drag of a book.
+	var isDragging = false;
+	jQuery( "#current-read-list .book" )
+	.mousedown( function() {
+    jQuery( window ).mousemove( function() {
+      isDragging = true;
+      jQuery( window ).unbind( "mousemove" );
+			jQuery( "#finished-read" ).slideDown( "slow", function() {
+				// Animation complete.
+			} );
+    } );
+	} )
+	.mouseup( function() {
+    var wasDragging = isDragging;
+    isDragging = false;
+    jQuery( window ).unbind( "mousemove" );
+    if ( !wasDragging ) {
+    	//was being clicked.
+    }
+	} );
 	// Show navigation/login menu.
-	jQuery( '.navigation--button, #navigation--popup').hover( function() {
+	jQuery( '.navigation--button, #navigation--popup' ).hover( function() {
 		if ( pageWidth > (785) ) {
-			jQuery('#navigation--popup').show();
+			jQuery( '#navigation--popup' ).show();
 		}
 	}, function() {
 		if ( pageWidth > (785) ) {
-			jQuery('#navigation--popup').hide();
+			jQuery( '#navigation--popup' ).hide();
 		}
 	} );
-	
 } );
 /* DOC READY STOP */
