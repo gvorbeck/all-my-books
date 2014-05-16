@@ -341,7 +341,11 @@ button:focus {
 ** BOOK SHELF
 */
 .book-shelf {
-	margin: 3% 0 0;
+	margin: 0 0 3%;
+	
+	&:last-child {
+		margin: 0;
+	}
 	
 	h1 {
 		background: $color-tertiary;
@@ -365,17 +369,13 @@ button:focus {
 		min-height: 46px;
 	}
 	.instructions {
-		position: relative;
-		top: -30px;
+		margin: 0 0 10px;
 	}
 }
 .instructions {
 	font-family: $font-text;
 	text-align: center;
 	color: $color-tertiary;
-}
-#current-read {
-	margin: 0;
 }
 .ribbon {
 	@extend %ribbon;

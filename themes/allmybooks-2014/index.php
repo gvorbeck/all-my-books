@@ -2,7 +2,7 @@
 get_header();
 
 /* FINISHED READING */
-echo '<section id="finished-read" class="book-shelf"><div class="ribbon"></div><h1>I\'m Finished Reading These</h1><ul id="finished-read-list" class="book-list connected sortable"></ul><p class="instructions">Drag a book here to mark it as finished.</p></section>';
+echo '<section id="finished-read" class="book-shelf"><div class="ribbon"></div><h1>I\'m Finished Reading These</h1><ul id="finished-read-list" class="book-list connected sortable"><li class="instructions disabled">Drag a book here to mark it as finished.</li></ul></section>';
 
 /* CURRENTLY READING */
 $args = array(

@@ -82,10 +82,10 @@ jQuery( document ).ready( function() {
 	// https://github.com/voidberg/html5sortable
 	jQuery( '#finished-read-list, #current-read-list, #future-read-list' ).sortable( {
     connectWith: '.connected',
-    forcePlaceholderSize: true
+    forcePlaceholderSize: true,
+    items: ':not(.disabled)'
 	} ).bind( 'sortupdate', function(e, ui) {
 		var bid = ui.item[0].id;
-		
 		switch ( jQuery( this ).attr( 'id' ) ) {
 	    case 'future-read-list':
 	    	updateFutureList();
@@ -93,12 +93,30 @@ jQuery( document ).ready( function() {
 	    case 'current-read-list':
 	    	updateCurrentList(bid);
 	    	break;
+	    case 'finished-read-list':
+	    	updateFinishedList(bid);
+	    	break;
     }
 	} );
-	jQuery( '.book' ).mousedown( function() {
-		if ( 'current-read-list' == jQuery( '.book' ).parent().attr( 'id' ) ) {
-			jQuery( 'future-read-list' ).addClass=""
-		}
+	// Detect the drag.
+	var isDragging = false;
+	jQuery( "#current-read-list .book" )
+	.mousedown( function() {
+    jQuery( window ).mousemove( function() {
+      isDragging = true;
+      jQuery( window ).unbind( "mousemove" );
+			jQuery( "#finished-read" ).slideDown( "slow", function() {
+				// Animation complete.
+			} );
+    } );
+	} )
+	.mouseup( function() {
+    var wasDragging = isDragging;
+    isDragging = false;
+    jQuery( window ).unbind( "mousemove" );
+    if ( !wasDragging ) { //was clicking
+    	jQuery( "#throbble" ).show();
+    }
 	} );
 	
 	// Show navigation/login menu.
