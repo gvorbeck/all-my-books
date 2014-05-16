@@ -357,6 +357,7 @@ button:focus {
 		font-weight: normal;
 		font-family: $font-title;
 		font-size: $text-size-28;
+		z-index: 1;
 	}
 }
 #finished-read {
