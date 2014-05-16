@@ -21,7 +21,7 @@ function updateCurrentList(bid) {
 		data: 'id=' + bid,
 		success: function(data) {
 			jQuery( '#loading-container' ).toggle();
-			console.log(data);
+			//console.log(data);
 		}
 	} );
 }
@@ -31,7 +31,7 @@ function updateFutureList() {
 	// Get array of newly arranged LIs (updatedArray)
 	var updatedArray = [];
 	var expectedOrder = 1;
-	jQuery( '#future-read-list li' ).each( function( index ) {
+	jQuery( '#future-read-list li' ).each( function() {
 		var readingOrder = jQuery( this ).data( 'order' );
 		if ( readingOrder != expectedOrder ) {
 			updatedArray.push( this.id + ':' + expectedOrder );
@@ -81,18 +81,25 @@ jQuery( document ).ready( function() {
 	// Make lists sortable and connected to one another.
 	// https://github.com/voidberg/html5sortable
 	jQuery( '#finished-read-list, #current-read-list, #future-read-list' ).sortable( {
-    connectWith: '.connected'
-	} ).bind( 'sortupdate', function() {
-    console.log( 'This is the control: ' + jQuery( this ).attr( 'id' ) );
-    switch ( jQuery( this ).attr( 'id' ) ) {
+    connectWith: '.connected',
+    forcePlaceholderSize: true
+	} ).bind( 'sortupdate', function(e, ui) {
+		var bid = ui.item[0].id;
+		
+		switch ( jQuery( this ).attr( 'id' ) ) {
 	    case 'future-read-list':
 	    	updateFutureList();
 	    	break;
 	    case 'current-read-list':
-	    	alert('fart-o-rama');
+	    	updateCurrentList(bid);
 	    	break;
     }
-	});
+	} );
+	jQuery( '.book' ).mousedown( function() {
+		if ( 'current-read-list' == jQuery( '.book' ).parent().attr( 'id' ) ) {
+			jQuery( 'future-read-list' ).addClass=""
+		}
+	} );
 	
 	// Show navigation/login menu.
 	jQuery( '.navigation--button, #navigation--popup' ).hover( function() {

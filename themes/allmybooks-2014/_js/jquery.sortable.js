@@ -13,6 +13,8 @@
  */
 'use strict';
 
+var $ = jQuery; // Added because Wordpress runs javascript in noconflict mode.
+
 (function ($) {
   var dragging, placeholders = $();
   $.fn.sortable = function (options) {
