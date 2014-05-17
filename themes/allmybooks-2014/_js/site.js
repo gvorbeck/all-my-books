@@ -139,5 +139,32 @@ jQuery( document ).ready( function() {
 			jQuery( '#navigation--popup' ).hide();
 		}
 	} );
+  // Check the initial Poistion of the Sticky Header
+var stickyHeaderTop    = jQuery('#future-read h1').offset().top;
+  var stickyHeaderHeight = jQuery('#future-read h1').outerHeight()+10;
+  var stickyHeaderWidth  = jQuery('#content').width()-35;
+  jQuery(window).resize( function() {
+  	stickyHeaderWidth  = jQuery('#content').width()-35;
+  	jQuery('#future-read h1').width(stickyHeaderWidth);
+  } );
+  
+  // Immediately look to see if page has loaded below the banner.
+	if( jQuery(window).scrollTop() >= stickyHeaderTop ) {
+		jQuery('#future-read').addClass('sticky').children('h1').width(stickyHeaderWidth);
+  	jQuery('#future-read-list').css('margin-top', stickyHeaderHeight);
+  } else {
+		jQuery('#future-read').removeClass('sticky');
+  	jQuery('#future-read-list').css('margin-top', '0');
+  }
+  // Look again while scrolling.
+  jQuery(window).scroll(function() {
+  	if( jQuery(window).scrollTop() >= stickyHeaderTop ) {
+  		jQuery('#future-read').addClass('sticky').children('h1').width(stickyHeaderWidth);
+    	jQuery('#future-read-list').css('margin-top', stickyHeaderHeight);
+    } else {
+  		jQuery('#future-read').removeClass('sticky');
+    	jQuery('#future-read-list').css('margin-top', '0');
+    }
+  } );
 } );
 /* DOC READY STOP */
