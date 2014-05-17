@@ -38,30 +38,6 @@ $text-size-83: 5.188em; // 83px
 /*
 ** EXTENDS
 */
-%ribbon {
-	position: relative;
-	font-size: $text-size-09;
-	top: 9px;
-	left: 18px;
-}
-%ribbon-before {
-	left: -0.3em;
-	top: -1em;
-	position: absolute;
-	content: "";
-	height: 3.25em;
-	border-bottom: 0.7em solid transparent;
-	border-right: 1em solid $color-secondary;
-}
-%ribbon-after {
-	left: -0.7em;
-	top: -1em;
-	position: absolute;
-	content: "";
-	height: 3.25em;
-	border-bottom: 0.7em solid transparent;
-	border-left: 1em solid $color-secondary;
-}
 %button {
 	border-bottom: 4px solid color--shadow(#C0C0C0);
 	border-top: none;
@@ -176,14 +152,6 @@ button:focus {
   }
 }
 
-#content {
-	clear: both;
-}
-.icon--font {
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
 /* 
 ** HEADER
 */
@@ -233,7 +201,7 @@ button:focus {
 	@include breakpoint( min-width 785px ) {
 		display: none;
 		position: absolute;
-		z-index: 1;
+		z-index: 2;
 		top: 50px;
 		right: 3px;
 	}
@@ -351,12 +319,31 @@ button:focus {
 		background: $color-tertiary;
 		color: $color-secondary;
 		line-height: $text-size-16;
-		padding: 11px 35px 5px;
+		padding: 11px 0 5px 35px;
 		margin: 0 0 10px;
 		border-bottom: 5px solid color--shadow($color-tertiary);
 		font-weight: normal;
 		font-family: $font-title;
 		font-size: $text-size-28;
+		z-index: 1;
+		position: relative;
+		
+		svg {
+			fill: $color-secondary;
+			width: 18px;
+			height: 36px;
+			position: absolute;
+			top: 0;
+			left: 9px;
+		}
+	}
+}
+.sticky {
+	
+	h1 {
+		position: fixed;
+		top: 0;
+		box-shadow: 0 8px 8px rgba(50,50,50,.5);
 	}
 }
 #finished-read {
@@ -376,17 +363,6 @@ button:focus {
 	font-family: $font-text;
 	text-align: center;
 	color: $color-tertiary;
-}
-.ribbon {
-	@extend %ribbon;
-}
-.ribbon::before {
-	@extend %ribbon-before;
-	height: 3.6em;
-}
-.ribbon::after {
-	@extend %ribbon-after;
-	height: 3.6em;
 }
 .book {
 	background: $color-primary;

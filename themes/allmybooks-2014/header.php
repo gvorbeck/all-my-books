@@ -49,11 +49,6 @@
 	</head>
 
 	<body <?php body_class(); ?>>
-		<?php
-		if ( 'localhost:8888' == SITE_URL ) {
-			echo "<div id='dev--window-width' class='dev-env-element'></div>";
-		}	
-		?>
 		<div id="container">
 			<div id="loading-container"><div class="loading-spinner"></div></div>
 			<header id="site-header">
