@@ -73,6 +73,13 @@ function updateFutureList() {
 
 /* DOC READY START */
 jQuery( document ).ready( function() {
+	// Get browser window size. Will be 15px smaller than what Chrome reports.
+	var pageWidth = jQuery( window).width();
+	jQuery( '#dev--window-width' ).text( pageWidth );
+	jQuery( window ).resize( function(i) {
+		pageWidth = jQuery( window ).width();
+		jQuery( '#dev--window-width' ).text( pageWidth );
+	});
 	// Hide the bloat of the wtr list.
 	jQuery('#show-full-list-button').click(function() {
 		jQuery('#future-read-list .overflow').toggle();
@@ -133,17 +140,29 @@ jQuery( document ).ready( function() {
 		}
 	} );
   // Check the initial Poistion of the Sticky Header
-  var stickyHeaderTop    = jQuery('#future-read h1').offset().top;
+var stickyHeaderTop    = jQuery('#future-read h1').offset().top;
   var stickyHeaderHeight = jQuery('#future-read h1').outerHeight()+10;
-  var stickyHeaderWidth  = jQuery('#future-read h1').width();
+  var stickyHeaderWidth  = jQuery('#content').width()-35;
+  jQuery(window).resize( function() {
+  	stickyHeaderWidth  = jQuery('#content').width()-35;
+  	jQuery('#future-read h1').width(stickyHeaderWidth);
+  } );
   
-  jQuery(window).scroll(function(){
-  	console.log(stickyHeaderWidth);
+  // Immediately look to see if page has loaded below the banner.
+	if( jQuery(window).scrollTop() >= stickyHeaderTop ) {
+		jQuery('#future-read').addClass('sticky').children('h1').width(stickyHeaderWidth);
+  	jQuery('#future-read-list').css('margin-top', stickyHeaderHeight);
+  } else {
+		jQuery('#future-read').removeClass('sticky');
+  	jQuery('#future-read-list').css('margin-top', '0');
+  }
+  // Look again while scrolling.
+  jQuery(window).scroll(function() {
   	if( jQuery(window).scrollTop() >= stickyHeaderTop ) {
-    	jQuery('#future-read h1').css({position: 'fixed', top: '0px', width: stickyHeaderWidth});
+  		jQuery('#future-read').addClass('sticky').children('h1').width(stickyHeaderWidth);
     	jQuery('#future-read-list').css('margin-top', stickyHeaderHeight);
     } else {
-    	jQuery('#future-read h1').css({position: 'static', top: '0px'});
+  		jQuery('#future-read').removeClass('sticky');
     	jQuery('#future-read-list').css('margin-top', '0');
     }
   } );

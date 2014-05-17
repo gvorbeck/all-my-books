@@ -1,8 +1,10 @@
 <?php
 get_header();
 
+$ribbon = file_get_contents( locate_template( "_images/icons/bookmark.svg" ) );
+
 /* FINISHED READING */
-echo '<section id="finished-read" class="book-shelf"><div class="ribbon"></div><h1>I\'m Finished Reading These</h1><ul id="finished-read-list" class="book-list connected sortable"><li class="instructions disabled">Drag a book here to mark it as finished.</li></ul></section>';
+echo '<section id="finished-read" class="book-shelf"><h1>' . $ribbon . 'I\'m Finished Reading These</h1><ul id="finished-read-list" class="book-list connected sortable"><li class="instructions disabled">Drag a book here to mark it as finished.</li></ul></section>';
 
 /* CURRENTLY READING */
 $args = array(
@@ -18,7 +20,7 @@ $args = array(
 $current_query = new WP_Query( $args );
 
 if ( $current_query->have_posts() ) {
-	echo '<section id="current-read" class="book-shelf"><div class="ribbon"></div><h1>I\'m Reading These</h1><ul id="current-read-list" class="book-list connected sortable">';
+	echo '<section id="current-read" class="book-shelf"><h1>' . $ribbon . 'I\'m Reading These</h1><ul id="current-read-list" class="book-list connected sortable">';
 	while ( $current_query->have_posts() ) {
 		$current_query->the_post();
 		the_book_builder( $post->ID, 0 );
@@ -79,7 +81,7 @@ wp_reset_postdata();
 
 // AT THIS POINT YOU HAVE CLEANED UP YOUR TABLE, NOW START LAYING IT  OUT IN CODE.
 $future_list = $wpdb->get_results( 'SELECT * FROM wp_reading_list ORDER BY listorder ASC', ARRAY_N );
-echo '<section id="future-read" class="book-shelf"><div class="ribbon"></div><h1>I Want To Read These</h1>';
+echo '<section id="future-read" class="book-shelf"><h1>' . $ribbon . 'I Want To Read These</h1>';
 if ( $future_list ) {
 	echo '<ul id="future-read-list" class="book-list connected sortable">';
 	$i = 0;
