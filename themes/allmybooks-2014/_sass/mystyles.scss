@@ -1,6 +1,6 @@
 @import "compass/css3";
 @import "breakpoint";
-
+@import "bourbon/bourbon";
 
 /*
 ** COLORS
@@ -100,13 +100,28 @@ body {
 #container {
 	background: $color-secondary;
 	padding: 0 3% 3%;
+	position: relative;
 	@include box-sizing(border-box);
 	
 	@include breakpoint( min-width 1650px ) {
 		width: 1308px;
 		margin: 0 auto;
 	}
+	&.open {
+		@include animation-duration(1s);
+		@include animation-name(slideDown);
+		top: 100px;
+	}
 }
+@include keyframes(slideDown) {
+	from {
+		top: 0;
+	}
+	to {
+		top: 100px;
+	}
+}
+
 #loading-container {
 	background: $color-secondary;
 	padding: 10px;

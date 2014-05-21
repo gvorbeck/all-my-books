@@ -73,6 +73,9 @@ function updateFutureList() {
 
 /* DOC READY START */
 jQuery( document ).ready( function() {
+	jQuery('*').click( function() {
+		jQuery('#container').addClass('open');
+	});
 	// Get browser window size. Will be 15px smaller than what Chrome reports.
 	var pageWidth = jQuery( window).width();
 	jQuery( '#dev--window-width' ).text( pageWidth );
