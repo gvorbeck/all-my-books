@@ -364,6 +364,10 @@ button:focus {
 	text-align: center;
 	color: $color-tertiary;
 }
+
+/*
+** BOOK
+*/
 .book {
 	background: $color-primary;
 	padding: 12px 10px 6px;
@@ -380,19 +384,17 @@ button:focus {
 	&.overflow {
 		display: none;
 	}
-	.book--action-links {
-		line-height: $text-size-16;
-		float: none;
-		padding: 0 0 0 5px;
-	}
-	p {
-		border-left: none;
-		border-top: 2px solid color--shadow($color-primary);
-		padding: 10px 0 0;
-		margin: 6px 0 0;
-	}
 }
 
+/*
+** ACTION LINKS
+*/
+.book--action-links {
+	border-bottom: 2px solid color--shadow($color-primary);
+	padding: 0 0 5px 5px;
+	line-height: $text-size-16;
+	margin: 0 0 8px;
+}
 .action-link {
 	text-decoration: none;
 	text-align: center;
