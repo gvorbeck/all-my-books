@@ -107,7 +107,7 @@ body {
 		width: 1308px;
 		margin: 0 auto;
 	}
-	&.open {
+	&.open-login {
 		@include animation-duration(1s);
 		@include animation-name(slideDown);
 		top: 100px;
@@ -144,32 +144,27 @@ button:focus {
   height: 30px;
   background-color: $color-primary;
   
-  -webkit-animation: rotateplane 1.2s infinite ease-in-out;
-  animation: rotateplane 1.2s infinite ease-in-out;
+  @include animation(rotateplane 1.2s infinite ease-in-out);
 }
 
-@-webkit-keyframes rotateplane {
-  0% { -webkit-transform: perspective(120px) }
-  50% { -webkit-transform: perspective(120px) rotateY(180deg) }
-  100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
-}
-
-@keyframes rotateplane {
+@include keyframes(rotateplane) {
   0% {
-    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    @include transform( perspective( 120px ) rotateX( 0deg ) rotateY( 0deg ) );
   } 50% {
-    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    @include transform( perspective( 120px ) rotateX( -180.1deg ) rotateY( 0deg ) );
   } 100% {
-    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
-    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    @include transform( perspective( 120px ) rotateX( -180deg ) rotateY( -179.9deg ) );
   }
 }
 
 /* 
 ** HEADER
 */
+#test-element {
+	padding: 10px;
+	background: $color-tertiary;
+	position: absolute;
+}
 #site-header {
 	position: relative;
 	padding: 1% 0;
@@ -180,6 +175,7 @@ button:focus {
 		font-family: $font-title;
 		color: $color-tertiary;
 		font-weight: bold;
+		position: relative;
 		
 		@include breakpoint( min-width 533px ) {
 			font-size: $text-size-67;
@@ -187,6 +183,28 @@ button:focus {
 		@include breakpoint( min-width 653px ) {
 			font-size: $text-size-83;
 		}
+	}
+}
+.open-login { 
+
+	#site-header {
+	
+		h1 {
+			@include animation-duration(1s);
+			@include animation-name(titleHoldStill);
+			top: -100px;
+			margin: 0 0 -100px 0;
+		}
+	}
+}
+@include keyframes(titleHoldStill) {
+	from {
+		top: 0;
+		margin: 0;
+	}
+	to {
+		top: -100px;
+		margin: 0 0 -100px 0;
 	}
 }
 

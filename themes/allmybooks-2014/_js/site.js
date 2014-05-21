@@ -73,8 +73,12 @@ function updateFutureList() {
 
 /* DOC READY START */
 jQuery( document ).ready( function() {
-	jQuery('*').click( function() {
-		jQuery('#container').addClass('open');
+	jQuery('.navigation--button').click( function() {
+		if ( jQuery( '#container' ).hasClass( 'open-login' ) ) {
+			jQuery( '#container' ).removeClass( 'open-login' );
+		} else {
+			jQuery('#container').addClass('open-login');
+		}
 	});
 	// Get browser window size. Will be 15px smaller than what Chrome reports.
 	var pageWidth = jQuery( window).width();
