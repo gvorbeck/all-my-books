@@ -49,6 +49,7 @@
 	</head>
 
 	<body <?php body_class(); ?>>
+		<div id="test-element">hello</div>
 		<div id="container">
 			<div id="loading-container"><div class="loading-spinner"></div></div>
 			<header id="site-header">
