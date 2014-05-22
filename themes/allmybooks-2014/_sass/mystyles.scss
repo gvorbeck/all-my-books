@@ -96,26 +96,22 @@ button:focus {
   outline: none;
 }
 body {
-  padding: 1.5%;
   /* Created using http://www.patternify.com/ */
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2OUjq77zykizQADjCr5M/9/f/OUASYIFgDJwgThAjBBACtAEXlnBGGKAAAAAElFTkSuQmCC) repeat;
-  
-  @include breakpoint( min-width 465px ) {
-    padding: 2.5% 5%;
-  }
-  @include breakpoint( min-width 732px ) {
-    padding: 2.5% 10%;
-  }
-  @include breakpoint( min-width 1650px ) {
-    padding: 2.5% 0;
-  }
 }
 #container {
   position: relative;
+  margin: 1.5%;
   
-  @include breakpoint( min-width 1650px ) {
-    width: 1308px;
-    margin: 0 auto;
+  @include breakpoint( min-width 465px ) {
+    margin: 2.5% 5%;
+  }
+  @include breakpoint( min-width 732px ) {
+    margin: 2.5% 10%;
+  }
+  @include breakpoint( min-width 1265px ) {
+    width: 1000px;
+    margin: 2.5% auto;
   }
 }
 /*
@@ -155,7 +151,7 @@ body {
 #site-header {
   @extend %content;
   position: relative;
-  padding: 1% 3% 0;
+  padding: 1% 3%;
   
   h1 {
     font-size: $text-size-50;
