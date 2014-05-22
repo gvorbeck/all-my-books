@@ -10,7 +10,7 @@ $color-secondary: #F5F1D2;
 $color-tertiary: #434343;
 
 @function color--shadow($color) {
-	@return adjust-color($color, $hue: 0, $saturation: 3, $lightness: -7);
+  @return adjust-color($color, $hue: 0, $saturation: 3, $lightness: -7);
 }
 
 /*
@@ -27,7 +27,7 @@ $text-size-05: 0.313em; // 5px
 $text-size-07: 0.438em; // 7px
 $text-size-09: 0.563em; // 9px
 $text-size-12: 0.750em; // 12px
-$text-size-16: 1em;			// 16px
+$text-size-16: 1em;      // 16px
 $text-size-21: 1.313em; // 21px
 $text-size-28: 1.750em; // 28px
 $text-size-37: 2.313em; // 37px
@@ -39,106 +39,94 @@ $text-size-83: 5.188em; // 83px
 ** EXTENDS
 */
 %button {
-	border-bottom: 4px solid color--shadow(#C0C0C0);
-	border-top: none;
-	border-right: none;
-	border-left: none;
-	background: #C0C0C0;
-	padding: 5px 5px 3px;
-	font-size: $text-size-28;
-	color: $color-tertiary;
-	font-family: $font-text;
-	border-radius: 5px;
-	text-decoration: none;
-	text-align: center;
-	box-sizing: border-box;
-	max-width: 272px;
-	width: 100%;
-	display: block;
-	margin: 0 auto;
+  border-bottom: 4px solid color--shadow(#C0C0C0);
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  background: #C0C0C0;
+  padding: 5px 5px 3px;
+  font-size: $text-size-28;
+  color: $color-tertiary;
+  font-family: $font-text;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  box-sizing: border-box;
+  max-width: 272px;
+  width: 100%;
+  display: block;
+  margin: 0 auto;
 }
 %button-hover {
-	background: color--shadow(#C0C0C0);
-	border-bottom: 4px solid color--shadow(color--shadow(#C0C0C0));
-	cursor: pointer;
+  background: color--shadow(#C0C0C0);
+  border-bottom: 4px solid color--shadow(color--shadow(#C0C0C0));
+  cursor: pointer;
 }
 %input {
-	background: $color-tertiary;
-	border: 2px solid color--shadow($color-tertiary);
-	box-sizing: border-box;
-	color: $color-secondary;
-	display: block;
-	font-family: $font-text;
-	font-size: $text-size-21;
-	margin: 0 auto;
-	padding: 10px;
-	max-width: 272px;
-	width: 100%;
+  background: $color-tertiary;
+  border: 2px solid color--shadow($color-tertiary);
+  box-sizing: border-box;
+  color: $color-secondary;
+  display: block;
+  font-family: $font-text;
+  font-size: $text-size-21;
+  margin: 0 auto;
+  padding: 10px;
+  max-width: 272px;
+  width: 100%;
 }
 %input-focus {
-	border: 2px solid $color-secondary;
+  border: 2px solid $color-secondary;
 }
 
 /*
 ** UNIVERSALS
 */
-body {
-	padding: 1.5%;
-	/* Created using http://www.patternify.com/ */
-	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2OUjq77zykizQADjCr5M/9/f/OUASYIFgDJwgThAjBBACtAEXlnBGGKAAAAAElFTkSuQmCC) repeat;
-	
-	@include breakpoint( min-width 465px ) {
-		padding: 2.5% 5%;
-	}
-	@include breakpoint( min-width 732px ) {
-		padding: 2.5% 10%;
-	}
-	@include breakpoint( min-width 1650px ) {
-		padding: 2.5% 0;
-	}
-}
-#container {
-	background: $color-secondary;
-	padding: 0 3% 3%;
-	position: relative;
-	@include box-sizing(border-box);
-	
-	@include breakpoint( min-width 1650px ) {
-		width: 1308px;
-		margin: 0 auto;
-	}
-	&.open-login {
-		@include animation-duration(1s);
-		@include animation-name(slideDown);
-		top: 100px;
-	}
-}
-@include keyframes(slideDown) {
-	from {
-		top: 0;
-	}
-	to {
-		top: 100px;
-	}
-}
-
-#loading-container {
-	background: $color-secondary;
-	padding: 10px;
-	position: fixed;
-	top: 0;
-	left: 0;
-	margin: 10px;
-	display: none;
-}
 input:focus,
 select:focus,
 textarea:focus,
 button:focus {
-    outline: none;
+  outline: none;
 }
-/* This is from https://github.com/tobiasahlin/SpinKit/blob/master/1-rotating-plane.html */
-/* Look into compass/sass config */
+body {
+  padding: 1.5%;
+  /* Created using http://www.patternify.com/ */
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2OUjq77zykizQADjCr5M/9/f/OUASYIFgDJwgThAjBBACtAEXlnBGGKAAAAAElFTkSuQmCC) repeat;
+  
+  @include breakpoint( min-width 465px ) {
+    padding: 2.5% 5%;
+  }
+  @include breakpoint( min-width 732px ) {
+    padding: 2.5% 10%;
+  }
+  @include breakpoint( min-width 1650px ) {
+    padding: 2.5% 0;
+  }
+}
+#container {
+  background: $color-secondary;
+  padding: 0 3% 3%;
+  position: relative;
+  @include box-sizing(border-box);
+  
+  @include breakpoint( min-width 1650px ) {
+    width: 1308px;
+    margin: 0 auto;
+  }
+}
+/*
+** LOADING INDICATOR
+** This is from https://github.com/tobiasahlin/SpinKit/blob/master/1-rotating-plane.html
+*/
+#loading-container {
+  background: $color-secondary;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 10px;
+  display: none;
+}
 .loading-spinner {
   width: 30px;
   height: 30px;
@@ -161,337 +149,315 @@ button:focus {
 ** HEADER
 */
 #test-element {
-	padding: 10px;
-	background: $color-tertiary;
-	position: absolute;
+  padding: 10px;
+  background: $color-tertiary;
+  position: absolute;
 }
 #site-header {
-	position: relative;
-	padding: 1% 0;
-	
-	h1 {
-		font-size: $text-size-50;
-		text-align: center;
-		font-family: $font-title;
-		color: $color-tertiary;
-		font-weight: bold;
-		position: relative;
-		
-		@include breakpoint( min-width 533px ) {
-			font-size: $text-size-67;
-		}
-		@include breakpoint( min-width 653px ) {
-			font-size: $text-size-83;
-		}
-	}
-}
-.open-login { 
-
-	#site-header {
-	
-		h1 {
-			@include animation-duration(1s);
-			@include animation-name(titleHoldStill);
-			top: -100px;
-			margin: 0 0 -100px 0;
-		}
-	}
-}
-@include keyframes(titleHoldStill) {
-	from {
-		top: 0;
-		margin: 0;
-	}
-	to {
-		top: -100px;
-		margin: 0 0 -100px 0;
-	}
+  position: relative;
+  padding: 1% 0;
+  
+  h1 {
+    font-size: $text-size-50;
+    text-align: center;
+    font-family: $font-title;
+    color: $color-tertiary;
+    font-weight: bold;
+    position: relative;
+    
+    @include breakpoint( min-width 533px ) {
+      font-size: $text-size-67;
+    }
+    @include breakpoint( min-width 653px ) {
+      font-size: $text-size-83;
+    }
+  }
 }
 
 /*
 ** HEADER NAVIGATION
 */
 .navigation--button {
-	font-weight: normal;
-	font-family: $font-title;
-	color: $color-tertiary;
-	font-size: $text-size-83;
-	display: none;
-	position: absolute;
-	top: 10px;
-	right: 0;
-	display: none;
-	
-	&:hover {
-		cursor: pointer;
-	}
-	@include breakpoint( min-width 785px ) {
-		display: block;
-	}
+  font-weight: normal;
+  font-family: $font-title;
+  color: $color-tertiary;
+  font-size: $text-size-83;
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 0;
+  display: none;
+  
+  &:hover {
+    cursor: pointer;
+  }
+  @include breakpoint( min-width 785px ) {
+    display: block;
+  }
 }
 #navigation--popup {
-	
-	@include breakpoint( min-width 785px ) {
-		display: none;
-		position: absolute;
-		z-index: 2;
-		top: 50px;
-		right: 3px;
-	}
+  
+  @include breakpoint( min-width 785px ) {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    top: 50px;
+    right: 3px;
+  }
 }
 .navigation--popup-arrow {
-	width: 0px;
-	height: 0px;
-	border-style: solid;
-	border-width: 0 16px 24px 16px;
-	border-color: transparent transparent $color-tertiary transparent;
-	float: right;
-	display: none;
-	
-	@include breakpoint( min-width 785px ) {
-		display: block;
-	}
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 0 16px 24px 16px;
+  border-color: transparent transparent $color-tertiary transparent;
+  float: right;
+  display: none;
+  
+  @include breakpoint( min-width 785px ) {
+    display: block;
+  }
 }
 .navigation--popup-content {
-	background: $color-tertiary;
-	border-bottom: 5px solid color--shadow($color-tertiary);
-	margin: 3% 0;
-	padding: 3.188%;
-	box-sizing: border-box;
-	z-index: 1;
-	min-width: 221px;
-	
-	@include breakpoint( min-width 785px ) {
-		padding: 8.203%
-	}
-	
-	ul {
-		margin: 4% 0 0;
-		text-align: center;
-	
-		@include breakpoint( min-width 785px ) {
-			margin: 10% 0 0;
-		}
-	}
-	li {
-		display: inline;
-		margin: 0 10px 0 0;
-		
-		&:last-child {
-			margin: 0;
-		}
-	}
-	svg {
-		width: 85px;
-		height: 85px;
-		fill: $color-secondary;
-		
-		&:hover {
-			fill: color--shadow($color-secondary);
-		}
-	}
-	
-	@include breakpoint( min-width 785px ) {
-		margin: 0;
-		clear: right;
-	}
+  background: $color-tertiary;
+  border-bottom: 5px solid color--shadow($color-tertiary);
+  margin: 3% 0;
+  padding: 3.188%;
+  box-sizing: border-box;
+  z-index: 1;
+  min-width: 221px;
+  
+  @include breakpoint( min-width 785px ) {
+    padding: 8.203%
+  }
+  
+  ul {
+    margin: 4% 0 0;
+    text-align: center;
+  
+    @include breakpoint( min-width 785px ) {
+      margin: 10% 0 0;
+    }
+  }
+  li {
+    display: inline;
+    margin: 0 10px 0 0;
+    
+    &:last-child {
+      margin: 0;
+    }
+  }
+  svg {
+    width: 85px;
+    height: 85px;
+    fill: $color-secondary;
+    
+    &:hover {
+      fill: color--shadow($color-secondary);
+    }
+  }
+  
+  @include breakpoint( min-width 785px ) {
+    margin: 0;
+    clear: right;
+  }
 }
 #user_login {
-	@extend %input;
-	
-	&:focus {
-		@extend %input-focus;
-	}
+  @extend %input;
+  
+  &:focus {
+    @extend %input-focus;
+  }
 }
 #user_pass {
-	@extend %input;
-	margin: 3.411% auto;
-	
-	@include breakpoint( min-width 785px ) {
-		margin: 10% auto;
-	}
-	
-	&:focus {
-		@extend %input-focus;
-	}
+  @extend %input;
+  margin: 3.411% auto;
+  
+  @include breakpoint( min-width 785px ) {
+    margin: 10% auto;
+  }
+  
+  &:focus {
+    @extend %input-focus;
+  }
 }
 #loginout {
-	
-	label {
-		display: none;
-	}
-	.login-password {
-	}
+  
+  label {
+    display: none;
+  }
+  .login-password {
+  }
 }
 #wp-submit {
-	@extend %button;
-	
-	&:hover {
-		@extend %button-hover;
-	}
+  @extend %button;
+  
+  &:hover {
+    @extend %button-hover;
+  }
 }
 #loginout.loginout-out a {
-	@extend %button;
-	
-	&:hover {
-		@extend %button-hover;
-	}
+  @extend %button;
+  
+  &:hover {
+    @extend %button-hover;
+  }
 }
 
 /*
 ** BOOK SHELF
 */
 .book-shelf {
-	margin: 0 0 3%;
-	
-	&:last-child {
-		margin: 0;
-	}
-	
-	h1 {
-		background: $color-tertiary;
-		color: $color-secondary;
-		line-height: $text-size-16;
-		padding: 11px 0 5px 35px;
-		margin: 0 0 10px;
-		border-bottom: 5px solid color--shadow($color-tertiary);
-		font-weight: normal;
-		font-family: $font-title;
-		font-size: $text-size-28;
-		z-index: 1;
-		position: relative;
-		
-		svg {
-			fill: $color-secondary;
-			width: 18px;
-			height: 36px;
-			position: absolute;
-			top: 0;
-			left: 9px;
-		}
-	}
+  margin: 0 0 3%;
+  
+  &:last-child {
+    margin: 0;
+  }
+  
+  h1 {
+    background: $color-tertiary;
+    color: $color-secondary;
+    line-height: $text-size-16;
+    padding: 11px 0 5px 35px;
+    margin: 0 0 10px;
+    border-bottom: 5px solid color--shadow($color-tertiary);
+    font-weight: normal;
+    font-family: $font-title;
+    font-size: $text-size-28;
+    z-index: 1;
+    position: relative;
+    
+    svg {
+      fill: $color-secondary;
+      width: 18px;
+      height: 36px;
+      position: absolute;
+      top: 0;
+      left: 9px;
+    }
+  }
 }
 .sticky {
-	
-	h1 {
-		position: fixed;
-		top: 0;
-		box-shadow: 0 8px 8px rgba(50,50,50,.5);
-	}
+  
+  h1 {
+    position: fixed;
+    top: 0;
+    box-shadow: 0 8px 8px rgba(50,50,50,.5);
+  }
 }
 #finished-read {
-	display: none;
-	
-	.book-list {
-		border: 5px dashed $color-tertiary;
-		border-radius: 5px;
-		padding: 10px 10px 26px;
-		min-height: 46px;
-	}
-	.instructions {
-		margin: 0 0 10px;
-	}
+  display: none;
+  
+  .book-list {
+    border: 5px dashed $color-tertiary;
+    border-radius: 5px;
+    padding: 10px 10px 26px;
+    min-height: 46px;
+  }
+  .instructions {
+    margin: 0 0 10px;
+  }
 }
 .instructions {
-	font-family: $font-text;
-	text-align: center;
-	color: $color-tertiary;
+  font-family: $font-text;
+  text-align: center;
+  color: $color-tertiary;
 }
 
 /*
 ** BOOK
 */
 .book {
-	background: $color-primary;
-	padding: 12px 10px 6px;
-	margin: 0 0 10px;
-	color: $color-secondary;
-	border-bottom: 4px solid color--shadow($color-primary);
-	font-family: $font-text;
-	position: relative;
-	line-height: 1.25em;
-	
-	&:last-child {
-		margin: 0;
-	}
-	&.overflow {
-		display: none;
-	}
+  background: $color-primary;
+  padding: 12px 10px 6px;
+  margin: 0 0 10px;
+  color: $color-secondary;
+  border-bottom: 4px solid color--shadow($color-primary);
+  font-family: $font-text;
+  position: relative;
+  line-height: 1.25em;
+  
+  &:last-child {
+    margin: 0;
+  }
+  &.overflow {
+    display: none;
+  }
 }
 
 /*
 ** ACTION LINKS
 */
 .book--action-links {
-	border-bottom: 2px solid color--shadow($color-primary);
-	padding: 0 0 5px 5px;
-	line-height: $text-size-16;
-	margin: 0 0 8px;
+  border-bottom: 2px solid color--shadow($color-primary);
+  padding: 0 0 5px 5px;
+  line-height: $text-size-16;
+  margin: 0 0 8px;
 }
 .action-link {
-	text-decoration: none;
-	text-align: center;
-	position: relative;
-	padding: 0 15px 0 0;
-	
-	svg {
-		fill: $color-secondary;
-		height: 24px;
-		width: 24px;
-	}
-	
-	span {
-		padding: 4px 0 0;
-		display: inline-block;
-		margin: 0 10px 0 0;
-	}
+  text-decoration: none;
+  text-align: center;
+  position: relative;
+  padding: 0 15px 0 0;
+  
+  svg {
+    fill: $color-secondary;
+    height: 24px;
+    width: 24px;
+  }
+  
+  span {
+    padding: 4px 0 0;
+    display: inline-block;
+    margin: 0 10px 0 0;
+  }
 }
 .action-link.missing {
-	opacity: 0.4;
+  opacity: 0.4;
 }
 #amazon-action-link {
 }
 #wiki-action-link {
 }
 #download-action-link {
-	top: -3px;
+  top: -3px;
 }
 #edit-action-link {
-	top: -4px;
+  top: -4px;
 }
 .book--title {
-	font-style: italic;
+  font-style: italic;
 }
 .book--series {
-	font-size: $text-size-12;
+  font-size: $text-size-12;
 }
 .book--tags {
-	font-size: $text-size-09;
-	text-transform: lowercase;
+  font-size: $text-size-09;
+  text-transform: lowercase;
 }
 .book--tags, .book--series {
-	display: block;
+  display: block;
 }
 .book--want-date {
-	position: absolute;
-	color: color--shadow($color-primary);
-	bottom: 1%;
-	right: 1%;
-	text-transform: uppercase;
-	font-style: italic;
-	display: none;
-	
-	@include breakpoint( min-width 785px ) {
-		display: inline-block;
-	}
+  position: absolute;
+  color: color--shadow($color-primary);
+  bottom: 1%;
+  right: 1%;
+  text-transform: uppercase;
+  font-style: italic;
+  display: none;
+  
+  @include breakpoint( min-width 785px ) {
+    display: inline-block;
+  }
 }
 #show-full-list-button {
-	@extend %button;
-	margin: 3% auto 0;
-	
-	&:hover {
-		@extend %button-hover;
-	}
+  @extend %button;
+  margin: 3% auto 0;
+  
+  &:hover {
+    @extend %button-hover;
+  }
 }
 
 /*
@@ -499,51 +465,51 @@ button:focus {
 */
 .sortable-dragging {}
 .sortable-placeholder {
-	border: 1px dashed #CCC;
-	background: color--shadow($color-secondary);
-	margin: 0 0 10px;
+  border: 1px dashed #CCC;
+  background: color--shadow($color-secondary);
+  margin: 0 0 10px;
 }
 
 /*
 ** FOOTER
 */
 #site-footer {
-	margin: 20px 0 0;
-	color: color--shadow($color-tertiary);
-	font-family: $font-text;
-	position: relative;
-		
-	a {
-		color: $color-secondary;
-	}
-	svg {
-		fill: $color-secondary;
-		display: inline-block;
-		height: 25px;
-		width: 25px;
-		margin: 5px 0 0;
-	}
+  margin: 20px 0 0;
+  color: color--shadow($color-tertiary);
+  font-family: $font-text;
+  position: relative;
+    
+  a {
+    color: $color-secondary;
+  }
+  svg {
+    fill: $color-secondary;
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+    margin: 5px 0 0;
+  }
 }
 #copyright {
-	margin: 0 0 10px;
+  margin: 0 0 10px;
 }
 #github-link {
-	margin: 0;
-	text-align: left;
-	
-	@include breakpoint( min-width 855px ) {
-		text-align: right;
-		margin: -28px 0 0;
-	}
-	
-	a {
-		text-decoration: none;
-		
-		span {
-			text-decoration: underline;
-			margin: 0 0 2px;
-			display: inline-block;
-			overflow: hidden;
-		}
-	}
+  margin: 0;
+  text-align: left;
+  
+  @include breakpoint( min-width 855px ) {
+    text-align: right;
+    margin: -28px 0 0;
+  }
+  
+  a {
+    text-decoration: none;
+    
+    span {
+      text-decoration: underline;
+      margin: 0 0 2px;
+      display: inline-block;
+      overflow: hidden;
+    }
+  }
 }
