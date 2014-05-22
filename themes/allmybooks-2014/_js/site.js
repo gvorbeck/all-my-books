@@ -140,11 +140,12 @@ jQuery( document ).ready( function() {
     }
   } );
   // Check the initial Poistion of the Sticky Header
-var stickyHeaderTop    = jQuery('#future-read h1').offset().top;
+  var stickyHeaderTop    = jQuery('#future-read h1').offset().top;
   var stickyHeaderHeight = jQuery('#future-read h1').outerHeight()+10;
   var stickyHeaderWidth  = jQuery('#content').width()-35;
   jQuery(window).resize( function() {
     stickyHeaderWidth  = jQuery('#content').width()-35;
+    stickyHeaderTop    = jQuery('#future-read h1').offset().top;
     jQuery('#future-read h1').width(stickyHeaderWidth);
   } );
   
