@@ -1,6 +1,5 @@
 # Require any additional compass plugins here.
 require "breakpoint"
-require "bourbon/bourbon"
 
 # Set this to the root of your project when deployed:
 http_path = "../"
