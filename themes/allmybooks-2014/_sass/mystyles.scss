@@ -1,5 +1,6 @@
 @import "compass/css3";
 @import "breakpoint";
+@import "bourbon";
 
 /*
 ** COLORS
@@ -120,9 +121,10 @@ body {
 #loading-container {
   background: $color-secondary;
   padding: 10px;
-  position: fixed;
+  @include position( fixed, 0 0 0 0 );
+  /*position: fixed;
   top: 0;
-  left: 0;
+  left: 0;*/
   margin: 10px;
   display: none;
 }
