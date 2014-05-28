@@ -8,7 +8,7 @@ function updateFinishedList(bid) {
   jQuery( '#loading-container' ).toggle();
   jQuery.ajax( {
     type: 'POST',
-    url: templateDirectory + '/_php/save-finished-list.php',
+    url: templateDirectory + '/php/save-finished-list.php',
     data: 'id=' + bid,
     success: function(data) {
       jQuery( '#loading-container' ).toggle();
@@ -27,7 +27,7 @@ function updateCurrentList(bid) {
   jQuery( '#loading-container' ).toggle();
   jQuery.ajax( {
     type: 'POST',
-    url: templateDirectory + '/_php/save-current-list.php',
+    url: templateDirectory + '/php/save-current-list.php',
     data: 'id=' + bid,
     success: function(data) {
       jQuery( '#loading-container' ).toggle();
@@ -61,25 +61,17 @@ function updateFutureList() {
   jQuery( '#loading-container' ).toggle();
   jQuery.ajax( {
     'type': 'POST',
-    'url': templateDirectory + '/_php/save-future-list.php',
+    'url': templateDirectory + '/php/save-future-list.php',
     'data': 'future_list=' + updatedList,
     'success': function(data) {
       // data variable is anything echoed in above php file.
       jQuery( '#loading-container' ).toggle();
-      //console.log(data);
+      console.log(data);
     }
   } );
 }
-
 /* DOC READY START */
 jQuery( document ).ready( function() {
-  // Get browser window size. Will be 15px smaller than what Chrome reports.
-  var pageWidth = jQuery( window).width();
-  jQuery( '#dev--window-width' ).text( pageWidth );
-  jQuery( window ).resize( function(i) {
-    pageWidth = jQuery( window ).width();
-    jQuery( '#dev--window-width' ).text( pageWidth );
-  });
   // Hide the bloat of the wtr list.
   jQuery('#show-full-list-button').click(function() {
     jQuery('#future-read-list .overflow').toggle();
@@ -139,31 +131,35 @@ jQuery( document ).ready( function() {
       jQuery( '#navigation--popup' ).hide();
     }
   } );
-  // Check the initial Poistion of the Sticky Header
-  var stickyHeaderTop    = jQuery('#future-read h1').offset().top;
-  var stickyHeaderHeight = jQuery('#future-read h1').outerHeight()+10;
-  var stickyHeaderWidth  = jQuery('#content').width()-35;
+  // Check the initial Position of the Sticky headers
+  var stickyHeaderTop = jQuery('#future-read h1').offset().top;
+  var stickyWidth     = jQuery('#future-read h1').parent().width() + 'px';
+  var stickyHeight    = jQuery('#future-read h1').outerHeight() + 'px';
   jQuery(window).resize( function() {
-    stickyHeaderWidth  = jQuery('#content').width()-35;
-    stickyHeaderTop    = jQuery('#future-read h1').offset().top;
-    jQuery('#future-read h1').width(stickyHeaderWidth);
+    stickyWidth     = jQuery('#future-read').width();
+    stickyHeaderTop = jQuery('#future-read h1').offset().top;
+    jQuery('#future-read h1').css('width', stickyWidth);
   } );
   
   // Immediately look to see if page has loaded below the banner.
   if( jQuery(window).scrollTop() >= stickyHeaderTop ) {
-    jQuery('#future-read').addClass('sticky').children('h1').width(stickyHeaderWidth);
-    jQuery('#future-read-list').css('margin-top', stickyHeaderHeight);
+    jQuery('#future-read').addClass('sticky');
+    jQuery('#future-read h1').css('width', stickyWidth);
+    jQuery('#future-read-list').css('margin-top', stickyHeight);
   } else {
     jQuery('#future-read').removeClass('sticky');
+    jQuery('#future-read h1').css('width', stickyWidth);
     jQuery('#future-read-list').css('margin-top', '0');
   }
   // Look again while scrolling.
   jQuery(window).scroll(function() {
     if( jQuery(window).scrollTop() >= stickyHeaderTop ) {
-      jQuery('#future-read').addClass('sticky').children('h1').width(stickyHeaderWidth);
-      jQuery('#future-read-list').css('margin-top', stickyHeaderHeight);
+      jQuery('#future-read').addClass('sticky');
+      jQuery('#future-read h1').css('width', stickyWidth);
+      jQuery('#future-read-list').css('margin-top', stickyHeight);
     } else {
       jQuery('#future-read').removeClass('sticky');
+      jQuery('#future-read h1').css('width', stickyWidth);
       jQuery('#future-read-list').css('margin-top', '0');
     }
   } );

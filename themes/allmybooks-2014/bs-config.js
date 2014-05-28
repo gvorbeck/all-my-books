@@ -1,4 +1,4 @@
-/*
+  /*
  |--------------------------------------------------------------------------
  | Browser-sync config file
  |--------------------------------------------------------------------------
@@ -18,7 +18,7 @@ module.exports = {
      |--------------------------------------------------------------------------
      | https://github.com/shakyShane/browser-sync/wiki/options#wiki-files
      */
-    files: ["wordpress/wp-content/themes/allmybooks-2014/_css/*.css", "wordpress/wp-content/themes/allmybooks-2014/_js/*.js", "wordpress/wp-content/themes/allmybooks-2014/*.php"],
+    files: ["stylesheets/*.css", "javascripts/*.js", "*.php"],
 
     /*
      |--------------------------------------------------------------------------
