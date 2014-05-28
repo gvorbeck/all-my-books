@@ -1,11 +1,11 @@
 /*
 Syntax error: Undefined mixin 'grid-span'.
-        on line 120 of /Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss, in `grid-span'
-        from line 120 of /Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss
+        on line 119 of /Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss, in `grid-span'
+        from line 119 of /Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss
 
 Backtrace:
-/Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss:120:in `grid-span'
-/Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss:120
+/Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss:119:in `grid-span'
+/Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss:119
 /Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:253:in `visit_mixin'
 /Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/base.rb:37:in `visit'
 /Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:100:in `visit'
@@ -84,4 +84,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'grid-span'.\A         on line 120 of /Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss, in `grid-span'\A         from line 120 of /Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss"; }
+  content: "Syntax error: Undefined mixin 'grid-span'.\A         on line 119 of /Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss, in `grid-span'\A         from line 119 of /Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss"; }

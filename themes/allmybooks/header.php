@@ -69,30 +69,9 @@
             </div>
           </form>
         <?php } ?>
-      
+      <?php echo $_SERVER["REMOTE_ADDR"]; ?>
       
         <h1><?php bloginfo('title'); ?></h1>
-        <!--div class="navigation--button">*</div>
-        <div id="navigation--popup">
-          <div class="navigation--popup-arrow"></div>
-          <div class="navigation--popup-content">
-            <div id="loginout" class="<?php if ( is_user_logged_in() ) { echo 'loginout-out'; } else { echo 'loginout-in'; } ?>">
-              <?php
-              if ( ! is_user_logged_in() ) {
-                wp_login_form();
-              } else {
-                wp_loginout( get_bloginfo('url') );
-              }
-              ?>
-            </div>
-            <nav>
-              <ul>
-                <li><a class="navigation--popup-link" href="<?php echo get_admin_url(); ?>" title="AMB Admin Area" target="_blank"><?php echo file_get_contents( locate_template( "_images/icons/cms.svg" ) ); ?></a></li>
-                <li><a class="navigation--popup-link" href="<?php echo get_admin_url(); ?>post-new.php" title="Add a New Book" target="_blank"><?php echo file_get_contents( locate_template( "_images/icons/book.svg" ) ); ?></a></li>
-              </ul>
-            </nav>
-          </div>
-        </div-->
       </header>
 
       <main id="site-content" class="content">

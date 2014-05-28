@@ -66,7 +66,7 @@ function updateFutureList() {
     'success': function(data) {
       // data variable is anything echoed in above php file.
       jQuery( '#loading-container' ).toggle();
-      //console.log(data);
+      console.log(data);
     }
   } );
 }
