@@ -1,0 +1,315 @@
+
+/*
+** COLORS
+*/
+$color-primary: #246f99;
+$color-secondary: #F5F1D2;
+$color-tertiary: #434343;
+
+
+@function color--shadow($color) {
+  @return adjust-color($color, $hue: 0, $saturation: 3, $lightness: -7);
+}
+
+/*
+** FONTS
+*/
+$font-title: 'Domine', serif;
+$font-text: 'Sintony', sans-serif;
+/*
+** TEXT SIZES
+** http://lifehacker.com/stick-to-these-font-sizes-to-simplify-designs-and-more-1531615325
+*/
+$text-size-05: 0.313em; // 5px
+$text-size-07: 0.438em; // 7px
+$text-size-09: 0.563em; // 9px
+$text-size-12: 0.750em; // 12px
+$text-size-16: 1em;     // 16px
+$text-size-21: 1.313em; // 21px
+$text-size-28: 1.750em; // 28px
+$text-size-37: 2.313em; // 37px
+$text-size-50: 3.125em; // 50px
+$text-size-67: 4.188em; // 67px
+$text-size-83: 5.188em; // 83px
+/*
+** WIDTHS
+*/
+$gutter-padding: gutter-span();
+$column-padding: gutter-span() + gutter-span() + gutter-span() + gutter-span();
+/*
+** EXTENDS
+*/
+%button {
+  border-bottom: .179em solid color--shadow(#C0C0C0);
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  background: #C0C0C0;
+  padding: $gutter-padding;
+  font-size: $text-size-28;
+  color: $color-tertiary;
+  border-radius: .179em;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+}
+%button-hover {
+  background: color--shadow(#C0C0C0);
+  border-bottom: .179em solid color--shadow(color--shadow(#C0C0C0));
+  cursor: pointer;
+}
+%input {
+  background: $color-tertiary;
+  border: 2px solid color--shadow($color-tertiary);
+  color: $color-secondary;
+  display: block;
+  font-family: $font-text;
+  font-size: $text-size-21;
+  padding: 10px;
+  width: 100%;
+}
+%input-focus {
+  border: 2px solid $color-secondary;
+  outline: none;
+}
+
+
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: $font-text;
+  color: $color-tertiary;
+}
+body {
+  /* Created using http://www.patternify.com/ */
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2OUjq77zykizQADjCr5M/9/f/OUASYIFgDJwgThAjBBACtAEXlnBGGKAAAAAElFTkSuQmCC) repeat;
+}
+.container {
+  //@include background-grid;
+  border-bottom: .313em solid color--shadow($color-secondary);
+  margin: 0 auto;
+  min-height: 100%;
+  max-width: 1000px;
+}
+.content {
+  background: $color-secondary;
+}
+/*
+** SITE HEADER
+*/
+#site-header {
+  
+  h1 {
+    font-family: $font-title;
+    font-size: $text-size-50;
+    font-weight: bold;
+    text-align: center;
+    text-transform: capitalize;
+    padding: $gutter-padding 0;
+  }
+}
+#loginform {
+  text-align: center;
+  padding: $gutter-padding 0;
+  background: $color-tertiary;
+  border-bottom: .313em solid color--shadow($color-tertiary);
+  overflow: hidden;
+  
+  div {
+    @include grid-span(6, 4);
+    clear: both;
+  }
+  input[type=text] {
+    @extend %input;
+    
+    &:focus {
+      @extend %input-focus;
+    }
+  }
+  input[type=password] {
+    @extend %input;
+    
+    &:focus {
+      @extend %input-focus;
+    }
+  }
+  label {
+    text-align: left;
+    display: block;
+    color: $color-secondary;
+  }
+}
+#wp-submit {
+  @extend %button;
+  margin: $gutter-padding auto 0;
+}
+#site-content {
+  overflow: hidden;
+}
+/*
+** BOOK SHELF
+*/
+.book-shelf {
+  @include grid-span( 10, 2 );
+  margin-bottom: $column-padding;
+  clear: both;
+  
+  &:first-child {
+  }
+  
+  h1 {
+    background: $color-tertiary;
+    border-bottom: .179em solid color--shadow($color-tertiary);
+    color: $color-secondary;
+    font-family: $font-title;
+    font-size: $text-size-28;
+    line-height: 1em;
+    margin: 0 0 $gutter-padding;
+    padding: .5em .5em .4em 1.5em; // In ems and not $gutter-padding because of sticky behavior.
+    position: relative;
+  }
+  svg {
+    fill: $color-secondary;
+    width: .643em;
+    height: 1.286em;
+    position: absolute;
+    top: 0;
+    left: $gutter-padding;
+  }
+}
+.sticky {
+  
+  h1 {
+    position: fixed;
+    top: 0;
+    box-shadow: 0 8px 8px rgba(50,50,50,.5);
+    z-index: 1;
+  }
+}
+.instructions {
+  text-align: center;
+}
+#finished-read {
+  /*display: none;*/
+  
+  .book-list {
+    border: .313em dashed $color-tertiary;
+    border-radius: .313em;
+    padding: $gutter-padding $gutter-padding ($gutter-padding * 2);  }
+  .instructions {
+    margin: 0 0 $gutter-padding;
+  }
+}
+/*
+** BOOK
+*/
+.book {
+  background: $color-primary;
+  padding: $gutter-padding;
+  margin: 0 0 $gutter-padding;
+  color: $color-secondary;
+  border-bottom: .313em solid color--shadow($color-primary);
+  font-family: $font-text;
+  position: relative;
+  line-height: 1.25em;
+  
+  &.overflow {
+    display: none;
+  }
+}
+/*
+** ACTION LINKS
+*/
+.book--action-links {
+  border-bottom: .125em solid color--shadow($color-primary);
+  padding: 0 0 $gutter-padding;
+  margin: 0 0 $gutter-padding;
+}
+.action-link {
+  text-decoration: none;
+  text-align: center;
+  position: relative;
+  padding: 0 2.5em 0 0;
+  
+  svg {
+    fill: $color-secondary;
+    height: 1.5em;
+    width: 1.5em;
+  }
+}
+.action-link.missing {
+  opacity: 0.4;
+}
+#download-action-link {
+  top: -3px;
+}
+#edit-action-link {
+  top: -4px;
+}
+.book--title {
+  font-style: italic;
+}
+.book--series {
+  font-size: $text-size-12;
+}
+.book--tags {
+  font-size: $text-size-09;
+  text-transform: lowercase;
+}
+.book--tags, .book--series {
+  display: block;
+}
+.book--want-date {
+  position: absolute;
+  color: color--shadow($color-primary);
+  bottom: $gutter-padding;
+  right: $gutter-padding;
+  text-transform: uppercase;
+  font-style: italic;
+  display: none;
+  
+  @include breakpoint( min-width 785px ) {
+    display: inline-block;
+  }
+}
+#show-full-list-button {
+  @extend %button;
+  @include grid-span( 6, 4 );
+  
+  &:hover {
+    @extend %button-hover;
+  }
+}
+/*
+** SITE FOOTER
+*/
+#site-footer {
+  overflow: hidden;
+  padding-bottom: $column-padding;
+  text-align: center;
+  
+  p {
+    @include grid-span(10, 2);
+    clear: both;
+    line-height: 1.563em;
+  }
+  svg {
+    fill: $color-primary;
+    height: 1.563em;
+    width: 1.563em;
+    vertical-align: bottom;
+  }
+  a {
+    color: $color-primary;
+    
+  }
+}
+#github-link a {
+  text-decoration: none;
+  
+  span {
+    text-decoration: underline;
+    vertical-align: middle;
+  }
+}
