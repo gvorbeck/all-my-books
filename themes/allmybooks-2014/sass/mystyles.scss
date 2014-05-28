@@ -1,4 +1,4 @@
-
+@import "bourbon";
 /*
 ** COLORS
 */
@@ -72,8 +72,9 @@ $column-padding: gutter-span() + gutter-span() + gutter-span() + gutter-span();
   border: 2px solid $color-secondary;
   outline: none;
 }
-
-
+/*
+** PRELIMINARY
+*/
 body, html {
   height: 100%;
   margin: 0;
@@ -85,11 +86,49 @@ body {
   /* Created using http://www.patternify.com/ */
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2OUjq77zykizQADjCr5M/9/f/OUASYIFgDJwgThAjBBACtAEXlnBGGKAAAAAElFTkSuQmCC) repeat;
 }
+/*
+** LOADING INIDCATOR
+*/
+#loading-container {
+  background: $color-secondary;
+  position: fixed;
+  top: 0;
+  padding: $gutter-padding;
+  margin: ($gutter-padding * 4) 0 0 $gutter-padding;
+  border: .125em solid color--shadow($color-secondary);
+  z-index: 1;
+  display: none;
+}
+.loading-spinner {
+  width: 30px;
+  height: 30px;
+  background-color: $color-primary;
+  
+  @include animation(rotateplane 1.2s infinite ease-in-out);
+}
+@include keyframes(rotateplane) {
+  0% {
+    @include transform( perspective( 120px ) rotateX( 0deg ) rotateY( 0deg ) );
+  } 50% {
+    @include transform( perspective( 120px ) rotateX( -180.1deg ) rotateY( 0deg ) );
+  } 100% {
+    @include transform( perspective( 120px ) rotateX( -180deg ) rotateY( -179.9deg ) );
+  }
+}
 .container {
   //@include background-grid;
   margin: 0 auto;
   min-height: 100%;
   max-width: 1000px;
+  
+  @include breakpoint( min-width 600px ) {
+    @include grid-span(10, 2);
+  }
+  @include breakpoint( min-width 1204px ) {
+    // This gets rid of the grid-span rule and just makes the container centered.
+    float: none;
+    margin: 0 auto;
+  }
 }
 .content {
   background: $color-secondary;
@@ -106,6 +145,13 @@ body {
     text-align: center;
     text-transform: capitalize;
     padding: $gutter-padding 0;
+    
+    @include breakpoint( min-width 480px ) {
+      font-size: $text-size-67;
+    }
+    @include breakpoint( min-width 720px ) {
+      font-size: $text-size-83;
+    }
   }
 }
 #loginform {
@@ -115,8 +161,8 @@ body {
   border-bottom: .313em solid color--shadow($color-tertiary);
   overflow: hidden;
   
-  div {
-    @include grid-span(6, 4);
+  p {
+    @include grid-span(11, 1.5);
     clear: both;
   }
   input[type=text] {
@@ -139,9 +185,32 @@ body {
     color: $color-secondary;
   }
 }
+.login-remember {
+  display: none;
+}
 #wp-submit {
   @extend %button;
   margin: $gutter-padding auto 0;
+  
+  &:hover {
+    @extend %button-hover;
+  }
+}
+#site-navigation {
+  background: $color-tertiary;
+  border-bottom: .313em solid color--shadow($color-tertiary);
+  padding: $gutter-padding ($gutter-padding * 4);
+  text-align: center;
+  
+  li {
+    display: inline-block;
+    margin: 0 $gutter-padding;
+  }
+  svg {
+    width: 3.5em;
+    height: 3.5em;
+    fill: $color-secondary;
+  }
 }
 #site-content {
   overflow: hidden;
@@ -150,8 +219,8 @@ body {
 ** BOOK SHELF
 */
 .book-shelf {
-  @include grid-span( 10, 2 );
-  margin-bottom: $column-padding;
+  @include grid-span( 11, 1.5 );
+  margin-bottom: ($column-padding/2);
   clear: both;
   
   &:first-child {
@@ -174,7 +243,7 @@ body {
     height: 1.286em;
     position: absolute;
     top: 0;
-    left: $gutter-padding;
+    left: .5em;
   }
 }
 .sticky {
@@ -190,7 +259,7 @@ body {
   text-align: center;
 }
 #finished-read {
-  /*display: none;*/
+  display: none;
   
   .book-list {
     border: .313em dashed $color-tertiary;
@@ -206,7 +275,7 @@ body {
 .book {
   background: $color-primary;
   padding: $gutter-padding;
-  margin: 0 0 $gutter-padding;
+  margin: $gutter-padding 0 0;
   color: $color-secondary;
   border-bottom: .313em solid color--shadow($color-primary);
   font-family: $font-text;
@@ -216,20 +285,34 @@ body {
   &.overflow {
     display: none;
   }
+  &:first-child {
+    margin: 0;
+  }
+}
+/*
+** SORTING
+*/
+.sortable-placeholder {
+  border: .063px dashed #CCC;
+  background: color--shadow($color-secondary);
+  margin: 0 0 $gutter-padding;
 }
 /*
 ** ACTION LINKS
 */
 .book--action-links {
   border-bottom: .125em solid color--shadow($color-primary);
-  padding: 0 0 $gutter-padding;
-  margin: 0 0 $gutter-padding;
+  padding: .4em 0;
+  margin: 0 0 .4em;
 }
 .action-link {
   text-decoration: none;
   text-align: center;
   position: relative;
-  padding: 0 2.5em 0 0;
+  margin: 0 1em 0 0;
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
   
   svg {
     fill: $color-secondary;
@@ -275,6 +358,7 @@ body {
 #show-full-list-button {
   @extend %button;
   @include grid-span( 6, 4 );
+  margin-top: $gutter-padding;
   
   &:hover {
     @extend %button-hover;
@@ -285,23 +369,42 @@ body {
 */
 #site-footer {
   overflow: hidden;
-  padding-bottom: $column-padding;
+  padding-bottom: ($column-padding/2);
   text-align: center;
   
+  @include breakpoint( min-width 600px ) {
+    background: none;
+    margin-top: ($column-padding/2);
+    text-align: left;
+  }
+  
   p {
-    @include grid-span(10, 2);
+    @include grid-span(11, 1.5);
     clear: both;
     line-height: 1.563em;
+    
+    @include breakpoint( min-width 600px ) {
+      @include grid-span(12, 1);
+      color: color--shadow($color-tertiary);
+    }
   }
   svg {
     fill: $color-primary;
     height: 1.563em;
     width: 1.563em;
     vertical-align: bottom;
+    margin-left: .25em;
+    
+    @include breakpoint( min-width 600px ) {
+      fill: $color-secondary;
+    }
   }
   a {
     color: $color-primary;
     
+    @include breakpoint( min-width 600px ) {
+      color: $color-secondary;
+    }
   }
 }
 #github-link a {

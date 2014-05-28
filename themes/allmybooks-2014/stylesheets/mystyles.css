@@ -1,22 +1,17 @@
 /*
-Syntax error: Undefined mixin 'grid-span'.
-        on line 119 of /Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss, in `grid-span'
-        from line 119 of /Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss
+Syntax error: Undefined operation: "gutter-span() times 4".
+        on line 97 of /Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss
 
 Backtrace:
-/Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss:119:in `grid-span'
-/Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss:119
-/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:253:in `visit_mixin'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:100:in `visit'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/base.rb:53:in `map'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/base.rb:37:in `block in visit'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:320:in `visit_rule'
+/Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss:97
+/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/script/operation.rb:92:in `rescue in _perform'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/script/operation.rb:88:in `_perform'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/script/node.rb:40:in `perform'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/script/list.rb:71:in `block in _perform'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/script/list.rb:71:in `map'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/script/list.rb:71:in `_perform'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/script/node.rb:40:in `perform'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:298:in `visit_prop'
 /Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/base.rb:37:in `visit'
 /Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/perform.rb:100:in `visit'
 /Library/Ruby/Gems/2.0.0/gems/sass-3.2.19/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
@@ -84,4 +79,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'grid-span'.\A         on line 119 of /Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss, in `grid-span'\A         from line 119 of /Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss"; }
+  content: "Syntax error: Undefined operation: \"gutter-span() times 4\".\A         on line 97 of /Users/G/Sites/allmybooks/wordpress/wp-content/themes/allmybooks/sass/mystyles.scss"; }
