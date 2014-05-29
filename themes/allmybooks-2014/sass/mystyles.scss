@@ -215,6 +215,10 @@ body {
 }
 #site-content {
   overflow: hidden;
+  
+  @include breakpoint( min-width 600px ) {
+    border-bottom: .313em solid color--shadow($color-secondary);
+  }
 }
 /*
 ** BOOK SHELF
