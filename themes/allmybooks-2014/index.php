@@ -1,6 +1,5 @@
 <?php
 get_header();
-$ribbon = file_get_contents( locate_template( "_images/icons/bookmark.svg" ) );
 /* FINISHED READING */
 echo '<section id="finished-read" class="book-shelf"><h1>' . svg_bookmark() . 'I\'m Finished Reading This</h1><ul id="finished-read-list" class="book-list connected sortable"><li class="instructions disabled">Drag a book here to mark it as finished.</li></ul></section>';
 /* CURRENTLY READING */
