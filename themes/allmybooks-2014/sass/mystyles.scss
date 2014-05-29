@@ -45,7 +45,7 @@ $column-padding: gutter-span() + gutter-span() + gutter-span() + gutter-span();
   border-right: none;
   border-left: none;
   background: #C0C0C0;
-  padding: $gutter-padding;
+  padding: .4em;
   font-size: $text-size-28;
   color: $color-tertiary;
   border-radius: .179em;
@@ -190,7 +190,8 @@ body {
 }
 #wp-submit {
   @extend %button;
-  margin: $gutter-padding auto 0;
+  @include grid-span( 4, 5 );
+  margin-top: $gutter-padding;
   
   &:hover {
     @extend %button-hover;
@@ -274,7 +275,7 @@ body {
 */
 .book {
   background: $color-primary;
-  padding: $gutter-padding;
+  padding: .5em;
   margin: $gutter-padding 0 0;
   color: $color-secondary;
   border-bottom: .313em solid color--shadow($color-primary);
