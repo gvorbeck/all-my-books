@@ -37,7 +37,7 @@ $args = array(
   ),
 );
 $future_query = new WP_Query( $args );
-// 2. GO THROUGH THEME AND FIND OUT IF THE 'READING LIST' TABLE HAS ANY PROBLEMS WITH THIS INFORMATION.
+// 2. GO THROUGH THEM AND FIND OUT IF THE 'READING LIST' TABLE HAS ANY PROBLEMS WITH THIS INFORMATION.
 if ( $future_query->have_posts() ) {
   $wtr_array = array();
   while ( $future_query->have_posts() ) {
