@@ -47,7 +47,8 @@
             'redirect' => '/',
           );
           wp_login_form($args);
-        } else { ?>
+        }
+        else { ?>
           <nav id="site-navigation">
             <ul>
               <li class="site-navigation--item">
@@ -55,6 +56,9 @@
               </li>
               <li class="site-navigation--item">
                 <a class="site-navigation--link" href="<?php echo get_admin_url(); ?>post-new.php" title="Add a New Book" target="_blank"><?php echo svg_book(); ?></a>
+              </li>
+              <li class="site-navigation--item">
+                <a class="site-navigation--link" href="<?php echo wp_logout_url( home_url() ); ?>" title="Logout"><?php echo svg_logout(); ?></a>
               </li>
             </ul>
           </nav>
