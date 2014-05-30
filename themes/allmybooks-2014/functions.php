@@ -115,9 +115,9 @@ if ( ! function_exists( 'get_action_links' ) ) {
       $book_no_click = "onclick='return false'";
     }
     $book_links    = array();
-    $book_links[]  = "<a id='amazon-action-link' class='action-link' href='http://www.amazon.com/s/field-keywords=$ascii_title+$ascii_authors' target='_blank' title='Search Amazon'>" . svg_amazon() . "</a>";
-    $book_links[]  = "<a id='wiki-action-link' class='action-link' href='http://en.wikipedia.org/wiki/Special:Search?search=$ascii_title+$ascii_authors' target='_blank' title='Search Wikipedia'>" . svg_wikipedia() . "</a>";
-    $book_links[]  = "<a id='luzme-action-link' class='action-link' href='http://luzme.com/search_all?keyword=$ascii_title+$ascii_authors' target='_blank' title='Shop Luzme'>" . svg_store() . "</a>";
+    $book_links[]  = "<a class='amazon-action-link action-link' href='http://www.amazon.com/s/field-keywords=$ascii_title+$ascii_authors' target='_blank' title='Search Amazon'>" . svg_amazon() . "</a>";
+    $book_links[]  = "<a class='wiki-action-link action-link' href='http://en.wikipedia.org/wiki/Special:Search?search=$ascii_title+$ascii_authors' target='_blank' title='Search Wikipedia'>" . svg_wikipedia() . "</a>";
+    $book_links[]  = "<a class='luzme-action-link action-link' href='http://luzme.com/search_all?keyword=$ascii_title+$ascii_authors' target='_blank' title='Shop Luzme'>" . svg_store() . "</a>";
     if ( is_user_logged_in() ) {
       $book_links[] = "<a class='download-action-link action-link $book_missing' href='" . get_field('book_file', $post_id) . "' title='Download " . esc_attr( get_post( $post_id )->post_title ) . "' $book_no_click >" . svg_download() . "</a>";
       $book_links[]  = '<a class="edit-action-link action-link" href="' . get_edit_post_link( $post_id ) . '" target="_blank" title="Edit ' . esc_attr( get_post( $post_id )->post_title ) . '">' . svg_edit() . '</a>';
