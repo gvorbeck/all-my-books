@@ -8,8 +8,8 @@ function updateFinishedList(bid) {
   jQuery( '#loading-container' ).toggle();
   jQuery.ajax( {
     type: 'POST',
-    url: templateDirectory + '/php/save-finished-list.php',
-    data: 'id=' + bid,
+    url: templateDirectory + '/php/save-list.php',
+    data: 'list=fin&id=' + bid,
     success: function(data) {
       jQuery( '#loading-container' ).toggle();
       //console.log(data);
@@ -27,8 +27,8 @@ function updateCurrentList(bid) {
   jQuery( '#loading-container' ).toggle();
   jQuery.ajax( {
     type: 'POST',
-    url: templateDirectory + '/php/save-current-list.php',
-    data: 'id=' + bid,
+    url: templateDirectory + '/php/save-list.php',
+    data: 'list=cur&id=' + bid,
     success: function(data) {
       jQuery( '#loading-container' ).toggle();
       //console.log(data);
@@ -61,8 +61,8 @@ function updateFutureList() {
   jQuery( '#loading-container' ).toggle();
   jQuery.ajax( {
     'type': 'POST',
-    'url': templateDirectory + '/php/save-future-list.php',
-    'data': 'future_list=' + updatedList,
+    'url': templateDirectory + '/php/save-list.php',
+    'data': 'list=fut&future_list=' + updatedList,
     'success': function(data) {
       // data variable is anything echoed in above php file.
       jQuery( '#loading-container' ).toggle();
@@ -133,10 +133,10 @@ jQuery( document ).ready( function() {
   } );
   // Check the initial Position of the Sticky headers
   var stickyHeaderTop = jQuery('#future-read h1').offset().top;
-  var stickyWidth     = jQuery('#future-read h1').parent().width() + 'px';
+  var stickyWidth     = jQuery('#future-read h1').parent().width() + 1 + 'px';
   var stickyHeight    = jQuery('#future-read h1').outerHeight() + 'px';
   jQuery(window).resize( function() {
-    stickyWidth     = jQuery('#future-read').width();
+    stickyWidth     = jQuery('#future-read').width() + 1 + 'px';
     stickyHeaderTop = jQuery('#future-read h1').offset().top;
     jQuery('#future-read h1').css('width', stickyWidth);
   } );

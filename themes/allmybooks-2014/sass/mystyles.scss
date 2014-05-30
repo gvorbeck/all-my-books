@@ -1,3 +1,4 @@
+@import "compass/css3";
 @import "bourbon";
 /*
 ** COLORS
@@ -16,6 +17,16 @@ $color-tertiary: #434343;
 */
 $font-title: 'Domine', serif;
 $font-text: 'Sintony', sans-serif;
+@font-face {
+  font-family: 'Lobster Two';
+  src:
+    url('../fonts/LobsterTwo.eot?') format('eot'), 
+    url('../fonts/LobsterTwo.otf')  format('opentype'),
+    url('../fonts/LobsterTwo.woff') format('woff'), 
+    url('../fonts/LobsterTwo.ttf')  format('truetype'),
+    url('../fonts/LobsterTwo.svg#LobsterTwo') format('svg');
+}
+
 /*
 ** TEXT SIZES
 ** http://lifehacker.com/stick-to-these-font-sizes-to-simplify-designs-and-more-1531615325
@@ -83,8 +94,7 @@ body, html {
   color: $color-tertiary;
 }
 body {
-  /* Created using http://www.patternify.com/ */
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2OUjq77zykizQADjCr5M/9/f/OUASYIFgDJwgThAjBBACtAEXlnBGGKAAAAAElFTkSuQmCC) repeat;
+  background: url(../images/goot8xr.png) $color-primary repeat;
 }
 /*
 ** LOADING INIDCATOR
@@ -139,18 +149,47 @@ body {
 #site-header {
   
   h1 {
-    font-family: $font-title;
-    font-size: $text-size-50;
-    font-weight: bold;
+    font-family: 'Lobster Two';
+    font-size: $text-size-37;
     text-align: center;
     text-transform: capitalize;
     padding: $gutter-padding 0;
+    position: relative;
+    margin: 0 0 0 -.36em;
+    color: color--shadow($color-tertiary);
     
-    @include breakpoint( min-width 480px ) {
+    @include breakpoint( min-width 425px ) {
+      font-size: $text-size-50;
+    }
+    @include breakpoint( min-width 680px ) {
       font-size: $text-size-67;
     }
-    @include breakpoint( min-width 720px ) {
+    @include breakpoint( min-width 830px ) {
       font-size: $text-size-83;
+    }
+    
+    svg {
+      width: 3em;
+      height: 3em;
+      fill: $color-primary;
+      position: absolute;
+      border-radius: 2em;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+    .first {
+      position: absolute;
+      margin: 0 auto;
+      left: -.65em;
+      right: 0;
+      top: .35em;
+      font-weight: bold;
+    }
+    .last {
+      font-size: 3em;
+      display: block;
+      position: relative;
     }
   }
 }
@@ -215,6 +254,10 @@ body {
 }
 #site-content {
   overflow: hidden;
+  
+  @include breakpoint( min-width 600px ) {
+    border-bottom: .313em solid color--shadow($color-secondary);
+  }
 }
 /*
 ** BOOK SHELF
@@ -324,12 +367,6 @@ body {
 .action-link.missing {
   opacity: 0.4;
 }
-#download-action-link {
-  top: -3px;
-}
-#edit-action-link {
-  top: -4px;
-}
 .book--title {
   font-style: italic;
 }
@@ -343,10 +380,11 @@ body {
 .book--tags, .book--series {
   display: block;
 }
-.book--want-date {
+.book--want-date,
+.book--last-read {
   position: absolute;
   color: color--shadow($color-primary);
-  bottom: $gutter-padding;
+  bottom: .5em;
   right: $gutter-padding;
   text-transform: uppercase;
   font-style: italic;
@@ -355,6 +393,9 @@ body {
   @include breakpoint( min-width 785px ) {
     display: inline-block;
   }
+}
+.book--last-read {
+  bottom: 1.7em;
 }
 #show-full-list-button {
   @extend %button;

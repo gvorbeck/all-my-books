@@ -42,12 +42,14 @@
     <div id="loading-container"><div class="loading-spinner"></div></div>
     <div class="container">
       <header id="site-header" class="content">
-        <?php if ( ! is_user_logged_in() ) {
+        <?php
+        if ( ! is_user_logged_in() ) {
           $args = array(
-            'redirect' => '/',
+            'redirect' => home_url('/', 'relative'),
           );
           wp_login_form($args);
-        } else { ?>
+        }
+        else { ?>
           <nav id="site-navigation">
             <ul>
               <li class="site-navigation--item">
@@ -56,9 +58,22 @@
               <li class="site-navigation--item">
                 <a class="site-navigation--link" href="<?php echo get_admin_url(); ?>post-new.php" title="Add a New Book" target="_blank"><?php echo svg_book(); ?></a>
               </li>
+              <li class="site-navigation--item">
+                <a class="site-navigation--link" href="<?php echo wp_logout_url( home_url() ); ?>" title="Logout"><?php echo svg_logout(); ?></a>
+              </li>
             </ul>
           </nav>
         <?php } ?>
-        <h1><?php bloginfo('title'); ?></h1>
+        <h1>
+          <?php
+          $title = explode( ' ', get_bloginfo('title') );
+          $title_last = end( explode( ' ', get_bloginfo('title') ) );
+          foreach (array_keys($title, $title_last) as $key) {
+            unset($title[$key]);
+          }
+          $title = implode(' ', $title);
+          echo svg_book() . "<!--div class='shape'></div--><span class='first'>$title</span> <span class='last'>$title_last</span>";
+          ?>
+        </h1>
       </header>
       <main id="site-content" class="content">
