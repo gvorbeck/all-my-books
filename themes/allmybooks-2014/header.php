@@ -72,7 +72,7 @@
             unset($title[$key]);
           }
           $title = implode(' ', $title);
-          echo "<span class='first'>$title</span> <span class='last'>$title_last</span>";
+          echo svg_book() . "<!--div class='shape'></div--><span class='first'>$title</span> <span class='last'>$title_last</span>";
           ?>
         </h1>
       </header>

@@ -1,3 +1,4 @@
+@import "compass/css3";
 @import "bourbon";
 /*
 ** COLORS
@@ -16,7 +17,15 @@ $color-tertiary: #434343;
 */
 $font-title: 'Domine', serif;
 $font-text: 'Sintony', sans-serif;
-@include font-face("Blooming Grove", font-files("fonts/LobsterTwo.ttf", "fonts/LobsterTwo.otf", "fonts/LobsterTwo.woff", "fonts/LobsterTwo.eot", "fonts/LobsterTwo.svg#LobsterTwo"));
+@font-face {
+  font-family: 'Lobster Two';
+  src:
+    url('../fonts/LobsterTwo.eot?') format('eot'), 
+    url('../fonts/LobsterTwo.otf')  format('opentype'),
+    url('../fonts/LobsterTwo.woff') format('woff'), 
+    url('../fonts/LobsterTwo.ttf')  format('truetype'),
+    url('../fonts/LobsterTwo.svg#LobsterTwo') format('svg');
+}
 
 /*
 ** TEXT SIZES
@@ -140,14 +149,18 @@ body {
 #site-header {
   
   h1 {
-    font-family: Lobster Two;
-    font-size: $text-size-50;
+    font-family: 'Lobster Two';
+    font-size: $text-size-37;
     text-align: center;
     text-transform: capitalize;
     padding: $gutter-padding 0;
     position: relative;
     margin: 0 0 0 -.36em;
+    color: color--shadow($color-tertiary);
     
+    @include breakpoint( min-width 425px ) {
+      font-size: $text-size-50;
+    }
     @include breakpoint( min-width 680px ) {
       font-size: $text-size-67;
     }
@@ -155,6 +168,16 @@ body {
       font-size: $text-size-83;
     }
     
+    svg {
+      width: 3em;
+      height: 3em;
+      fill: $color-primary;
+      position: absolute;
+      border-radius: 2em;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
     .first {
       position: absolute;
       margin: 0 auto;
@@ -166,6 +189,7 @@ body {
     .last {
       font-size: 3em;
       display: block;
+      position: relative;
     }
   }
 }
