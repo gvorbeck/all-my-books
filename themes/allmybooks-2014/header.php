@@ -64,6 +64,16 @@
             </ul>
           </nav>
         <?php } ?>
-        <h1><?php bloginfo('title'); ?></h1>
+        <h1>
+          <?php
+          $title = explode( ' ', get_bloginfo('title') );
+          $title_last = end( explode( ' ', get_bloginfo('title') ) );
+          foreach (array_keys($title, $title_last) as $key) {
+            unset($title[$key]);
+          }
+          $title = implode(' ', $title);
+          echo "<span class='first'>$title</span> <span class='last'>$title_last</span>";
+          ?>
+        </h1>
       </header>
       <main id="site-content" class="content">

@@ -16,6 +16,8 @@ $color-tertiary: #434343;
 */
 $font-title: 'Domine', serif;
 $font-text: 'Sintony', sans-serif;
+@include font-face("Blooming Grove", font-files("fonts/LobsterTwo.ttf", "fonts/LobsterTwo.otf", "fonts/LobsterTwo.woff", "fonts/LobsterTwo.eot", "fonts/LobsterTwo.svg#LobsterTwo"));
+
 /*
 ** TEXT SIZES
 ** http://lifehacker.com/stick-to-these-font-sizes-to-simplify-designs-and-more-1531615325
@@ -83,8 +85,7 @@ body, html {
   color: $color-tertiary;
 }
 body {
-  /* Created using http://www.patternify.com/ */
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAJ0lEQVQIW2OUjq77zykizQADjCr5M/9/f/OUASYIFgDJwgThAjBBACtAEXlnBGGKAAAAAElFTkSuQmCC) repeat;
+  background: url(../images/goot8xr.png) $color-primary repeat;
 }
 /*
 ** LOADING INIDCATOR
@@ -139,18 +140,32 @@ body {
 #site-header {
   
   h1 {
-    font-family: $font-title;
+    font-family: Lobster Two;
     font-size: $text-size-50;
-    font-weight: bold;
     text-align: center;
     text-transform: capitalize;
     padding: $gutter-padding 0;
+    position: relative;
+    margin: 0 0 0 -.36em;
     
-    @include breakpoint( min-width 480px ) {
+    @include breakpoint( min-width 680px ) {
       font-size: $text-size-67;
     }
-    @include breakpoint( min-width 720px ) {
+    @include breakpoint( min-width 830px ) {
       font-size: $text-size-83;
+    }
+    
+    .first {
+      position: absolute;
+      margin: 0 auto;
+      left: -.65em;
+      right: 0;
+      top: .35em;
+      font-weight: bold;
+    }
+    .last {
+      font-size: 3em;
+      display: block;
     }
   }
 }
