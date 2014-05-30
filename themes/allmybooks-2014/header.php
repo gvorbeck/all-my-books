@@ -42,9 +42,10 @@
     <div id="loading-container"><div class="loading-spinner"></div></div>
     <div class="container">
       <header id="site-header" class="content">
-        <?php if ( ! is_user_logged_in() ) {
+        <?php
+        if ( ! is_user_logged_in() ) {
           $args = array(
-            'redirect' => '/',
+            'redirect' => home_url('/', 'relative'),
           );
           wp_login_form($args);
         }
