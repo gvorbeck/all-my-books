@@ -133,10 +133,10 @@ jQuery( document ).ready( function() {
   } );
   // Check the initial Position of the Sticky headers
   var stickyHeaderTop = jQuery('#future-read h1').offset().top;
-  var stickyWidth     = jQuery('#future-read h1').parent().width() + 'px';
+  var stickyWidth     = jQuery('#future-read h1').parent().width() + 1 + 'px';
   var stickyHeight    = jQuery('#future-read h1').outerHeight() + 'px';
   jQuery(window).resize( function() {
-    stickyWidth     = jQuery('#future-read').width();
+    stickyWidth     = jQuery('#future-read').width() + 1 + 'px';
     stickyHeaderTop = jQuery('#future-read h1').offset().top;
     jQuery('#future-read h1').css('width', stickyWidth);
   } );
