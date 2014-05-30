@@ -188,8 +188,8 @@ if ( ! function_exists( 'the_book_builder' ) ) {
     }
     // Last read date.
     $rows          = get_field( 'read_records', $post_id );
-    $last_row      = end( $rows );
-    $last_row_year = substr($last_row['read_year'], -2);
+    $last_row      = is_array( $rows ) ? end( $rows ) : '';
+    $last_row_year = is_array( $rows ) ? substr($last_row['read_year'], -2) : '';
     echo "<li id='$post_id' class='book $class' data-order='$list_order'>";
       echo '<div class="book--action-links">' . implode( ' ', get_action_links( $post_id ) ) . '</div>';
       echo '<p>';
