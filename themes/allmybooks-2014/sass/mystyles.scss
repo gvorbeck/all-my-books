@@ -347,10 +347,11 @@ body {
 .book--tags, .book--series {
   display: block;
 }
-.book--want-date {
+.book--want-date,
+.book--last-read {
   position: absolute;
   color: color--shadow($color-primary);
-  bottom: $gutter-padding;
+  bottom: .5em;
   right: $gutter-padding;
   text-transform: uppercase;
   font-style: italic;
@@ -359,6 +360,9 @@ body {
   @include breakpoint( min-width 785px ) {
     display: inline-block;
   }
+}
+.book--last-read {
+  bottom: 1.7em;
 }
 #show-full-list-button {
   @extend %button;

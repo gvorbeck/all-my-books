@@ -186,6 +186,10 @@ if ( ! function_exists( 'the_book_builder' ) ) {
         $cat_tag_string .= $tag_list;
       }
     }
+    // Last read date.
+    $rows          = get_field( 'read_records', $post_id );
+    $last_row      = end( $rows );
+    $last_row_year = substr($last_row['read_year'], -2);
     echo "<li id='$post_id' class='book $class' data-order='$list_order'>";
       echo '<div class="book--action-links">' . implode( ' ', get_action_links( $post_id ) ) . '</div>';
       echo '<p>';
@@ -199,6 +203,9 @@ if ( ! function_exists( 'the_book_builder' ) ) {
         }
         if ( '' != $time ) {
           echo "<span class='book--want-date'>since $time</span>";
+        }
+        if ( '' != $last_row_year ) {
+          echo "<span class='book--last-read'>last read '$last_row_year</span>";
         }
       echo '</p>';
     echo '</li>';
