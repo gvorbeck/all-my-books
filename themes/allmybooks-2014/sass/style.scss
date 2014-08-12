@@ -14,6 +14,6 @@ $legacy-support-for-mozilla: false;
 //////////////////////////////
 @import "singularitygs";
 @import "partials/base";
-@import "reset";
-@import "grids";
-@import "mystyles";
+@import "partials/reset";
+@import "partials/grids";
+@import "partials/mystyles";
