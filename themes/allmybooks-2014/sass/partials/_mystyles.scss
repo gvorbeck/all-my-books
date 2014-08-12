@@ -380,10 +380,12 @@ body {
 .book--tags, .book--series {
   display: block;
 }
+.book--want-date {
+  color: color--shadow($color-primary);
+}
 .book--want-date,
 .book--last-read {
   position: absolute;
-  color: color--shadow($color-primary);
   bottom: .5em;
   right: $gutter-padding;
   text-transform: uppercase;
@@ -395,7 +397,7 @@ body {
   }
 }
 .book--last-read {
-  bottom: 1.7em;
+  top: 1em;
 }
 #show-full-list-button {
   @extend %button;
