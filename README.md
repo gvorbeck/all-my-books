@@ -10,7 +10,6 @@ A collection of plugins and templates to create a great book catalogue website.
  * bundler
  * compass
  * sass
- * bourbon
 
 ## Installation
 1. Clone repository in your `wp-content` folder
