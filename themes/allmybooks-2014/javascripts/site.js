@@ -12,7 +12,9 @@ function updateFinishedList(bid) {
     data: 'list=fin&id=' + bid,
     success: function(data) {
       jQuery( '#loading-container' ).toggle();
-      //console.log(data);
+      if (data.length) {
+        jQuery( '#logged-out-warning' ).css('display','block').children( 'p' ).text( data );
+      }
     }
   } );
 }
@@ -31,7 +33,9 @@ function updateCurrentList(bid) {
     data: 'list=cur&id=' + bid,
     success: function(data) {
       jQuery( '#loading-container' ).toggle();
-      //console.log(data);
+      if (data.length) {
+        jQuery( '#logged-out-warning' ).css('display','block').children( 'p' ).text( data );
+      }
     }
   } );
 }
@@ -66,7 +70,9 @@ function updateFutureList() {
     'success': function(data) {
       // data variable is anything echoed in above php file.
       jQuery( '#loading-container' ).toggle();
-      console.log(data);
+      if (data.length) {
+        jQuery( '#logged-out-warning' ).css('display','block').children( 'p' ).text( data );
+      }
     }
   } );
 }
