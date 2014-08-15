@@ -1,12 +1,11 @@
 @import "compass/css3";
-@import "bourbon";
+@import "mixins";
 /*
 ** COLORS
 */
 $color-primary: #246f99;
 $color-secondary: #F5F1D2;
 $color-tertiary: #434343;
-
 
 @function color--shadow($color) {
   @return adjust-color($color, $hue: 0, $saturation: 3, $lightness: -7);
@@ -140,9 +139,9 @@ body {
   height: 30px;
   background-color: $color-primary;
   
-  @include animation(rotateplane 1.2s infinite ease-in-out);
+  @include animation(0s, 1.2s, infinite, rotateplane);
 }
-@include keyframes(rotateplane) {
+@include keyframe(rotateplane) {
   0% {
     @include transform( perspective( 120px ) rotateX( 0deg ) rotateY( 0deg ) );
   } 50% {
