@@ -127,15 +127,9 @@ jQuery( document ).ready( function() {
       //was being clicked.
     }
   } );
-  // Show navigation/login menu.
-  jQuery( '.navigation--button, #navigation--popup' ).hover( function() {
-    if ( pageWidth > (785) ) {
-      jQuery( '#navigation--popup' ).show();
-    }
-  }, function() {
-    if ( pageWidth > (785) ) {
-      jQuery( '#navigation--popup' ).hide();
-    }
+  // Close the logged out warning popup.
+  jQuery( '#logged-out-warning a' ).click( function() {
+    jQuery( '#logged-out-warning' ).css( 'display', 'none' );
   } );
   // Check the initial Position of the Sticky headers
   var stickyHeaderTop = jQuery('#future-read h1').offset().top;

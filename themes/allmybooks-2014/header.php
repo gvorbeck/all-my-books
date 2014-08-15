@@ -36,7 +36,7 @@
     <!-- end analytics -->
   </head>
   <body <?php body_class(); ?>>
-    <div id="logged-out-warning"><p></p></div>
+    <div id="logged-out-warning"><a href="javascript:;"><?php echo svg_logout(); ?></a><p></p></div>
     <div id="loading-container"><div class="loading-spinner"></div></div>
     <div class="container">
       <header id="site-header" class="content">
