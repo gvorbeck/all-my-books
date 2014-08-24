@@ -13,7 +13,7 @@ function updateFinishedList(bid) {
     success: function(data) {
       jQuery( '#loading-container' ).toggle();
       if (data.length) {
-        jQuery( '#logged-out-warning' ).css('display','block').children( 'p' ).text( data );
+        jQuery( '#logged-out-warning' ).addClass('animate-open').removeClass('animate-close').children( 'p' ).text( data );
       }
     }
   } );
@@ -34,7 +34,7 @@ function updateCurrentList(bid) {
     success: function(data) {
       jQuery( '#loading-container' ).toggle();
       if (data.length) {
-        jQuery( '#logged-out-warning' ).css('display','block').children( 'p' ).text( data );
+        jQuery( '#logged-out-warning' ).addClass('animate-open').removeClass('animate-close').children( 'p' ).text( data );
       }
     }
   } );
@@ -71,7 +71,7 @@ function updateFutureList() {
       // data variable is anything echoed in above php file.
       jQuery( '#loading-container' ).toggle();
       if (data.length) {
-        jQuery( '#logged-out-warning' ).css('display','block').children( 'p' ).text( data );
+        jQuery( '#logged-out-warning' ).addClass('animate-open').removeClass('animate-close').children( 'p' ).text( data );
       }
     }
   } );
@@ -129,7 +129,7 @@ jQuery( document ).ready( function() {
   } );
   // Close the logged out warning popup.
   jQuery( '#logged-out-warning a' ).click( function() {
-    jQuery( '#logged-out-warning' ).css( 'display', 'none' );
+    jQuery( '#logged-out-warning' ).addClass('animate-close').removeClass('animate-open');
   } );
   // Check the initial Position of the Sticky headers
   var stickyHeaderTop = jQuery('#future-read h1').offset().top;
