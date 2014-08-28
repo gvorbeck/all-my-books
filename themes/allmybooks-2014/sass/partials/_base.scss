@@ -1,53 +1,38 @@
-//////////////////////////////
-// Imports
-//////////////////////////////
-@import "singularitygs";
+@import "../modules/colors";
+@import "../modules/fonts";
+@import "../modules/mixins";
+@import "../modules/variables";
 
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: $font-text;
+  color: $color-tertiary;
 }
 body {
-	line-height: 1;
+  background: url(../images/goot8xr.png) $color-primary repeat;
 }
-ol, ul {
-	list-style: none;
+.container {
+  //@include background-grid;
+  margin: 0 auto;
+  min-height: 100%;
+  max-width: 1000px;
+  
+  @include breakpoint( min-width 600px ) {
+    @include grid-span(10, 2);
+  }
+  @include breakpoint( min-width 1204px ) {
+    // This gets rid of the grid-span rule and just makes the container centered.
+    float: none;
+    margin: 0 auto;
+  }
 }
-blockquote, q {
-	quotes: none;
+#site-content {
+  overflow: hidden;
+  
+  @include breakpoint( min-width 600px ) { border-bottom: .313em solid color--shadow($color-secondary); }
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+.content {
+  background: $color-secondary;
 }
