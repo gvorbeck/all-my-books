@@ -12,6 +12,6 @@ A collection of plugins and templates to create a great book catalogue website.
  * sass
 
 ## Installation
-1. Clone repository in your `wp-content/` folder (if it creates it's own `all-my-books/` directory. If so, just move everything in that to the `wp-content/` directory).
+1. Clone repository in your `wp-content/` folder (It may create it's own `all-my-books/` directory. If so, just move everything in that to the `wp-content/` directory).
 2. Activate the downloaded plugins.
 3. Activate the theme.
