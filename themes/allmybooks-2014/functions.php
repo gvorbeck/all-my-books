@@ -35,12 +35,8 @@ if ( ! is_admin() && ! is_login_page() ) {
   // Enqueue Styles
   if ( ! function_exists( 'site_styles' ) ) {
     function site_styles() {
-      wp_register_style( 'main', get_bloginfo( 'template_directory' ) . '/stylesheets/style.css', false, date('W.0') );
+      wp_register_style( 'main', get_bloginfo( 'template_directory' ) . '/style.css', false, date('W.0') );
       wp_enqueue_style( 'main' );
-      if ( 'localhost:8888' == SITE_URL ) {
-        wp_register_style( 'dev', get_bloginfo( 'template_directory' ) . '/stylesheets/dev.css', false, date('W.0') );
-        wp_enqueue_style( 'dev' );
-      }
     }
   }
   add_action( 'init', 'site_styles' );
