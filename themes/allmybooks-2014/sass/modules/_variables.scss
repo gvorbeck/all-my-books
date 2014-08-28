@@ -1,8 +1,11 @@
-@import "compass/css3";
-// Widths
+/*------------------------------------*\
+    #WIDTHS
+\*------------------------------------*/
 $gutter-padding: gutter-span();
 $column-padding: gutter-span() + gutter-span() + gutter-span() + gutter-span();
-// Extends
+/*------------------------------------*\
+    #EXTENDS
+\*------------------------------------*/
 %button {
   border-bottom: .179em solid color--shadow(#C0C0C0);
   border-top: none;

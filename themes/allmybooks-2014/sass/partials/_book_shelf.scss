@@ -1,6 +1,6 @@
-/*
-** BOOK SHELF
-*/
+/*------------------------------------*\
+    #BOOK-SHELF
+\*------------------------------------*/
 .book-shelf {
   @include grid-span( 11, 1.5 );
   margin-bottom: ($column-padding/2);

@@ -1,7 +1,6 @@
-@import "compass/css3";
-/*
-** FONTS
-*/
+/*------------------------------------*\
+    #FONTS
+\*------------------------------------*/
 $font-title: 'Domine', serif;
 $font-text: 'Sintony', sans-serif;
 @font-face {
@@ -14,10 +13,11 @@ $font-text: 'Sintony', sans-serif;
     url('fonts/LobsterTwo.svg#LobsterTwo') format('svg');
 }
 
-/*
-** TEXT SIZES
-** http://lifehacker.com/stick-to-these-font-sizes-to-simplify-designs-and-more-1531615325
-*/
+
+/*------------------------------------*\
+    #FONT-SIZES
+    http://lifehacker.com/stick-to-these-font-sizes-to-simplify-designs-and-more-1531615325
+\*------------------------------------*/
 $text-size-05: 0.313em; // 5px
 $text-size-07: 0.438em; // 7px
 $text-size-09: 0.563em; // 9px

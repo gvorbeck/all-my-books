@@ -2,7 +2,10 @@
 @import "../modules/fonts";
 @import "../modules/mixins";
 @import "../modules/variables";
-
+/*------------------------------------*\
+    #SITE-ARCHITECTURE
+    Excluding Header and Footer.
+\*------------------------------------*/
 body, html {
   height: 100%;
   margin: 0;
@@ -11,7 +14,7 @@ body, html {
   color: $color-tertiary;
 }
 body {
-  background: url(../images/goot8xr.png) $color-primary repeat;
+  background: url(images/goot8xr.png) $color-primary repeat;
 }
 .container {
   //@include background-grid;

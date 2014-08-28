@@ -1,5 +1,6 @@
-@import "compass/css3";
-
+/*------------------------------------*\
+    #MIXINS
+\*------------------------------------*/
 @mixin animation ($delay, $duration, $repeats, $animation) {
     -webkit-animation-delay: $delay;
     -webkit-animation-duration: $duration;
@@ -25,7 +26,6 @@
     animation-fill-mode: forwards; /* this prevents the animation from restarting! */
     animation-iteration-count: $repeats;
 }
-
 @mixin keyframe ($animation_name) {
     @-webkit-keyframes $animation_name {
         @content;

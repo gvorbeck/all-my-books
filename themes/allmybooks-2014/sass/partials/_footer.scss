@@ -1,17 +1,17 @@
-/*
-** SITE FOOTER
-*/
+/*------------------------------------*\
+    #SITE-FOOTER
+\*------------------------------------*/
 #site-footer {
   overflow: hidden;
   padding-bottom: ($column-padding/2);
   text-align: center;
-  
+
   @include breakpoint( min-width 600px ) {
     background: none;
     margin-top: ($column-padding/2);
     text-align: left;
   }
-  
+
   p {
     @include grid-span(11, 1.5);
     clear: both;
