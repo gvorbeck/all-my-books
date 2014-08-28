@@ -13,5 +13,5 @@ A collection of plugins and templates to create a great book catalogue website.
 
 ## Installation
 1. Clone repository in your `wp-content` folder
-2. Activate the Reading List plugin
+2. Activate the downloaded plugins.
 3. Activate the theme.
