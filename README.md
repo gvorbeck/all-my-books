@@ -3,7 +3,6 @@ A collection of plugins and templates to create a great book catalogue website.
 
 ## General Requirements
 * [Wordpress](http://wordpress.org/download/) 3.8+: I haven't tested it with any version below 3.8, so I've decided that's the minimum.
-* Activated Reading List plugin (included in repo).
 
 ## Local Dev Requirements
 * Gems required:
@@ -12,6 +11,6 @@ A collection of plugins and templates to create a great book catalogue website.
  * sass
 
 ## Installation
-1. Clone repository in your `wp-content` folder
-2. Activate the Reading List plugin
+1. Clone repository in your `wp-content/` folder (It may create its own `all-my-books/` directory. If so, just move everything in that to the `wp-content/` directory).
+2. Activate the downloaded plugins.
 3. Activate the theme.
