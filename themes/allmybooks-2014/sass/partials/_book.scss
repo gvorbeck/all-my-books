@@ -1,0 +1,75 @@
+/*
+** BOOK
+*/
+.book {
+  background: $color-primary;
+  padding: .5em;
+  margin: $gutter-padding 0 0;
+  color: $color-secondary;
+  border-bottom: .313em solid color--shadow($color-primary);
+  font-family: $font-text;
+  position: relative;
+  line-height: 1.25em;
+  
+  &.overflow { display: none; }
+  &:first-child { margin: 0; }
+}
+/*
+** SORTING
+*/
+.sortable-placeholder {
+  border: .063px dashed #CCC;
+  background: color--shadow($color-secondary);
+  margin: 0 0 $gutter-padding;
+}
+/*
+** ACTION LINKS
+*/
+.book--action-links {
+  border-bottom: .125em solid color--shadow($color-primary);
+  padding: .4em 0;
+  margin: 0 0 .4em;
+}
+.action-link {
+  text-decoration: none;
+  text-align: center;
+  position: relative;
+  margin: 0 1em 0 0;
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  
+  svg {
+    fill: $color-secondary;
+    height: 1.5em;
+    width: 1.5em;
+  }
+}
+.action-link.missing { opacity: 0.4; }
+.book--title { font-style: italic; }
+.book--series { font-size: $text-size-12; }
+.book--tags {
+  font-size: $text-size-09;
+  text-transform: lowercase;
+}
+.book--tags, .book--series { display: block; }
+.book--want-date { color: color--shadow($color-primary); }
+.book--want-date,
+.book--last-read {
+  position: absolute;
+  bottom: .5em;
+  right: $gutter-padding;
+  text-transform: uppercase;
+  font-style: italic;
+  display: none;
+  
+  @include breakpoint( min-width 785px ) { display: inline-block; }
+}
+.book--last-read { top: 1em; }
+#show-full-list-button {
+  @extend %button;
+  @include grid-span( 6, 4 );
+  margin-top: $gutter-padding;
+  
+  &:hover { @extend %button-hover; }
+}

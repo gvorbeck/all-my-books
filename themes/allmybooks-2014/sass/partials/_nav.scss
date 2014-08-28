@@ -1,0 +1,16 @@
+#site-navigation {
+  background: $color-tertiary;
+  border-bottom: .313em solid color--shadow($color-tertiary);
+  padding: $gutter-padding ($gutter-padding * 4);
+  text-align: center;
+  
+  li {
+    display: inline-block;
+    margin: 0 $gutter-padding;
+  }
+  svg {
+    width: 3.5em;
+    height: 3.5em;
+    fill: $color-secondary;
+  }
+}

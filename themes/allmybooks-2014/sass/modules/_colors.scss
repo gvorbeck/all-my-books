@@ -1,0 +1,11 @@
+@import "compass/css3";
+/*
+** COLORS
+*/
+$color-primary: #246f99;
+$color-secondary: #F5F1D2;
+$color-tertiary: #434343;
+
+@function color--shadow($color) {
+  @return adjust-color($color, $hue: 0, $saturation: 3, $lightness: -7);
+}

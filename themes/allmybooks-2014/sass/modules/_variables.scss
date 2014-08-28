@@ -1,0 +1,38 @@
+@import "compass/css3";
+// Widths
+$gutter-padding: gutter-span();
+$column-padding: gutter-span() + gutter-span() + gutter-span() + gutter-span();
+// Extends
+%button {
+  border-bottom: .179em solid color--shadow(#C0C0C0);
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  background: #C0C0C0;
+  padding: .4em;
+  font-size: $text-size-28;
+  color: $color-tertiary;
+  border-radius: .179em;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+}
+%button-hover {
+  background: color--shadow(#C0C0C0);
+  border-bottom: .179em solid color--shadow(color--shadow(#C0C0C0));
+  cursor: pointer;
+}
+%input {
+  background: $color-tertiary;
+  border: 2px solid color--shadow($color-tertiary);
+  color: $color-secondary;
+  display: block;
+  font-family: $font-text;
+  font-size: $text-size-21;
+  padding: 10px;
+  width: 100%;
+}
+%input-focus {
+  border: 2px solid $color-secondary;
+  outline: none;
+}
