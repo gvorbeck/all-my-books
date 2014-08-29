@@ -11,8 +11,16 @@
   position: relative;
   line-height: 1.25em;
   
-  &.overflow { display: none; }
   &:first-child { margin: 0; }
+}
+.collapsed .overflow {
+  display: none;
+}
+.expanded .overflow {
+  display: block;
+  background: rgba(0,0,0,0);
+  
+  & * { opacity: 0; }
 }
 /*------------------------------------*\
     #SORTING
