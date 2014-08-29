@@ -76,14 +76,35 @@ function updateFutureList() {
     }
   } );
 }
+
+/**
+ * Checks to see if the specified element is on or above the screen.
+ * @param {String} elm - The specified element to check to see if it is on or above the screen.
+ * @param {String} evalType - The type of check to perform - if empty, will default to visible
+ * Source: https://stackoverflow.com/questions/5353934/check-if-element-is-visible-on-screen.
+ */
+function checkVisible( elm, evalType ) {
+    evalType = evalType || "visible";
+
+    var vpH = $(window).height(), // Viewport Height
+        st = $(window).scrollTop(), // Scroll Top
+        y = $(elm).offset().top,
+        elementHeight = $(elm).height();
+
+    if (evalType === "visible") return ((y < (vpH + st)) && (y > (st - elementHeight)));
+    if (evalType === "above") return ((y < (vpH + st)));
+}
+
 /* DOC READY START */
 jQuery( document ).ready( function() {
   // Hide the bloat of the wtr list.
   jQuery('#show-full-list-button').click(function() {
-    jQuery('#future-read-list .overflow').toggle();
-    if ( 'More Books' == jQuery(this).text() ) {
+    //jQuery('#future-read-list .overflow').toggle();
+    if ( jQuery('#future-read-list').hasClass('collapsed') ) {
+      jQuery('#future-read-list').addClass('expanded').removeClass('collapsed');
       jQuery(this).text('Less Books');
     } else {
+      jQuery('#future-read-list').addClass('collapsed').removeClass('expanded');
       jQuery(this).text('More Books');
     };
   });
@@ -161,6 +182,21 @@ jQuery( document ).ready( function() {
       jQuery('#future-read').removeClass('sticky');
       jQuery('#future-read h1').css('width', stickyWidth);
       jQuery('#future-read-list').css('margin-top', '0');
+    }
+  } );
+  // Check to see if overflow books are on screen.
+  jQuery(window).scroll( function() {
+    if ( jQuery('#future-read-list.expanded').length ) {
+      jQuery('#future-read-list .overflow').each( function() {
+        if ( ! jQuery(this).hasClass('animate') ) {
+          if (checkVisible( jQuery(this), 'above' )) {
+            console.log(jQuery(this).attr('id'));
+            jQuery(this).addClass('animate');
+          } else {
+            //console.log(jQuery(this).attr('id'));
+          }
+        }
+      } );
     }
   } );
 } );
