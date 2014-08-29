@@ -186,14 +186,20 @@ jQuery( document ).ready( function() {
   } );
   // Check to see if overflow books are on screen.
   jQuery(window).scroll( function() {
+    // Make sure the list is in 'expanded' mode
     if ( jQuery('#future-read-list.expanded').length ) {
+      // Only target 'overflow' items.
       jQuery('#future-read-list .overflow').each( function() {
+        // And of those, only target those without the 'animate' class.
         if ( ! jQuery(this).hasClass('animate') ) {
+          // Check to see if they are in the visible range.
           if (checkVisible( jQuery(this), 'above' )) {
-            console.log(jQuery(this).attr('id'));
-            jQuery(this).addClass('animate');
-          } else {
-            //console.log(jQuery(this).attr('id'));
+            var delay = Math.floor(Math.random() * 1000);
+            console.log(delay);
+            // Rabndomly add the animate class.
+            jQuery(this).delay(delay).queue( function() {
+              jQuery(this).addClass('animate').dequeue();
+            } );
           }
         }
       } );
