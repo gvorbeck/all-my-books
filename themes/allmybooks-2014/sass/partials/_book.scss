@@ -19,18 +19,29 @@
 .expanded .overflow {
   display: block;
   background: rgba(0,0,0,0);
+  @include transition(background .1s ease-in-out 1.5s);
   
-  & * { opacity: 0; }
+  &.animate {
+    opacity: 1;
+    background: $color-primary;
+  }
   & .book--shade {
-    width: 0;
+    width: 0%;
     background: color--shadow($color-primary);
     opacity: 1;
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     height: 100%;
+    z-index: 1;
+    @include transition(width 1.5s ease-in-out 0s, height .5s ease-in-out 1.5s);
+  }
+  &.animate .book--shade {
+    width: 100%;
+    height: 0;
   }
 }
+
 /*------------------------------------*\
     #SORTING
 \*------------------------------------*/
