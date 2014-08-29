@@ -21,10 +21,15 @@
   background: rgba(0,0,0,0);
   
   & * { opacity: 0; }
-}
-.book-shade {
-  width: 0;
-  background: color--shadow($color-primary);
+  & .book--shade {
+    width: 0;
+    background: color--shadow($color-primary);
+    opacity: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
 }
 /*------------------------------------*\
     #SORTING
