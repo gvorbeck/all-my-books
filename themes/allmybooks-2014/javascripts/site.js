@@ -81,10 +81,10 @@ jQuery( document ).ready( function() {
   // Hide the bloat of the wtr list.
   jQuery('#show-full-list-button').click(function() {
     jQuery('#future-read-list .overflow').toggle();
-    if ( 'Expand' == jQuery(this).text() ) {
-      jQuery(this).text('Collapse');
+    if ( 'More Books' == jQuery(this).text() ) {
+      jQuery(this).text('Less Books');
     } else {
-      jQuery(this).text('Expand');
+      jQuery(this).text('More Books');
     };
   });
   // Make lists sortable and connected to one another.

@@ -98,6 +98,6 @@ if ( $future_list ) {
 } else {
   echo '<p class="instructions">Error: Make sure that the Reading List plugin is activated <a href="' . get_admin_url() . 'plugins.php">here</a>.</p>';
 }
-echo '<a href="javascript:;" id="show-full-list-button" class="button">Expand</a>';
+echo '<a href="javascript:;" id="show-full-list-button" class="button">More Books</a>';
 echo '</section>';
 get_footer();
