@@ -22,6 +22,10 @@
   
   & * { opacity: 0; }
 }
+.book-shade {
+  width: 0;
+  background: color--shadow($color-primary);
+}
 /*------------------------------------*\
     #SORTING
 \*------------------------------------*/
