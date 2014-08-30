@@ -76,15 +76,61 @@ function updateFutureList() {
     }
   } );
 }
+
+/**
+ * Checks to see if the specified element is on or above the screen.
+ * @param {String} elm - The specified element to check to see if it is on or above the screen.
+ * @param {String} evalType - The type of check to perform - if empty, will default to visible
+ * Source: https://stackoverflow.com/questions/5353934/check-if-element-is-visible-on-screen.
+ */
+function checkVisible( elm, evalType ) {
+    evalType = evalType || "visible";
+
+    var vpH = $(window).height(), // Viewport Height
+        st = $(window).scrollTop(), // Scroll Top
+        y = $(elm).offset().top,
+        elementHeight = $(elm).height();
+
+    if (evalType === "visible") return ((y < (vpH + st)) && (y > (st - elementHeight)));
+    if (evalType === "above") return ((y < (vpH + st)));
+}
+
+/**
+ * Goes through the expanded wtr list and appropriately calls the checkVisible function
+ */
+function visibleLooper() {
+  // Make sure the list is in 'expanded' mode
+  if ( jQuery('#future-read-list.expanded').length ) {
+    // Only target 'overflow' items.
+    jQuery('#future-read-list .overflow').each( function() {
+      // And of those, only target those without the 'animate' class.
+      if ( ! jQuery(this).hasClass('animate') ) {
+        // Check to see if they are in the visible range.
+        if (checkVisible( jQuery(this), 'above' )) {
+          var delay = Math.floor(Math.random() * 1000);
+          // Rabndomly add the animate class.
+          jQuery(this).delay(delay).queue( function() {
+            jQuery(this).addClass('animate').dequeue();
+          } );
+        }
+      }
+    } );
+  }
+}
 /* DOC READY START */
 jQuery( document ).ready( function() {
   // Hide the bloat of the wtr list.
   jQuery('#show-full-list-button').click(function() {
-    jQuery('#future-read-list .overflow').toggle();
-    if ( 'More Books' == jQuery(this).text() ) {
+    if ( jQuery('#future-read-list').hasClass('collapsed') ) {
+      jQuery('#future-read-list').addClass('expanded').removeClass('collapsed');
       jQuery(this).text('Less Books');
+      visibleLooper();
     } else {
+      jQuery('#future-read-list').addClass('collapsed').removeClass('expanded');
       jQuery(this).text('More Books');
+      jQuery('#future-read-list .overflow').each( function() {
+        jQuery(this).removeClass('animate');
+      } );
     };
   });
   // Make lists sortable and connected to one another.
@@ -162,6 +208,10 @@ jQuery( document ).ready( function() {
       jQuery('#future-read h1').css('width', stickyWidth);
       jQuery('#future-read-list').css('margin-top', '0');
     }
+  } );
+  // Check to see if overflow books are on screen.
+  jQuery(window).scroll( function() {
+    visibleLooper();
   } );
 } );
 /* DOC READY STOP */

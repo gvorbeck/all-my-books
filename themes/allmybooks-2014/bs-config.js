@@ -18,7 +18,7 @@ module.exports = {
      |--------------------------------------------------------------------------
      | https://github.com/shakyShane/browser-sync/wiki/options#wiki-files
      */
-    files: ["stylesheets/*.css", "javascripts/*.js", "*.php"],
+    files: ["*.css", "javascripts/*.js", "*.php"],
 
     /*
      |--------------------------------------------------------------------------

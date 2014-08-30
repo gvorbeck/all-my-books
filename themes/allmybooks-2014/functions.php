@@ -187,6 +187,7 @@ if ( ! function_exists( 'the_book_builder' ) ) {
     $last_row      = is_array( $rows ) ? end( $rows ) : '';
     $last_row_year = is_array( $rows ) ? substr($last_row['read_year'], -2) : '';
     echo "<li id='$post_id' class='book $class' data-order='$list_order'>";
+      echo '<div class="book--shade"></div>';
       echo '<div class="book--action-links">' . implode( ' ', get_action_links( $post_id ) ) . '</div>';
       echo '<p>';
         echo '<span class="book--title">' . get_the_title( $post_id ) . '</span>';
