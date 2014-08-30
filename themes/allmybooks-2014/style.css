@@ -111,7 +111,7 @@ body { background: url(images/goot8xr.png) #246f99 repeat; }
   50% { -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg); -moz-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg); -ms-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg); -o-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg); transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg); }
   100% { -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg); -moz-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg); -ms-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg); -o-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg); transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg); } }
 
-#logged-out-warning { position: fixed; top: 0; left: 50%; background: #f5f1d2; border-bottom: 0.313em solid #f0e9b3; padding: 2em; width: 20em; margin-left: -10em; z-index: 1; box-shadow: 0.626em 0.626em 1.252em #434343; text-align: center; display: none; opacity: 0; }
+#logged-out-warning { position: fixed; top: 0; left: 50%; background: #f5f1d2; border-bottom: 0.313em solid #f0e9b3; padding: 2em; width: 20em; margin-left: -10em; z-index: 3; box-shadow: 0.626em 0.626em 1.252em #434343; text-align: center; display: none; opacity: 0; }
 #logged-out-warning svg { width: 1.5em; height: 1.5em; position: absolute; top: .313em; left: .313em; fill: #246f99; }
 
 #logged-out-warning.animate-open { display: block; -webkit-animation-delay: 0.25s; -webkit-animation-duration: 1s; -webkit-animation-name: animate-open; -webkit-animation-fill-mode: forwards; /* this prevents the animation from restarting! */ -webkit-animation-iteration-count: 1; -moz-animation-delay: 0.25s; -moz-animation-duration: 1s; -moz-animation-name: animate-open; -moz-animation-fill-mode: forwards; /* this prevents the animation from restarting! */ -moz-animation-iteration-count: 1; -o-animation-delay: 0.25s; -o-animation-duration: 1s; -o-animation-name: animate-open; -o-animation-fill-mode: forwards; /* this prevents the animation from restarting! */ -o-animation-iteration-count: 1; animation-delay: 0.25s; animation-duration: 1s; animation-name: animate-open; animation-fill-mode: forwards; /* this prevents the animation from restarting! */ animation-iteration-count: 1; }
@@ -172,7 +172,7 @@ body { background: url(images/goot8xr.png) #246f99 repeat; }
 .book-shelf h1 { background: #434343; border-bottom: 0.179em solid #333030; color: #f5f1d2; font-family: "Domine", serif; font-size: 1.75em; line-height: 1em; margin: 0 0 2.12766%; padding: .5em .5em .4em 1.5em; position: relative; }
 .book-shelf svg { fill: #f5f1d2; width: .643em; height: 1.286em; position: absolute; top: 0; left: .5em; }
 
-.sticky h1 { position: fixed; top: 0; box-shadow: 0 8px 8px rgba(50, 50, 50, 0.5); z-index: 1; }
+.sticky h1 { position: fixed; top: 0; box-shadow: 0 8px 8px rgba(50, 50, 50, 0.5); z-index: 2; }
 
 .instructions { text-align: center; }
 
@@ -182,14 +182,16 @@ body { background: url(images/goot8xr.png) #246f99 repeat; }
 
 /*------------------------------------*\ #BOOK
 \*------------------------------------*/
-.book { background: #246f99; padding: .5em; margin: 2.12766% 0 0; color: #f5f1d2; border-bottom: 0.313em solid #1b5b7e; font-family: "Sintony", sans-serif; position: relative; line-height: 1.25em; }
+.book { background: #246f99; padding: .5em; margin: 2.12766% 0 0; color: #f5f1d2; font-family: "Sintony", sans-serif; position: relative; line-height: 1.25em; border-bottom: 0.313em solid #1b5b7e; }
 .book:first-child { margin: 0; }
 
 .collapsed .overflow { display: none; }
 
-.expanded .overflow { display: block; background: rgba(0, 0, 0, 0); -webkit-transition: background 0.1s ease-in-out; -webkit-transition-delay: 1.5s; -moz-transition: background 0.1s ease-in-out 1.5s; -o-transition: background 0.1s ease-in-out 1.5s; transition: background 0.1s ease-in-out 1.5s; }
+.expanded .overflow { display: block; background: rgba(0, 0, 0, 0); border-color: #f5f1d2; -webkit-transition: background 0.1s ease-in-out; -webkit-transition-delay: 1.5s; -moz-transition: background 0.1s ease-in-out 1.5s; -o-transition: background 0.1s ease-in-out 1.5s; transition: background 0.1s ease-in-out 1.5s; }
 .expanded .overflow.animate { opacity: 1; background: #246f99; }
-.expanded .overflow .book--shade { width: 0%; background: #1b5b7e; opacity: 1; position: absolute; bottom: 0; left: 0; height: 100%; z-index: 1; -webkit-transition: width 1.5s ease-in-out, height 0.5s ease-in-out; -webkit-transition-delay: 0s, 1.5s; -moz-transition: width 1.5s ease-in-out 0s, height 0.5s ease-in-out 1.5s; -o-transition: width 1.5s ease-in-out 0s, height 0.5s ease-in-out 1.5s; transition: width 1.5s ease-in-out 0s, height 0.5s ease-in-out 1.5s; }
+.expanded .overflow.animate * { opacity: 1; }
+.expanded .overflow * { opacity: 0; -webkit-transition: opacity 0.1s ease-in; -webkit-transition-delay: 1.5s; -moz-transition: opacity 0.1s ease-in 1.5s; -o-transition: opacity 0.1s ease-in 1.5s; transition: opacity 0.1s ease-in 1.5s; }
+.expanded .overflow .book--shade { width: 0%; background: #1b5b7e; border-top: 0.313em solid #1b5b7e; opacity: 1; position: absolute; bottom: -.313em; left: 0; height: 100%; z-index: 1; box-sizing: content-box; -webkit-transition: width 1.5s ease-in-out, height 0.5s ease-in-out; -webkit-transition-delay: 0s, 1.5s; -moz-transition: width 1.5s ease-in-out 0s, height 0.5s ease-in-out 1.5s; -o-transition: width 1.5s ease-in-out 0s, height 0.5s ease-in-out 1.5s; transition: width 1.5s ease-in-out 0s, height 0.5s ease-in-out 1.5s; }
 .expanded .overflow.animate .book--shade { width: 100%; height: 0; }
 
 /*------------------------------------*\ #SORTING

@@ -95,17 +95,42 @@ function checkVisible( elm, evalType ) {
     if (evalType === "above") return ((y < (vpH + st)));
 }
 
+/**
+ * Goes through the expanded wtr list and appropriately calls the checkVisible function
+ */
+function visibleLooper() {
+  // Make sure the list is in 'expanded' mode
+  if ( jQuery('#future-read-list.expanded').length ) {
+    // Only target 'overflow' items.
+    jQuery('#future-read-list .overflow').each( function() {
+      // And of those, only target those without the 'animate' class.
+      if ( ! jQuery(this).hasClass('animate') ) {
+        // Check to see if they are in the visible range.
+        if (checkVisible( jQuery(this), 'above' )) {
+          var delay = Math.floor(Math.random() * 1000);
+          // Rabndomly add the animate class.
+          jQuery(this).delay(delay).queue( function() {
+            jQuery(this).addClass('animate').dequeue();
+          } );
+        }
+      }
+    } );
+  }
+}
 /* DOC READY START */
 jQuery( document ).ready( function() {
   // Hide the bloat of the wtr list.
   jQuery('#show-full-list-button').click(function() {
-    //jQuery('#future-read-list .overflow').toggle();
     if ( jQuery('#future-read-list').hasClass('collapsed') ) {
       jQuery('#future-read-list').addClass('expanded').removeClass('collapsed');
       jQuery(this).text('Less Books');
+      visibleLooper();
     } else {
       jQuery('#future-read-list').addClass('collapsed').removeClass('expanded');
       jQuery(this).text('More Books');
+      jQuery('#future-read-list .overflow').each( function() {
+        jQuery(this).removeClass('animate');
+      } );
     };
   });
   // Make lists sortable and connected to one another.
@@ -186,24 +211,7 @@ jQuery( document ).ready( function() {
   } );
   // Check to see if overflow books are on screen.
   jQuery(window).scroll( function() {
-    // Make sure the list is in 'expanded' mode
-    if ( jQuery('#future-read-list.expanded').length ) {
-      // Only target 'overflow' items.
-      jQuery('#future-read-list .overflow').each( function() {
-        // And of those, only target those without the 'animate' class.
-        if ( ! jQuery(this).hasClass('animate') ) {
-          // Check to see if they are in the visible range.
-          if (checkVisible( jQuery(this), 'above' )) {
-            var delay = Math.floor(Math.random() * 1000);
-            console.log(delay);
-            // Rabndomly add the animate class.
-            jQuery(this).delay(delay).queue( function() {
-              jQuery(this).addClass('animate').dequeue();
-            } );
-          }
-        }
-      } );
-    }
+    visibleLooper();
   } );
 } );
 /* DOC READY STOP */
