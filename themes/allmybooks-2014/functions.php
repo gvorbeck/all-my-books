@@ -44,11 +44,8 @@ if ( ! is_admin() && ! is_login_page() ) {
   // Enqueue Scripts
   if ( ! function_exists( 'site_scripts' ) ) {
     function site_scripts() {
-      // https://github.com/voidberg/html5sortable
-      wp_register_script( 'html5-sortable', get_template_directory_uri() . '/javascripts/jquery.sortable.js', array('jquery'), date('W.0'), true );
-      wp_register_script( 'site-js', get_template_directory_uri() . '/javascripts/site.js', array('jquery'), date('W.0'), true );
+      wp_register_script( 'site-js', get_template_directory_uri() . '/javascripts/site.min.js', array('jquery'), date('W.0'), true );
       wp_enqueue_script( 'jquery' );
-      wp_enqueue_script( 'html5-sortable' );
       wp_enqueue_script( 'site-js' );
     }
   }
