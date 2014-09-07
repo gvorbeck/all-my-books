@@ -1,10 +1,10 @@
 *.DS_Store
 index.php
+.sass-cache/
 backup-logs/
 uploads/
 upgrade/
 themes/index.php
-themes/allmybooks-2014/.sass-cache/
 themes/allmybooks/
 themes/allmybooks_theme/
 themes/amb_grid/

@@ -131,7 +131,7 @@ jQuery( document ).ready( function() {
       jQuery('#future-read-list .overflow').each( function() {
         jQuery(this).removeClass('animate');
       } );
-    };
+    }
   });
   // Make lists sortable and connected to one another.
   // SOURCE: https://github.com/voidberg/html5sortable
@@ -164,14 +164,6 @@ jQuery( document ).ready( function() {
         // Animation complete.
       } );
     } );
-  } )
-  .mouseup( function() {
-    var wasDragging = isDragging;
-    isDragging = false;
-    jQuery( window ).unbind( "mousemove" );
-    if ( !wasDragging ) {
-      //was being clicked.
-    }
   } );
   // Close the logged out warning popup.
   jQuery( '#logged-out-warning a' ).click( function() {
@@ -199,6 +191,8 @@ jQuery( document ).ready( function() {
   }
   // Look again while scrolling.
   jQuery(window).scroll(function() {
+    // Check to see if overflow books are on screen.
+    visibleLooper();
     if( jQuery(window).scrollTop() >= stickyHeaderTop ) {
       jQuery('#future-read').addClass('sticky');
       jQuery('#future-read h1').css('width', stickyWidth);
@@ -208,10 +202,6 @@ jQuery( document ).ready( function() {
       jQuery('#future-read h1').css('width', stickyWidth);
       jQuery('#future-read-list').css('margin-top', '0');
     }
-  } );
-  // Check to see if overflow books are on screen.
-  jQuery(window).scroll( function() {
-    visibleLooper();
   } );
 } );
 /* DOC READY STOP */
