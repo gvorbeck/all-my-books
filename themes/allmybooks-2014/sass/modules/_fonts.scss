@@ -1,0 +1,31 @@
+/*------------------------------------*\
+    #FONTS
+\*------------------------------------*/
+$font-title: 'Domine', serif;
+$font-text: 'Sintony', sans-serif;
+@font-face {
+  font-family: 'Lobster Two';
+  src:
+    url('fonts/LobsterTwo.eot?') format('eot'), 
+    url('fonts/LobsterTwo.otf')  format('opentype'),
+    url('fonts/LobsterTwo.woff') format('woff'), 
+    url('fonts/LobsterTwo.ttf')  format('truetype'),
+    url('fonts/LobsterTwo.svg#LobsterTwo') format('svg');
+}
+
+
+/*------------------------------------*\
+    #FONT-SIZES
+    http://lifehacker.com/stick-to-these-font-sizes-to-simplify-designs-and-more-1531615325
+\*------------------------------------*/
+$text-size-05: 0.313em; // 5px
+$text-size-07: 0.438em; // 7px
+$text-size-09: 0.563em; // 9px
+$text-size-12: 0.750em; // 12px
+$text-size-16: 1em;     // 16px
+$text-size-21: 1.313em; // 21px
+$text-size-28: 1.750em; // 28px
+$text-size-37: 2.313em; // 37px
+$text-size-50: 3.125em; // 50px
+$text-size-67: 4.188em; // 67px
+$text-size-83: 5.188em; // 83px

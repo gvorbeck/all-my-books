@@ -1,0 +1,47 @@
+/*------------------------------------*\
+    #SITE-FOOTER
+\*------------------------------------*/
+#site-footer {
+  overflow: hidden;
+  padding-bottom: ($column-padding/2);
+  text-align: center;
+
+  @include breakpoint( min-width 600px ) {
+    background: none;
+    margin-top: ($column-padding/2);
+    text-align: left;
+  }
+
+  p {
+    @include grid-span(11, 1.5);
+    clear: both;
+    line-height: 1.563em;
+    
+    @include breakpoint( min-width 600px ) {
+      @include grid-span(12, 1);
+      color: color--shadow($color-tertiary);
+    }
+  }
+  svg {
+    fill: $color-primary;
+    height: 1.563em;
+    width: 1.563em;
+    vertical-align: bottom;
+    margin-left: .25em;
+    
+    @include breakpoint( min-width 600px ) { fill: $color-secondary; }
+  }
+  a {
+    color: $color-primary;
+    
+    @include breakpoint( min-width 600px ) { color: $color-secondary; }
+  }
+}
+#github-link a {
+  text-decoration: none;
+  
+  span {
+    text-decoration: underline;
+    vertical-align: middle;
+  }
+}

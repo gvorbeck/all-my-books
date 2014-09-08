@@ -1,0 +1,22 @@
+#loading-container {
+  background: $color-secondary;
+  position: fixed;
+  top: 0;
+  padding: $gutter-padding;
+  margin: ($gutter-padding * 4) 0 0 $gutter-padding;
+  border: .125em solid color--shadow($color-secondary);
+  z-index: 1;
+  display: none;
+}
+.loading-spinner {
+  width: 30px;
+  height: 30px;
+  background-color: $color-primary;
+  
+  @include animation(0s, 1.2s, infinite, rotateplane);
+}
+@include keyframe(rotateplane) {
+  0% { @include transform( perspective( 120px ) rotateX( 0deg ) rotateY( 0deg ) ); }
+  50% { @include transform( perspective( 120px ) rotateX( -180.1deg ) rotateY( 0deg ) ); }
+  100% { @include transform( perspective( 120px ) rotateX( -180deg ) rotateY( -179.9deg ) ); }
+}

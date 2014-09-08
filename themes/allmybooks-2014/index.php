@@ -74,16 +74,16 @@ if ( $future_query->have_posts() ) {
   }
 }
 wp_reset_postdata();
-// AT THIS POINT YOU HAVE CLEANED UP YOUR TABLE, NOW START LAYING IT  OUT IN CODE.
+// AT THIS POINT YOU HAVE CLEANED UP YOUR TABLE, NOW START LAYING IT OUT IN CODE.
 $future_list = $wpdb->get_results( 'SELECT * FROM wp_reading_list ORDER BY listorder ASC', ARRAY_N );
 $this_these = ( count($future_list) > 1 ? 'These' : 'This');
 echo '<section id="future-read" class="book-shelf"><h1>' . svg_bookmark() . 'I Want To Read ' . $this_these . '</h1>';
 if ( $future_list ) {
-  echo '<ul id="future-read-list" class="book-list connected sortable">';
+  echo '<ul id="future-read-list" class="book-list [connected sortable] collapsed">';
   $i = 0;
   $class = '';
   foreach ( $future_list as &$f ) {
-    if ( 9 < $i ) { $class = 'overflow'; }
+    if ( 9 >= $i ? $class = 'shown' : $class = 'overflow' );
     $time = date( 'M \'y', strtotime( $f[1] ) );
     // MAKE SURE EACH ITEM IN TABLE IS STILL MARKED AS WTR.
     if ( in_array( $f[2], $wtr_array ) ) {
@@ -98,6 +98,6 @@ if ( $future_list ) {
 } else {
   echo '<p class="instructions">Error: Make sure that the Reading List plugin is activated <a href="' . get_admin_url() . 'plugins.php">here</a>.</p>';
 }
-echo '<a href="javascript:;" id="show-full-list-button" class="button">Expand</a>';
+echo '<a href="javascript:;" id="show-full-list-button" class="button">More Books</a>';
 echo '</section>';
 get_footer();

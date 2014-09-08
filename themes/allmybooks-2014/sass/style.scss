@@ -1,19 +1,38 @@
-//////////////////////////////
-// Set legacy support
-//
-// If you need support for IE6 or IE7, you should install the Box Sizing polyfill.
-// In your project's folder from the command line, type the following:
-// compass install singularitygs/box-sizing
-//////////////////////////////
-$legacy-support-for-ie6:     false;
-$legacy-support-for-ie7:     false;
-$legacy-support-for-mozilla: false;
+/*!
+Theme Name: All My Books
+Theme URI: https://github.com/gvorbeck/all-my-books
+Author: Garrett Vorbeck
+Author URI: http://iamgarrett.com
+Description: A reimagining of previous AMB themes putting simplicity and responsiveness first. Most functionality has been done away with in an effort to serve up only what is needed. This is the most future-proof, bloat-free, device-agnostic AMB theme yet.
+Version: 1.7 Hall
+License: MIT 2014
+License URI: http://opensource.org/licenses/MIT
+Tags: gray, cream, blue, one column, flexible-width, responsive, singularity, sortable
+Text Domain: allmybooks
 
-//////////////////////////////
-// Import Base
-//////////////////////////////
+This theme is licensed under the MIT license.
+*/
+
+// Compass
+@import "compass/css3";
+
+// Singularity
 @import "singularitygs";
-@import "partials/base";
-@import "partials/reset";
+@import "breakpoint";
 @import "partials/grids";
-@import "partials/mystyles";
+
+// Reset
+@import "partials/reset";
+
+// Modules and Variables
+@import "partials/base";
+
+// Partials
+@import "partials/header";
+@import "partials/login";
+@import "partials/nav";
+@import "partials/spinner";
+@import "partials/popup";
+@import "partials/book_shelf";
+@import "partials/book";
+@import "partials/footer";
