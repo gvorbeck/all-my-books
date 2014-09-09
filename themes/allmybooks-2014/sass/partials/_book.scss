@@ -18,7 +18,7 @@
   display: block;
   background: rgba(0,0,0,0);
   border-color: $color-secondary;
-  @include transition(background .1s ease-in-out 1.5s);
+  @include transition(background .1s ease-in-out .9s);
   
   &.animate {
     opacity: 1;
@@ -29,7 +29,7 @@
   }
   & * {
     opacity: 0; // So that as the shade is pulled over, contents of the books are not seen.
-    @include transition(opacity .1s ease-in 1.5s);
+    @include transition(opacity .1s ease-in 1s);
   }
   & .book--shade {
     width: 0%;
@@ -42,7 +42,7 @@
     height: 100%;
     z-index: 1;
     box-sizing: content-box;
-    @include transition(width 1.5s ease-in-out 0s, height .5s ease-in-out 1.5s);
+    @include transition(width 1s ease-in-out 0s, height .25s ease-in-out 1s);
   }
   &.animate .book--shade {
     width: 100%;

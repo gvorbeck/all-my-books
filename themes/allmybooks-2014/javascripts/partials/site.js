@@ -107,7 +107,7 @@ function visibleLooper() {
       if ( ! jQuery(this).hasClass('animate') ) {
         // Check to see if they are in the visible range.
         if (checkVisible( jQuery(this), 'above' )) {
-          var delay = Math.floor(Math.random() * 1000);
+          var delay = Math.floor(Math.random() * 700);
           // Rabndomly add the animate class.
           jQuery(this).delay(delay).queue( function() {
             jQuery(this).addClass('animate').dequeue();
@@ -170,21 +170,13 @@ jQuery( document ).ready( function() {
     jQuery( '#logged-out-warning' ).addClass('animate-close').removeClass('animate-open');
   } );
   // Sticky Headers.
-  jQuery('.sticker').width(jQuery('.sticker').width());
-  jQuery(".sticker").sticky({topSpacing:0});
+  // Source: https://github.com/garand/sticky
+  jQuery('.sticker-wtr').width(jQuery('.sticker-wtr').width());
+  jQuery(".sticker-wtr").sticky({topSpacing:0});
   // Look again while scrolling.
   jQuery(window).scroll(function() {
     // Check to see if overflow books are on screen.
     visibleLooper();
-    /*if( jQuery(window).scrollTop() >= stickyHeaderTop ) {
-      jQuery('#future-read').addClass('sticky');
-      jQuery('#future-read h1').css('width', stickyWidth);
-      jQuery('#future-read-list').css('margin-top', stickyHeight);
-    } else {
-      jQuery('#future-read').removeClass('sticky');
-      jQuery('#future-read h1').css('width', stickyWidth);
-      jQuery('#future-read-list').css('margin-top', '0');
-    }*/
   } );
 } );
 /* DOC READY STOP */
