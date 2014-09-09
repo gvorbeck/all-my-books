@@ -4,7 +4,7 @@ Theme URI: https://github.com/gvorbeck/all-my-books
 Author: Garrett Vorbeck
 Author URI: http://iamgarrett.com
 Description: A reimagining of previous AMB themes putting simplicity and responsiveness first. Most functionality has been done away with in an effort to serve up only what is needed. This is the most future-proof, bloat-free, device-agnostic AMB theme yet.
-Version: 1.7 Hall
+Version: 1.8 Irving
 License: MIT 2014
 License URI: http://opensource.org/licenses/MIT
 Tags: gray, cream, blue, one column, flexible-width, responsive, singularity, sortable
@@ -17,7 +17,7 @@ This theme is licensed under the MIT license.
 @import "compass/css3";
 @import "susy";
 @import "breakpoint";
-@import "partials/grids"; // THIS SHOULD BE IN BASE AT FINAL
+@import "partials/grids";
 
 
 // Reset
@@ -27,12 +27,11 @@ This theme is licensed under the MIT license.
 @import "partials/base";
 
 // Partials
-
 @import "partials/login";
 @import "partials/nav";
 @import "partials/header";
-//@import "partials/spinner";
-//@import "partials/popup";
-//@import "partials/book_shelf";
-//@import "partials/book";
-//@import "partials/footer";
+@import "partials/spinner";
+@import "partials/popup";
+@import "partials/book_shelf";
+@import "partials/book";
+@import "partials/footer";

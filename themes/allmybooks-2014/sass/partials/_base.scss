@@ -33,7 +33,7 @@ body {
 }
 #site-content {
   //overflow: hidden;
-  
+  padding: 0 gutter() (gutter() * 2);
   //@include breakpoint( min-width 600px ) { border-bottom: .313em solid color--shadow($color-secondary); }
 }
 .content {

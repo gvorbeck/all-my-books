@@ -2,18 +2,14 @@
     #BOOK-SHELF
 \*------------------------------------*/
 .book-shelf {
-  @include grid-span( 11, 1.5 );
-  margin-bottom: ($column-padding/2);
-  clear: both;
-  
+
   h1 {
     background: $color-tertiary;
     border-bottom: .179em solid color--shadow($color-tertiary);
     color: $color-secondary;
     font-family: $font-title;
     font-size: $text-size-28;
-    line-height: 1em;
-    margin: 0 0 $gutter-padding;
+    margin: 0 0 gutter();
     padding: .5em .5em .4em 1.5em; // In ems and not $gutter-padding because of sticky behavior.
     position: relative;
   }
@@ -26,7 +22,7 @@
     left: .5em;
   }
 }
-.sticky {
+/*.sticky {
   
   h1 {
     position: fixed;
@@ -34,15 +30,19 @@
     box-shadow: 0 8px 8px rgba(50,50,50,.5);
     z-index: 2;
   }
+}*/
+.instructions {
+  text-align: center;
+  margin: 0 0 gutter();
 }
-.instructions { text-align: center; }
 #finished-read {
   display: none;
+  margin-bottom: (gutter() * 2);
   
   .book-list {
     border: .313em dashed $color-tertiary;
     border-radius: .313em;
-    padding: $gutter-padding $gutter-padding ($gutter-padding * 2);
+    padding: gutter() gutter() (gutter() * 2);
   }
-  .instructions { margin: 0 0 $gutter-padding; }
+  .instructions {  }
 }

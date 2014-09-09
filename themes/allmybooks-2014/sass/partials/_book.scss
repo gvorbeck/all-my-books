@@ -4,7 +4,7 @@
 .book {
   background: $color-primary;
   padding: .5em;
-  margin: $gutter-padding 0 0;
+  margin: gutter() 0 0;
   color: $color-secondary;
   font-family: $font-text;
   position: relative;
@@ -58,7 +58,7 @@
 .sortable-placeholder {
   border: .063px dashed #CCC;
   background: color--shadow($color-secondary);
-  margin: 0 0 $gutter-padding;
+  margin: 0 0 gutter();
 }
 /*------------------------------------*\
     #ACTION-LINKS
@@ -96,7 +96,7 @@
 .book--last-read {
   position: absolute;
   bottom: .5em;
-  right: $gutter-padding;
+  right: gutter();
   text-transform: uppercase;
   font-style: italic;
   display: none;
@@ -106,8 +106,7 @@
 .book--last-read { top: 1em; }
 #show-full-list-button {
   @extend %button;
-  @include grid-span( 6, 4 );
-  margin-top: $gutter-padding;
+  margin-top: gutter();
   
   &:hover { @extend %button-hover; }
 }

@@ -170,7 +170,7 @@ jQuery( document ).ready( function() {
     jQuery( '#logged-out-warning' ).addClass('animate-close').removeClass('animate-open');
   } );
   // Check the initial Position of the Sticky headers
-  var stickyHeaderTop = jQuery('#future-read h1').offset().top;
+  /*var stickyHeaderTop = jQuery('#future-read h1').offset().top;
   var stickyWidth     = jQuery('#future-read h1').parent().width() + 1 + 'px';
   var stickyHeight    = jQuery('#future-read h1').outerHeight() + 'px';
   jQuery(window).resize( function() {
@@ -188,12 +188,12 @@ jQuery( document ).ready( function() {
     jQuery('#future-read').removeClass('sticky');
     jQuery('#future-read h1').css('width', stickyWidth);
     jQuery('#future-read-list').css('margin-top', '0');
-  }
+  }*/
   // Look again while scrolling.
   jQuery(window).scroll(function() {
     // Check to see if overflow books are on screen.
     visibleLooper();
-    if( jQuery(window).scrollTop() >= stickyHeaderTop ) {
+    /*if( jQuery(window).scrollTop() >= stickyHeaderTop ) {
       jQuery('#future-read').addClass('sticky');
       jQuery('#future-read h1').css('width', stickyWidth);
       jQuery('#future-read-list').css('margin-top', stickyHeight);
@@ -201,7 +201,7 @@ jQuery( document ).ready( function() {
       jQuery('#future-read').removeClass('sticky');
       jQuery('#future-read h1').css('width', stickyWidth);
       jQuery('#future-read-list').css('margin-top', '0');
-    }
+    }*/
   } );
 } );
 /* DOC READY STOP */
