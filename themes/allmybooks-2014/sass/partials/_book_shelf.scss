@@ -9,7 +9,6 @@
     color: $color-secondary;
     font-family: $font-title;
     font-size: $text-size-28;
-    margin: 0 0 gutter();
     padding: .5em .5em .4em 1.5em; // In ems and not $gutter-padding because of sticky behavior.
     position: relative;
   }
@@ -22,15 +21,13 @@
     left: .5em;
   }
 }
-/*.sticky {
-  
-  h1 {
-    position: fixed;
-    top: 0;
-    box-shadow: 0 8px 8px rgba(50,50,50,.5);
-    z-index: 2;
-  }
-}*/
+// Sticky styles
+.sticker {
+  z-index: 2;
+}
+.is-sticky .sticker {
+  box-shadow: 0 8px 8px rgba(50,50,50,.5);
+}
 .instructions {
   text-align: center;
   margin: 0 0 gutter();
@@ -45,4 +42,7 @@
     padding: gutter() gutter() (gutter() * 2);
   }
   .instructions {  }
+}
+#finished-read-list {
+  margin: gutter() 0 0;
 }

@@ -77,7 +77,7 @@ wp_reset_postdata();
 // AT THIS POINT YOU HAVE CLEANED UP YOUR TABLE, NOW START LAYING IT OUT IN CODE.
 $future_list = $wpdb->get_results( 'SELECT * FROM wp_reading_list ORDER BY listorder ASC', ARRAY_N );
 $this_these = ( count($future_list) > 1 ? 'These' : 'This');
-echo '<section id="future-read" class="book-shelf"><h1>' . svg_bookmark() . 'I Want To Read ' . $this_these . '</h1>';
+echo '<section id="future-read" class="book-shelf"><h1 class="sticker">' . svg_bookmark() . 'I Want To Read ' . $this_these . '</h1>';
 if ( $future_list ) {
   echo '<ul id="future-read-list" class="book-list [connected sortable] collapsed">';
   $i = 0;

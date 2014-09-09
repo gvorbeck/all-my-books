@@ -10,7 +10,7 @@ module.exports = function(grunt) {
     uglify: {
       min: {
         files: {
-          'themes/allmybooks-2014/javascripts/site.min.js': ['themes/allmybooks-2014/javascripts/html.sortable.js', 'themes/allmybooks-2014/javascripts/site.js']
+          'themes/allmybooks-2014/javascripts/site.min.js': ['themes/allmybooks-2014/javascripts/partials/html.sortable.js', 'themes/allmybooks-2014/javascripts/partials/jquery.sticky.js', 'themes/allmybooks-2014/javascripts/partials/site.js']
         }
       }
     },
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
         tasks: ['compass:dist']
       },
       js: {
-        files: ['themes/allmybooks-2014/javascripts/**/*.js'],
+        files: ['themes/allmybooks-2014/javascripts/partials/**/*.js'],
         tasks: ['jshint:all', 'uglify:min']
       }
     },
@@ -53,5 +53,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-browser-sync');
   
   // Default task(s).
-  grunt.registerTask('default', ['browserSync', 'watch']);
+  grunt.registerTask('default', ['watch']);
 };
