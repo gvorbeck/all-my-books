@@ -173,6 +173,9 @@ jQuery( document ).ready( function() {
   // Source: https://github.com/garand/sticky
   jQuery('.sticker-wtr').width(jQuery('.sticker-wtr').width());
   jQuery(".sticker-wtr").sticky({topSpacing:0});
+  jQuery('.sticker-shelf').width(jQuery('.sticker-shelf').width());
+  jQuery(".sticker-shelf").sticky({topSpacing:0});
+  jQuery("#current-read-sticky-wrapper").css('height', 'auto');
   // Look again while scrolling.
   jQuery(window).scroll(function() {
     // Check to see if overflow books are on screen.

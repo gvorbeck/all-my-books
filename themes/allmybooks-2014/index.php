@@ -16,7 +16,7 @@ $args = array(
 $current_query = new WP_Query( $args );
 $this_these = ( $current_query->found_posts > 1 ? 'These' : 'This');
 if ( $current_query->have_posts() ) {
-  echo '<section id="current-read" class="book-shelf"><h1>' . svg_bookmark() . 'I\'m Reading ' . $this_these . '</h1><ul id="current-read-list" class="book-list connected sortable">';
+  echo '<section id="current-read" class="book-shelf sticker-shelf"><h1>' . svg_bookmark() . 'I\'m Reading ' . $this_these . '</h1><ul id="current-read-list" class="book-list connected sortable">';
   while ( $current_query->have_posts() ) {
     $current_query->the_post();
     the_book_builder( $post->ID, 0 );
