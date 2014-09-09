@@ -7,18 +7,18 @@ $column-padding: gutter-span() + gutter-span() + gutter-span() + gutter-span();
     #EXTENDS
 \*------------------------------------*/
 %button {
-  border-bottom: .179em solid color--shadow(#C0C0C0);
-  border-top: none;
-  border-right: none;
-  border-left: none;
   background: #C0C0C0;
-  padding: .4em;
-  font-size: $text-size-28;
-  color: $color-tertiary;
+  border-bottom: .179em solid color--shadow(#C0C0C0);
+  border-left: none;
   border-radius: .179em;
+  border-right: none;
+  border-top: none;
+  color: $color-tertiary;
+  display: block;
+  font-size: $text-size-28;
+  padding: gutter();
   text-decoration: none;
   text-align: center;
-  display: block;
 }
 %button-hover {
   background: color--shadow(#C0C0C0);
@@ -32,7 +32,7 @@ $column-padding: gutter-span() + gutter-span() + gutter-span() + gutter-span();
   display: block;
   font-family: $font-text;
   font-size: $text-size-21;
-  padding: 10px;
+  padding: gutter();
   width: 100%;
 }
 %input-focus {

@@ -1,7 +1,16 @@
-$grids: 12;
+// Requirements
+// ============
 
-$gutters: 1/3;
+//@import "susy";
+
+$susy: (
+  columns: 12,
+  gutters: 1/4,
+);
 
 * {
-  @include box-sizing('border-box');
+  box-sizing: border-box;
+}
+.container {
+  @include container(62.5em);
 }

@@ -1,14 +1,9 @@
 #loginform {
   text-align: center;
-  padding: $gutter-padding 0;
+  padding: gutter();
   background: $color-tertiary;
   border-bottom: .313em solid color--shadow($color-tertiary);
-  overflow: hidden;
   
-  p {
-    @include grid-span(11, 1.5);
-    clear: both;
-  }
   input[type=text] {
     @extend %input;
     
@@ -16,20 +11,20 @@
   }
   input[type=password] {
     @extend %input;
+    margin-top: gutter();
     
     &:focus { @extend %input-focus; }
   }
   label {
-    text-align: left;
-    display: block;
-    color: $color-secondary;
+    display: none;
   }
 }
 .login-remember { display: none; }
 #wp-submit {
   @extend %button;
-  @include grid-span( 4, 5 );
-  margin-top: $gutter-padding;
+  width: span(3);
+  margin: 0 auto;
+  margin-top: gutter();
   
   &:hover { @extend %button-hover; }
 }

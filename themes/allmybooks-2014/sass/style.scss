@@ -15,24 +15,24 @@ This theme is licensed under the MIT license.
 
 // Compass
 @import "compass/css3";
-
+@import "susy";
 @import "breakpoint";
-//@import "partials/grids";
+@import "partials/grids"; // THIS SHOULD BE IN BASE AT FINAL
+
 
 // Reset
 @import "partials/reset";
 
 // Modules and Variables
-//@import "partials/base";
+@import "partials/base";
 
 // Partials
-/*
-@import "partials/header";
+
+//@import "partials/header";
 @import "partials/login";
-@import "partials/nav";
-@import "partials/spinner";
-@import "partials/popup";
-@import "partials/book_shelf";
-@import "partials/book";
-@import "partials/footer";
-*/
+//@import "partials/nav";
+//@import "partials/spinner";
+//@import "partials/popup";
+//@import "partials/book_shelf";
+//@import "partials/book";
+//@import "partials/footer";
