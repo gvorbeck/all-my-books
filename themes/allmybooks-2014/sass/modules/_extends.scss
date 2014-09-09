@@ -1,11 +1,12 @@
 /*------------------------------------*\
-    #WIDTHS
-\*------------------------------------*/
-$gutter-padding: gutter-span();
-$column-padding: gutter-span() + gutter-span() + gutter-span() + gutter-span();
-/*------------------------------------*\
     #EXTENDS
 \*------------------------------------*/
+%area-login {
+  padding: gutter(); // see %input width.
+  background: $color-tertiary;
+  border-bottom: .313em solid color--shadow($color-tertiary);
+  text-align: center;
+}
 %button {
   background: #C0C0C0;
   border-bottom: .179em solid color--shadow(#C0C0C0);
@@ -33,7 +34,8 @@ $column-padding: gutter-span() + gutter-span() + gutter-span() + gutter-span();
   font-family: $font-text;
   font-size: $text-size-21;
   padding: gutter();
-  width: 100%;
+  width: span(11.5); // see %area-login padding.
+  margin: 0 auto;
 }
 %input-focus {
   border: 2px solid $color-secondary;

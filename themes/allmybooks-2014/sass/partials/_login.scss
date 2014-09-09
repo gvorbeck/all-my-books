@@ -1,8 +1,5 @@
 #loginform {
-  text-align: center;
-  padding: gutter();
-  background: $color-tertiary;
-  border-bottom: .313em solid color--shadow($color-tertiary);
+  @extend %area-login;
   
   input[type=text] {
     @extend %input;

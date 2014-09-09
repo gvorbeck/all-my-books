@@ -8,9 +8,6 @@ $susy: (
   gutters: 1/4,
 );
 
-* {
-  box-sizing: border-box;
-}
 .container {
   @include container(62.5em);
 }

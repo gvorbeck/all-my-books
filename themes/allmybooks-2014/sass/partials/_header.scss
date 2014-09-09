@@ -2,11 +2,37 @@
     #SITE-HEADER
 \*------------------------------------*/
 #site-header {
-
+  
   h1 {
     font-family: 'Lobster Two';
-    font-size: $text-size-37;
+    font-size: $text-size-83;
     text-align: center;
+    padding: gutter();
+    color: color--shadow($color-tertiary);
+    
+    svg {
+      width: 3em;
+      height: 3em;
+      fill: $color-primary;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+    .first {
+      position: absolute;
+      margin: 0 auto;
+      font-weight: bold;
+      left: -.65em;
+      right: 0;
+    }
+    .last {
+      font-size: 3em;
+      display: block;
+      position: relative;
+    }
+  }
+  /*
     text-transform: capitalize;
     padding: $gutter-padding 0;
     position: relative;
@@ -30,7 +56,6 @@
     .first {
       position: absolute;
       margin: 0 auto;
-      left: -.65em;
       right: 0;
       top: .35em;
       font-weight: bold;
@@ -40,5 +65,5 @@
       display: block;
       position: relative;
     }
-  }
+  }*/
 }
