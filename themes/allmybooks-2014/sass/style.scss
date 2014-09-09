@@ -16,18 +16,17 @@ This theme is licensed under the MIT license.
 // Compass
 @import "compass/css3";
 
-// Singularity
-@import "singularitygs";
 @import "breakpoint";
-@import "partials/grids";
+//@import "partials/grids";
 
 // Reset
 @import "partials/reset";
 
 // Modules and Variables
-@import "partials/base";
+//@import "partials/base";
 
 // Partials
+/*
 @import "partials/header";
 @import "partials/login";
 @import "partials/nav";
@@ -36,3 +35,4 @@ This theme is licensed under the MIT license.
 @import "partials/book_shelf";
 @import "partials/book";
 @import "partials/footer";
+*/
