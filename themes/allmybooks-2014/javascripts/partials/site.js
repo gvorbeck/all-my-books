@@ -175,7 +175,7 @@ jQuery( document ).ready( function() {
   jQuery(".sticker-wtr").sticky({topSpacing:0});
   jQuery('.sticker-shelf').width(jQuery('.sticker-shelf').width());
   jQuery(".sticker-shelf").sticky({topSpacing:0});
-  jQuery("#current-read-sticky-wrapper").css('height', 'auto');
+  jQuery("#current-read-sticky-wrapper").css('height', 'auto'); // sticker wants to give it a height that breaks the layout.
   // Look again while scrolling.
   jQuery(window).scroll(function() {
     // Check to see if overflow books are on screen.
