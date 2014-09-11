@@ -169,13 +169,17 @@ jQuery( document ).ready( function() {
   jQuery( '#logged-out-warning a' ).click( function() {
     jQuery( '#logged-out-warning' ).addClass('animate-close').removeClass('animate-open');
   } );
+  
   // Sticky Headers.
   // Source: https://github.com/garand/sticky
-  jQuery('.sticker-wtr').width(jQuery('.sticker-wtr').width());
-  jQuery(".sticker-wtr").sticky({topSpacing:0});
-  jQuery('.sticker-shelf').width(jQuery('.sticker-shelf').width());
-  jQuery(".sticker-shelf").sticky({topSpacing:0});
-  jQuery("#current-read-sticky-wrapper").css('height', 'auto'); // sticker wants to give it a height that breaks the layout.
+  var footerHeight = Math.ceil(jQuery('#site-footer').outerHeight(true));
+  var containerBottomPaddingHeight = Math.ceil(parseInt(jQuery('#site-content').css('padding-bottom')));
+  var myBottomSpacing = footerHeight + containerBottomPaddingHeight;
+  jQuery('.sticky--wtr, .sticky--cr').outerWidth(jQuery('.sticky--wtr').outerWidth());
+  jQuery('.sticky--wtr').sticky({topSpacing:0, bottomSpacing:myBottomSpacing});
+  jQuery('.sticky--cr').sticky({topSpacing:0, bottomSpacing:myBottomSpacing});
+  jQuery("#current-read-sticky-wrapper").css('height', 'auto');
+
   // Look again while scrolling.
   jQuery(window).scroll(function() {
     // Check to see if overflow books are on screen.
