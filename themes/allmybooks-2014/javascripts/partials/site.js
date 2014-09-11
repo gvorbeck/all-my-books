@@ -176,9 +176,12 @@ jQuery( document ).ready( function() {
   var containerBottomPaddingHeight = Math.ceil(parseInt(jQuery('#site-content').css('padding-bottom')));
   var myBottomSpacing = footerHeight + containerBottomPaddingHeight;
   jQuery('.sticky--wtr, .sticky--cr').outerWidth(jQuery('.sticky--wtr').outerWidth());
+  if (jQuery(window).width() > 745 ) {
+    jQuery('.sticky--cr').sticky({topSpacing:0, bottomSpacing:myBottomSpacing});
+  }
   jQuery('.sticky--wtr').sticky({topSpacing:0, bottomSpacing:myBottomSpacing});
-  jQuery('.sticky--cr').sticky({topSpacing:0, bottomSpacing:myBottomSpacing});
   jQuery("#current-read-sticky-wrapper").css('height', 'auto');
+  console.log(jQuery(window).width());
 
   // Look again while scrolling.
   jQuery(window).scroll(function() {

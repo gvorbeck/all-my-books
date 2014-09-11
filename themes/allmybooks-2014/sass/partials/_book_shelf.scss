@@ -22,14 +22,9 @@
   }
 }
 // Sticky styles
-.sticky--wtr {
-}
 .is-sticky .sticky--wtr {
   box-shadow: 0 8px 8px rgba(50,50,50,.5);
   z-index: 2;
-}
-#current-read-sticky-wrapper {
-  
 }
 
 .instructions {
@@ -45,7 +40,11 @@
     border-radius: .313em;
     padding: gutter() gutter() (gutter() * 2);
   }
-  .instructions {  }
+}
+#current-read {
+  @include breakpoint( max-width 760px ) {
+    margin: 0 0 gutter();
+  }
 }
 #finished-read-list {
   margin: gutter() 0 0;
