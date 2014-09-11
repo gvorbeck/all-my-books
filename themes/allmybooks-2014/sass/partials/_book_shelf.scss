@@ -22,12 +22,16 @@
   }
 }
 // Sticky styles
-.sticker-wtr {
+.sticky--wtr {
+}
+.is-sticky .sticky--wtr {
+  box-shadow: 0 8px 8px rgba(50,50,50,.5);
   z-index: 2;
 }
-.is-sticky .sticker-wtr {
-  box-shadow: 0 8px 8px rgba(50,50,50,.5);
+#current-read-sticky-wrapper {
+  
 }
+
 .instructions {
   text-align: center;
   margin: 0 0 gutter();

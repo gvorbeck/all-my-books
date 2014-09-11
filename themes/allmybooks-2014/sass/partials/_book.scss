@@ -62,7 +62,6 @@
     #ACTION-LINKS
 \*------------------------------------*/
 .book--action-links {
-  border-bottom: .125em solid color--shadow($color-primary);
   padding: .4em 0;
   margin: 0 0 .4em;
 }
@@ -82,22 +81,41 @@
   }
 }
 .action-link.missing { opacity: 0.4; }
-.book--title { font-style: italic; }
+.book--title {
+  font-style: italic;
+  font-family: 'Lobster Two';
+  font-size: $text-size-28;
+  display: block;
+  line-height: 1em;
+  margin: 0 0 gutter();
+}
 .book--series { font-size: $text-size-12; }
 .book--tags {
   font-size: $text-size-09;
   text-transform: lowercase;
 }
 .book--tags, .book--series { display: block; }
-.book--want-date { color: color--shadow($color-primary); }
+.book--want-date {
+  color: $color-secondary;
+  background: color--shadow($color-primary);
+  line-height: 1em;
+  padding: (gutter() * 2);
+  //box-shadow: 0 4px 8px rgba(50,50,50,.5);
+  border-radius: 2em;
+  
+  .month {
+    display: block;
+    padding: gutter() 0 0;
+  }
+}
 .book--want-date,
 .book--last-read {
   position: absolute;
   bottom: .5em;
   right: gutter();
   text-transform: uppercase;
-  font-style: italic;
   display: none;
+  text-align: center;
   
   @include breakpoint( min-width 785px ) { display: inline-block; }
 }
