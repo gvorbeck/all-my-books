@@ -5,10 +5,13 @@
   
   h1 {
     font-family: 'Lobster Two';
-    font-size: $text-size-83;
     text-align: center;
     padding: gutter() gutter() span(1);
     color: color--shadow($color-tertiary);
+    
+    @include breakpoint( max-width 539px ) { font-size: $text-size-50; }
+    @include breakpoint( min-width 540px ) { font-size: $text-size-67; }
+    @include breakpoint( min-width 650px ) { font-size: $text-size-83; }
     
     svg {
       width: 3em;
