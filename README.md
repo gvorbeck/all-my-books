@@ -9,3 +9,8 @@ For bibliophiles everywhere, AMB is a Wordpress theme made to create a great boo
 2. Activate the downloaded plugins.
 3. Activate the theme.
 4. Start building your collection.
+
+## Credits
+* Layout framework: [Susy](http://susy.oddbird.net/)
+* Fixed columns/headers: [sticky.js](https://github.com/garand/sticky)
+* Drag & Drop: [voidberg/html5sortable](https://github.com/voidberg/html5sortable)
