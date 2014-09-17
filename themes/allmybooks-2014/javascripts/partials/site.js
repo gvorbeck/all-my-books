@@ -162,6 +162,8 @@ jQuery( document ).ready( function() {
       jQuery( window ).unbind( "mousemove" );
       jQuery( "#finished-read" ).slideDown( "slow", function() {
         // Animation complete.
+        jQuery('.sticky--cr').sticky('update');
+        console.log('foo');
       } );
     } );
   } );
@@ -181,7 +183,6 @@ jQuery( document ).ready( function() {
   }
   jQuery('.sticky--wtr').sticky({topSpacing:0, bottomSpacing:myBottomSpacing});
   jQuery("#current-read-sticky-wrapper").css('height', 'auto');
-  console.log(jQuery(window).width());
 
   // Look again while scrolling.
   jQuery(window).scroll(function() {
