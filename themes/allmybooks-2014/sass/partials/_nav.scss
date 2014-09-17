@@ -1,12 +1,9 @@
 #site-navigation {
-  background: $color-tertiary;
-  border-bottom: .313em solid color--shadow($color-tertiary);
-  padding: $gutter-padding ($gutter-padding * 4);
-  text-align: center;
+  @extend %area-login;
   
   li {
     display: inline-block;
-    margin: 0 $gutter-padding;
+    margin: 0 gutter();
   }
   svg {
     width: 3.5em;

@@ -1,24 +1,25 @@
 /*------------------------------------*\
-    #WIDTHS
-\*------------------------------------*/
-$gutter-padding: gutter-span();
-$column-padding: gutter-span() + gutter-span() + gutter-span() + gutter-span();
-/*------------------------------------*\
     #EXTENDS
 \*------------------------------------*/
+%area-login {
+  padding: gutter(); // see %input width.
+  background: $color-tertiary;
+  border-bottom: .313em solid color--shadow($color-tertiary);
+  text-align: center;
+}
 %button {
-  border-bottom: .179em solid color--shadow(#C0C0C0);
-  border-top: none;
-  border-right: none;
-  border-left: none;
   background: #C0C0C0;
-  padding: .4em;
-  font-size: $text-size-28;
-  color: $color-tertiary;
+  border-bottom: .179em solid color--shadow(#C0C0C0);
+  border-left: none;
   border-radius: .179em;
+  border-right: none;
+  border-top: none;
+  color: $color-tertiary;
+  display: block;
+  font-size: $text-size-28;
+  padding: gutter();
   text-decoration: none;
   text-align: center;
-  display: block;
 }
 %button-hover {
   background: color--shadow(#C0C0C0);
@@ -32,8 +33,9 @@ $column-padding: gutter-span() + gutter-span() + gutter-span() + gutter-span();
   display: block;
   font-family: $font-text;
   font-size: $text-size-21;
-  padding: 10px;
-  width: 100%;
+  padding: gutter();
+  width: span(11.5); // see %area-login padding.
+  margin: 0 auto;
 }
 %input-focus {
   border: 2px solid $color-secondary;

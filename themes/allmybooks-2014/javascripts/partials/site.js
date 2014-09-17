@@ -107,7 +107,7 @@ function visibleLooper() {
       if ( ! jQuery(this).hasClass('animate') ) {
         // Check to see if they are in the visible range.
         if (checkVisible( jQuery(this), 'above' )) {
-          var delay = Math.floor(Math.random() * 1000);
+          var delay = Math.floor(Math.random() * 700);
           // Rabndomly add the animate class.
           jQuery(this).delay(delay).queue( function() {
             jQuery(this).addClass('animate').dequeue();
@@ -162,6 +162,8 @@ jQuery( document ).ready( function() {
       jQuery( window ).unbind( "mousemove" );
       jQuery( "#finished-read" ).slideDown( "slow", function() {
         // Animation complete.
+        jQuery('.sticky--cr').sticky('update');
+        console.log('foo');
       } );
     } );
   } );
@@ -169,39 +171,23 @@ jQuery( document ).ready( function() {
   jQuery( '#logged-out-warning a' ).click( function() {
     jQuery( '#logged-out-warning' ).addClass('animate-close').removeClass('animate-open');
   } );
-  // Check the initial Position of the Sticky headers
-  var stickyHeaderTop = jQuery('#future-read h1').offset().top;
-  var stickyWidth     = jQuery('#future-read h1').parent().width() + 1 + 'px';
-  var stickyHeight    = jQuery('#future-read h1').outerHeight() + 'px';
-  jQuery(window).resize( function() {
-    stickyWidth     = jQuery('#future-read').width() + 1 + 'px';
-    stickyHeaderTop = jQuery('#future-read h1').offset().top;
-    jQuery('#future-read h1').css('width', stickyWidth);
-  } );
   
-  // Immediately look to see if page has loaded below the banner.
-  if( jQuery(window).scrollTop() >= stickyHeaderTop ) {
-    jQuery('#future-read').addClass('sticky');
-    jQuery('#future-read h1').css('width', stickyWidth);
-    jQuery('#future-read-list').css('margin-top', stickyHeight);
-  } else {
-    jQuery('#future-read').removeClass('sticky');
-    jQuery('#future-read h1').css('width', stickyWidth);
-    jQuery('#future-read-list').css('margin-top', '0');
+  // Sticky Headers.
+  // Source: https://github.com/garand/sticky
+  var footerHeight = Math.ceil(jQuery('#site-footer').outerHeight(true));
+  var containerBottomPaddingHeight = Math.ceil(parseInt(jQuery('#site-content').css('padding-bottom')));
+  var myBottomSpacing = footerHeight + containerBottomPaddingHeight;
+  jQuery('.sticky--wtr, .sticky--cr').outerWidth(jQuery('.sticky--wtr').outerWidth());
+  if (jQuery(window).width() > 745 ) {
+    jQuery('.sticky--cr').sticky({topSpacing:0, bottomSpacing:myBottomSpacing});
   }
+  jQuery('.sticky--wtr').sticky({topSpacing:0, bottomSpacing:myBottomSpacing});
+  jQuery("#current-read-sticky-wrapper").css('height', 'auto');
+
   // Look again while scrolling.
   jQuery(window).scroll(function() {
     // Check to see if overflow books are on screen.
     visibleLooper();
-    if( jQuery(window).scrollTop() >= stickyHeaderTop ) {
-      jQuery('#future-read').addClass('sticky');
-      jQuery('#future-read h1').css('width', stickyWidth);
-      jQuery('#future-read-list').css('margin-top', stickyHeight);
-    } else {
-      jQuery('#future-read').removeClass('sticky');
-      jQuery('#future-read h1').css('width', stickyWidth);
-      jQuery('#future-read-list').css('margin-top', '0');
-    }
   } );
 } );
 /* DOC READY STOP */

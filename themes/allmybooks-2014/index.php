@@ -16,7 +16,7 @@ $args = array(
 $current_query = new WP_Query( $args );
 $this_these = ( $current_query->found_posts > 1 ? 'These' : 'This');
 if ( $current_query->have_posts() ) {
-  echo '<section id="current-read" class="book-shelf"><h1>' . svg_bookmark() . 'I\'m Reading ' . $this_these . '</h1><ul id="current-read-list" class="book-list connected sortable">';
+  echo '<section id="current-read" class="book-shelf sticky--cr"><h1>' . svg_bookmark() . 'I\'m Reading ' . $this_these . '</h1><ul id="current-read-list" class="book-list connected sortable">';
   while ( $current_query->have_posts() ) {
     $current_query->the_post();
     the_book_builder( $post->ID, 0 );
@@ -77,14 +77,14 @@ wp_reset_postdata();
 // AT THIS POINT YOU HAVE CLEANED UP YOUR TABLE, NOW START LAYING IT OUT IN CODE.
 $future_list = $wpdb->get_results( 'SELECT * FROM wp_reading_list ORDER BY listorder ASC', ARRAY_N );
 $this_these = ( count($future_list) > 1 ? 'These' : 'This');
-echo '<section id="future-read" class="book-shelf"><h1>' . svg_bookmark() . 'I Want To Read ' . $this_these . '</h1>';
+echo '<section id="future-read" class="book-shelf"><h1 class="sticky--wtr">' . svg_bookmark() . 'I Want To Read ' . $this_these . '</h1>';
 if ( $future_list ) {
   echo '<ul id="future-read-list" class="book-list [connected sortable] collapsed">';
   $i = 0;
   $class = '';
   foreach ( $future_list as &$f ) {
     if ( 9 >= $i ? $class = 'shown' : $class = 'overflow' );
-    $time = date( 'M \'y', strtotime( $f[1] ) );
+    $time = '<span class="month">' . date( 'M', strtotime( $f[1] ) ) . '</span><span class="year">' . date( '\'y', strtotime( $f[1] ) ) . '</span>';
     // MAKE SURE EACH ITEM IN TABLE IS STILL MARKED AS WTR.
     if ( in_array( $f[2], $wtr_array ) ) {
       the_book_builder( $f[2], $f[3], $class, $time );

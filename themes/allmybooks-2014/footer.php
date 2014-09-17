@@ -7,6 +7,8 @@
           ?>
         </p>
       </footer>
+    <div id="logged-out-warning"><a href="javascript:;"><?php echo svg_logout(); ?></a><p></p></div>
+    <div id="loading-container"><div class="loading-spinner"></div></div>
     </div><!-- #container -->
     <?php wp_footer(); ?>
   </body>
