@@ -163,7 +163,6 @@ jQuery( document ).ready( function() {
       jQuery( "#finished-read" ).slideDown( "slow", function() {
         // Animation complete.
         jQuery('.sticky--cr').sticky('update');
-        console.log('foo');
       } );
     } );
   } );
