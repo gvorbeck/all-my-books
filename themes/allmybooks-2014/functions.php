@@ -195,13 +195,13 @@ if ( ! function_exists( 'the_book_builder' ) ) {
         if ( '' != $cat_tag_string ) {
           echo ' <span class="book--tags">(' . $cat_tag_string . ')</span>';
         }
-        if ( '' != $time ) {
-          echo "<span class='book--want-date'>$time</span>";
-        }
-        if ( '' != $last_row_year ) {
-          echo "<span class='book--last-read'>last read '$last_row_year</span>";
-        }
       echo '</p>';
+      if ( '' != $last_row_year ) {
+        echo "<div class='book--last-read book--info'><span class='label'>last</span><div>'$last_row_year</div></div>";
+      }
+      if ( '' != $time ) {
+        echo "<div class='book--want-date book--info'><span class='label'>since</span><div>$time</div></div>";
+      }
     echo '</li>';
   }
 }
