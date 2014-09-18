@@ -95,31 +95,30 @@
   text-transform: lowercase;
 }
 .book--tags, .book--series { display: block; }
-.book--want-date {
-  color: $color-secondary;
-  background: color--shadow($color-primary);
-  line-height: 1em;
-  padding: (gutter() * 2);
-  //box-shadow: 0 4px 8px rgba(50,50,50,.5);
-  border-radius: 2em;
+.book--want-date,
+.book--last-read {
+  right:0.25em;
+  @extend %ribbon-prelim;
+  
+  .label {
+    @extend %ribbon-label;
+  }
+  div {
+    @extend %ribbon-div;
+  }
+
+  div:after {
+    @extend %ribbon-div-after;
+  }
   
   .month {
     display: block;
     padding: gutter() 0 0;
   }
 }
-.book--want-date,
 .book--last-read {
-  position: absolute;
-  bottom: .5em;
-  right: gutter();
-  text-transform: uppercase;
-  display: none;
-  text-align: center;
-  
-  @include breakpoint( min-width 785px ) { display: inline-block; }
+  right: 4.5em;
 }
-.book--last-read { top: 1em; }
 #show-full-list-button {
   @extend %button;
   margin-top: gutter();
