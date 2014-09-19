@@ -10,6 +10,8 @@
   position: relative;
   line-height: 1.25em;
   border-bottom: .313em solid color--shadow($color-primary);
+  box-shadow: 0 2px 2px rgba(0,0,0,.25);
+  border-radius: .625em;
 }
 .collapsed .overflow {
   display: none;

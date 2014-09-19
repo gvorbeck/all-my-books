@@ -8,6 +8,7 @@
     text-align: center;
     padding: gutter() gutter() span(1);
     color: color--shadow($color-tertiary);
+    text-shadow: 0 2px 2px rgba(0,0,0,.25);
     
     @include breakpoint( max-width 539px ) { font-size: $text-size-50; }
     @include breakpoint( min-width 540px ) { font-size: $text-size-67; }

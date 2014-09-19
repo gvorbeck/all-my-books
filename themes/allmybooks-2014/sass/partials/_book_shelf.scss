@@ -11,6 +11,7 @@
     font-size: $text-size-28;
     padding: .5em .5em .4em 1.5em; // In ems and not $gutter-padding because of sticky behavior.
     position: relative;
+    box-shadow: 0 2px 2px rgba(0,0,0,.25);
   }
   svg {
     fill: $color-secondary;
@@ -23,7 +24,7 @@
 }
 // Sticky styles
 .is-sticky .sticky--wtr {
-  box-shadow: 0 8px 8px rgba(50,50,50,.5);
+  box-shadow: 0 4px 4px rgba(0,0,0,.25);
   z-index: 2;
 }
 
