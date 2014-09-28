@@ -3,11 +3,11 @@
   
   li {
     display: inline-block;
-    margin: 0 gutter();
+    margin: 0 .5rem;
   }
   svg {
-    width: 3.5em;
-    height: 3.5em;
+    width: 3.5rem;
+    height: 3.5rem;
     fill: $color-secondary;
   }
 }

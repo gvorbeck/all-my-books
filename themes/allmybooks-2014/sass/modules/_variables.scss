@@ -18,14 +18,25 @@ $font-text: 'Sintony', sans-serif;
     #FONT-SIZES
     http://lifehacker.com/stick-to-these-font-sizes-to-simplify-designs-and-more-1531615325
 \*------------------------------------*/
-$text-size-05: 0.313rem; // 5px
-$text-size-07: 0.438rem; // 7px
-$text-size-09: 0.563rem; // 9px
-$text-size-12: 0.750rem; // 12px
-$text-size-16: 1rem;     // 16px
-$text-size-21: 1.313rem; // 21px
-$text-size-28: 1.750rem; // 28px
-$text-size-37: 2.313rem; // 37px
-$text-size-50: 3.125rem; // 50px
-$text-size-67: 4.188rem; // 67px
-$text-size-83: 5.188rem; // 83px
+$font-size-1: 0.313rem; // 5px
+$font-size-2: 0.438rem; // 7px
+$font-size-3: 0.563rem; // 9px
+$font-size-4: 0.750rem; // 12px
+$font-size-5: 1rem;     // 16px
+$font-size-6: 1.313rem; // 21px
+$font-size-7: 1.750rem; // 28px
+$font-size-8: 2.313rem; // 37px
+$font-size-9: 3.125rem; // 50px
+$font-size-10: 4.188rem; // 67px
+$font-size-11: 5.188rem; // 83px
+
+/*------------------------------------*\
+    #BREAKPOINTS
+\*------------------------------------*/
+$breakpoint-1: 540px;
+$breakpoint-2: 650px;
+
+$drop-shadow: 0 2px 2px rgba(0,0,0,.25);
+
+$ribbon-w: 2.5rem;
+$ribbon-tail: .625rem;

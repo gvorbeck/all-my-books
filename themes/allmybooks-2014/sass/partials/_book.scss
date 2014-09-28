@@ -2,25 +2,61 @@
     #BOOK
 \*------------------------------------*/
 .book {
-  background: $color-primary;
-  padding: .5em;
+  background: white;
   margin: gutter() 0 0;
-  color: $color-secondary;
+  color: $color-tertiary;
   font-family: $font-text;
   position: relative;
   line-height: 1.25em;
-  border-bottom: .313em solid color--shadow($color-primary);
+  box-shadow: $drop-shadow;
+  
+  h1 {
+    background: $color-secondary;
+    padding: gutter();
+    color: $color-tertiary;
+    box-shadow: 0px 0px;
+    font-family: 'Lobster Two';
+    line-height: 1em;
+    font-size: $font-size-8;
+  }
+}
+.book--details {
+  padding: gutter();
+  
+  span {
+    display: block;
+  }
+}
+.book--links {
+  padding: 0 gutter() gutter();
+  li {
+    display: inline;
+  }
+}
+.book--link {
+  display: inline;
+  margin: 0 1rem 0 0;
+  
+  svg {
+    position: static;
+    width: 1.5rem;
+    height: 1.5rem;
+    
+    &:hover {
+      fill: $color-primary;
+    }
+  }
 }
 .collapsed .overflow {
   display: none;
 }
 .expanded .overflow {
   display: block;
-  background: rgba(0,0,0,0);
-  border-color: $color-secondary;
-  @include transition(background .1s ease-in-out .9s);
+  //background: rgba(0,0,0,0);
+  //border-color: $color-secondary;
+  //@include transition(background .1s ease-in-out .9s);
   
-  &.animate {
+  /*&.animate {
     opacity: 1;
     background: $color-primary;
   }
@@ -47,51 +83,44 @@
   &.animate .book--shade {
     width: 100%;
     height: 0;
-  }
+  }*/
 }
 
 /*------------------------------------*\
     #SORTING
 \*------------------------------------*/
 .sortable-placeholder {
-  border: .063px dashed #CCC;
-  background: color--shadow($color-secondary);
-  margin: 0 0 gutter();
+  background: color--shadow($color-quarternary);
+  margin: gutter() 0 0;
 }
+/*------------------------------------*\
+    #BOOK-LINKS
+\*------------------------------------*/
+.book-links {}
 /*------------------------------------*\
     #ACTION-LINKS
 \*------------------------------------*/
-.book--action-links {
-  padding: .4em 0;
-  margin: 0 0 .4em;
-}
-.action-link {
+/*.action-link {
   text-decoration: none;
   text-align: center;
   position: relative;
   margin: 0 1em 0 0;
   display: inline-block;
-  width: 1.5em;
-  height: 1.5em;
-  
-  svg {
-    fill: $color-secondary;
-    height: 1.5em;
-    width: 1.5em;
-  }
+  //width: 1.5em;
+  //height: 1.5em;
 }
 .action-link.missing { opacity: 0.4; }
 .book--title {
   font-style: italic;
   font-family: 'Lobster Two';
-  font-size: $text-size-28;
+  font-size: $font-size-7;
   display: block;
   line-height: 1em;
   margin: 0 0 gutter();
 }
-.book--series { font-size: $text-size-12; }
+.book--series { font-size: $font-size-4; }
 .book--tags {
-  font-size: $text-size-09;
+  font-size: $font-size-3;
   text-transform: lowercase;
 }
 .book--tags, .book--series { display: block; }
@@ -101,14 +130,27 @@
   line-height: 1em;
   padding: (gutter() * 2);
   //box-shadow: 0 4px 8px rgba(50,50,50,.5);
-  border-radius: 2em;
+  border-radius: 2em;*/
+.ribbon {
+  right:0.25em;
+  @extend %ribbon-prelim;
   
+  .label {
+    @extend %ribbon-label;
+  }
+  div {
+    @extend %ribbon-div;
+  }
+
+  div:after {
+    @extend %ribbon-div-after;
+  }
   .month {
     display: block;
     padding: gutter() 0 0;
   }
 }
-.book--want-date,
+/*.book--want-date,
 .book--last-read {
   position: absolute;
   bottom: .5em;
@@ -119,7 +161,7 @@
   
   @include breakpoint( min-width 785px ) { display: inline-block; }
 }
-.book--last-read { top: 1em; }
+.book--last-read { top: 1em; }*/
 #show-full-list-button {
   @extend %button;
   margin-top: gutter();

@@ -1,5 +1,5 @@
 @import "../modules/colors";
-@import "../modules/fonts";
+@import "../modules/variables";
 @import "../modules/mixins";
 @import "../modules/extends";
 /*------------------------------------*\
@@ -16,9 +16,7 @@ body, html {
 body {
   background: url(images/goot8xr.png) $color-primary repeat;
 }
-#site-content {
-  padding: 0 gutter() (gutter() * 2);
-}
-.content {
-  background: $color-secondary;
+main {
+  background: $color-quarternary;
+  padding: gutter();
 }

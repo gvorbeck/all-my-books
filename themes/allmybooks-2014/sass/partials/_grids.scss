@@ -9,8 +9,12 @@ $susy: (
   global-box-sizing: border-box,
 );
 
-.container {
-  @include container(62.5em);
+#site-header {
+  @include container(100%);
+}
+main,
+#site-footer {
+  @include container(62.5rem);
 }
 
 @include breakpoint( min-width 760px ) {
