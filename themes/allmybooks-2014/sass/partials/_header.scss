@@ -2,16 +2,25 @@
     #SITE-HEADER
 \*------------------------------------*/
 #site-header {
+  background: $color-tertiary;
+  margin-bottom: -6em;
+  padding: 1rem gutter() 0;
+  min-height: 27rem;
+  box-shadow: $drop-shadow;
+  
+  @include breakpoint ( min-width $breakpoint-1 ) { min-height: 31rem; }
+  @include breakpoint ( min-width $breakpoint-2 ) { min-height: 34rem; }
   
   h1 {
-    font-family: 'Lobster Two';
+    font-family: $font-fancy;
     text-align: center;
+    text-shadow: $drop-shadow;
     padding: gutter() gutter() span(1);
-    color: color--shadow($color-tertiary);
-    
-    @include breakpoint( max-width 539px ) { font-size: $text-size-50; }
-    @include breakpoint( min-width 540px ) { font-size: $text-size-67; }
-    @include breakpoint( min-width 650px ) { font-size: $text-size-83; }
+    color: $color-secondary;
+    font-size: $font-size-9;
+
+    @include breakpoint( min-width $breakpoint-1 ) { font-size: $font-size-10; }
+    @include breakpoint( min-width $breakpoint-2 ) { font-size: $font-size-11; }
     
     svg {
       width: 3em;
@@ -35,9 +44,11 @@
       position: relative;
     }
   }
-  /*
+}
 
-    @include breakpoint( min-width 425px ) { font-size: $text-size-50; }
-    @include breakpoint( min-width 680px ) { font-size: $text-size-67; }
-    @include breakpoint( min-width 830px ) { font-size: $text-size-83; }*/
+.logged-in #site-header {
+  min-height: 20rem;
+  
+  @include breakpoint ( min-width $breakpoint-1 ) { min-height: 24rem; }
+  @include breakpoint ( min-width $breakpoint-2 ) { min-height: 27rem; }
 }

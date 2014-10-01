@@ -1,17 +1,17 @@
 #loading-container {
-  background: $color-secondary;
+  background: $color-quarternary;
   position: fixed;
   top: 0;
   left: gutter();
   padding: gutter();
   margin: (gutter() * 4) 0 0 gutter();
-  border: .125em solid color--shadow($color-secondary);
+  box-shadow: $drop-shadow;
   z-index: 1;
   display: none;
 }
 .loading-spinner {
-  width: 30px;
-  height: 30px;
+  width: 1.875rem;
+  height: 1.875rem;
   background-color: $color-primary;
   
   @include animation(0s, 1.2s, infinite, rotateplane);

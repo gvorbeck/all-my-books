@@ -99,21 +99,19 @@ if ( ! function_exists( 'get_series_list' ) ) {
   }
 }
 
-if ( ! function_exists( 'get_action_links' ) ) {
-  function get_action_links( $post_id ) {
+if ( ! function_exists( 'get_book_links' ) ) {
+  function get_book_links( $post_id ) {
     $ascii_title   = strtolower( urlencode( get_post( $post_id )->post_title ) );
     $ascii_authors = strtolower( urlencode( str_replace( ', ', ' ', get_the_post_authors_string( $post_id ) ) ) );
-    if( ! get_field('book_file', $post_id) ) {
-      $book_missing  = 'missing';
-      $book_no_click = "onclick='return false'";
-    }
     $book_links    = array();
-    $book_links[]  = "<a class='amazon-action-link action-link' href='http://www.amazon.com/s/field-keywords=$ascii_title+$ascii_authors' target='_blank' title='Search Amazon'>" . svg_amazon() . "</a>";
-    $book_links[]  = "<a class='wiki-action-link action-link' href='http://en.wikipedia.org/wiki/Special:Search?search=$ascii_title+$ascii_authors' target='_blank' title='Search Wikipedia'>" . svg_wikipedia() . "</a>";
-    $book_links[]  = "<a class='luzme-action-link action-link' href='http://luzme.com/search_all?keyword=$ascii_title+$ascii_authors' target='_blank' title='Shop Luzme'>" . svg_store() . "</a>";
+    $book_links[]  = "<li><a class='amazon-link book--link' href='http://www.amazon.com/s/field-keywords=$ascii_title+$ascii_authors' target='_blank' title='Search Amazon'>" . svg_amazon() . "</a></li>";
+    $book_links[]  = "<li><a class='wiki-link book--link' href='http://en.wikipedia.org/wiki/Special:Search?search=$ascii_title+$ascii_authors' target='_blank' title='Search Wikipedia'>" . svg_wikipedia() . "</a></li>";
+    $book_links[]  = "<li><a class='luzme-link book--link' href='http://luzme.com/search_all?keyword=$ascii_title+$ascii_authors' target='_blank' title='Shop Luzme'>" . svg_store() . "</a></li>";
     if ( is_user_logged_in() ) {
-      $book_links[] = "<a class='download-action-link action-link $book_missing' href='" . get_field('book_file', $post_id) . "' title='Download " . esc_attr( get_post( $post_id )->post_title ) . "' $book_no_click >" . svg_download() . "</a>";
-      $book_links[]  = '<a class="edit-action-link action-link" href="' . get_edit_post_link( $post_id ) . '" target="_blank" title="Edit ' . esc_attr( get_post( $post_id )->post_title ) . '">' . svg_edit() . '</a>';
+      if( get_field('book_file', $post_id) ) {
+        $book_links[] = "<li><a class='download-link book--link' href='" . get_field('book_file', $post_id) . "' title='Download " . esc_attr( get_post( $post_id )->post_title ) . "'>" . svg_download() . "</a></li>";
+      }
+      $book_links[]  = '<li><a class="edit-link book--link" href="' . get_edit_post_link( $post_id ) . '" target="_blank" title="Edit ' . esc_attr( get_post( $post_id )->post_title ) . '">' . svg_edit() . '</a></li>';
     }
     return $book_links;
   }
@@ -184,24 +182,26 @@ if ( ! function_exists( 'the_book_builder' ) ) {
     $last_row      = is_array( $rows ) ? end( $rows ) : '';
     $last_row_year = is_array( $rows ) ? substr($last_row['read_year'], -2) : '';
     echo "<li id='$post_id' class='book $class' data-order='$list_order'>";
-      echo '<div class="book--shade"></div>';
-      echo '<div class="book--action-links">' . implode( ' ', get_action_links( $post_id ) ) . '</div>';
-      echo '<p>';
-        echo '<span class="book--title">' . get_the_title( $post_id ) . '</span>';
-        echo ' by <span class="book--author">' . get_the_post_authors_string( $post_id ) . '</span>';
-        if ( '' != get_series_list( $post_id ) ) {
-          echo ' <span class="book--series">[' . get_series_list( $post_id ) . ']</span>';
-        }
-        if ( '' != $cat_tag_string ) {
-          echo ' <span class="book--tags">(' . $cat_tag_string . ')</span>';
-        }
-        if ( '' != $time ) {
-          echo "<span class='book--want-date'>$time</span>";
-        }
-        if ( '' != $last_row_year ) {
-          echo "<span class='book--last-read'>last read '$last_row_year</span>";
-        }
-      echo '</p>';
+      //echo '<div class="book--shade"></div>';
+      echo '<article>';
+        echo '<h1 class="book--title '. ($time ? 'ribbons' : '') .'">' . get_the_title( $post_id ) . '</h1>';
+        echo '<div class="book--details">';
+          echo '<span class="book--author">by ' . get_the_post_authors_string( $post_id ) . '</span>';
+          if ( '' != get_series_list( $post_id ) ) {
+            echo ' <span class="book--series">' . get_series_list( $post_id ) . '</span>';
+          }
+          if ( '' != $cat_tag_string ) {
+            echo ' <span class="book--tags">' . strtolower($cat_tag_string) . '</span>';
+          }
+          if ( '' != $last_row_year && '' != $time ) {
+            echo "<div class='book--last-date ribbon'><div>'$last_row_year</div></div>";
+          }
+          if ( '' != $time ) {
+            echo "<div class='book--want-date ribbon'><div>$time</div></div>";
+          }
+        echo '</div>';
+        echo '<ul class="book--links">' . implode( ' ', get_book_links( $post_id ) ) . '</ul>';
+      echo '</article>';
     echo '</li>';
   }
 }

@@ -1,5 +1,5 @@
 @import "../modules/colors";
-@import "../modules/fonts";
+@import "../modules/variables";
 @import "../modules/mixins";
 @import "../modules/extends";
 /*------------------------------------*\
@@ -16,26 +16,7 @@ body, html {
 body {
   background: url(images/goot8xr.png) $color-primary repeat;
 }
-.container {
-  //@include background-grid;
-  //margin: 0 auto;
-  //min-height: 100%;
-  //max-width: 1000px;
-  
-  //@include breakpoint( min-width 600px ) {
-    //@include grid-span(10, 2);
-  //}
-  //@include breakpoint( min-width 1204px ) {
-    // This gets rid of the grid-span rule and just makes the container centered.
-    //float: none;
-    //margin: 0 auto;
-  //}
-}
-#site-content {
-  //overflow: hidden;
-  padding: 0 gutter() (gutter() * 2);
-  //@include breakpoint( min-width 600px ) { border-bottom: .313em solid color--shadow($color-secondary); }
-}
-.content {
-  background: $color-secondary;
+main {
+  background: $color-quarternary;
+  padding: gutter();
 }

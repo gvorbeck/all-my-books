@@ -8,20 +8,25 @@
   }
   input[type=password] {
     @extend %input;
-    margin-top: gutter();
     
     &:focus { @extend %input-focus; }
   }
   label {
     display: none;
   }
+  p {
+    margin-bottom: 1rem;
+    
+    &:last-child {
+      margin: 0;
+    }
+  }
 }
 .login-remember { display: none; }
 #wp-submit {
   @extend %button;
-  width: span(3);
+  width: span(5);
   margin: 0 auto;
-  margin-top: gutter();
   
   &:hover { @extend %button-hover; }
 }

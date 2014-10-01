@@ -5,25 +5,25 @@
 
   h1 {
     background: $color-tertiary;
-    border-bottom: .179em solid color--shadow($color-tertiary);
-    color: $color-secondary;
+    color: $color-quarternary;
     font-family: $font-title;
-    font-size: $text-size-28;
+    font-size: $font-size-7;
     padding: .5em .5em .4em 1.5em; // In ems and not $gutter-padding because of sticky behavior.
     position: relative;
+    box-shadow: $drop-shadow;
   }
   svg {
-    fill: $color-secondary;
-    width: .643em;
-    height: 1.286em;
+    fill: $color-quarternary;
+    width: 2.5rem;
+    height: 2.5rem;
     position: absolute;
     top: 0;
-    left: .5em;
+    left: .2rem;
   }
 }
 // Sticky styles
 .is-sticky .sticky--wtr {
-  box-shadow: 0 8px 8px rgba(50,50,50,.5);
+  box-shadow: $drop-shadow;
   z-index: 2;
 }
 

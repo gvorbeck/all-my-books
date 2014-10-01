@@ -2,124 +2,105 @@
     #BOOK
 \*------------------------------------*/
 .book {
-  background: $color-primary;
-  padding: .5em;
+  background: white;
   margin: gutter() 0 0;
-  color: $color-secondary;
+  color: $color-tertiary;
   font-family: $font-text;
   position: relative;
   line-height: 1.25em;
-  border-bottom: .313em solid color--shadow($color-primary);
-}
-.collapsed .overflow {
-  display: none;
-}
-.expanded .overflow {
-  display: block;
-  background: rgba(0,0,0,0);
-  border-color: $color-secondary;
-  @include transition(background .1s ease-in-out .9s);
+  box-shadow: $drop-shadow;
   
-  &.animate {
-    opacity: 1;
-    background: $color-primary;
-  }
-  &.animate * {
-    opacity: 1; //This is after the shade is covering it.
-  }
-  & * {
-    opacity: 0; // So that as the shade is pulled over, contents of the books are not seen.
-    @include transition(opacity .1s ease-in 1s);
-  }
-  & .book--shade {
-    width: 0%;
-    background: color--shadow($color-primary);
-    border-top: .313em solid color--shadow($color-primary);
-    opacity: 1;
-    position: absolute;
-    bottom: -.313em;
-    left: 0;
-    height: 100%;
-    z-index: 1;
-    box-sizing: content-box;
-    @include transition(width 1s ease-in-out 0s, height .25s ease-in-out 1s);
-  }
-  &.animate .book--shade {
-    width: 100%;
-    height: 0;
+  h1 {
+    background: $color-secondary;
+    padding: gutter();
+    color: $color-tertiary;
+    box-shadow: 0px 0px;
+    font-family: $font-fancy;
+    line-height: 1em;
+    font-size: $font-size-8;
+    
+    &.ribbons {
+      padding: gutter() 6rem gutter() gutter();
+    }
   }
 }
-
-/*------------------------------------*\
+.book--details {
+  padding: gutter();
+  
+  span {
+    display: block;
+  }
+}
+.book--links {
+  padding: 0 gutter() gutter();
+  li {
+    display: inline;
+  }
+}
+.book--link {
+  display: inline;
+  margin: 0 1rem 0 0;
+  
+  svg {
+    position: static;
+    width: 1.5rem;
+    height: 1.5rem;
+    
+    &:hover {
+      fill: $color-primary;
+    }
+  }
+}
+.collapsed {
+  .overflow {
+    display: none;
+  }
+}
+.expanded {
+  
+  .overflow {
+    display: block;
+    opacity: 0;
+  }
+  .animate {
+    opacity: 1;
+    @include animation(0, .25s, 1, popIn);
+    @include transition( opacity 0s ease-in-out .05s );
+  }
+}
+@include keyframes(popIn) {
+  0% { @include transform( scale(0) ); }
+  80% { @include transform( scale(1.1) ); }
+  100% { @include transform( scale(1) ); }
+}/*------------------------------------*\
     #SORTING
 \*------------------------------------*/
 .sortable-placeholder {
-  border: .063px dashed #CCC;
-  background: color--shadow($color-secondary);
-  margin: 0 0 gutter();
+  background: color--shadow($color-quarternary);
+  margin: gutter() 0 0;
 }
-/*------------------------------------*\
-    #ACTION-LINKS
-\*------------------------------------*/
-.book--action-links {
-  padding: .4em 0;
-  margin: 0 0 .4em;
-}
-.action-link {
-  text-decoration: none;
-  text-align: center;
-  position: relative;
-  margin: 0 1em 0 0;
-  display: inline-block;
-  width: 1.5em;
-  height: 1.5em;
+.ribbon {
+  right:0.25em;
+  @extend %ribbon-prelim;
   
-  svg {
-    fill: $color-secondary;
-    height: 1.5em;
-    width: 1.5em;
+  .label {
+    @extend %ribbon-label;
   }
-}
-.action-link.missing { opacity: 0.4; }
-.book--title {
-  font-style: italic;
-  font-family: 'Lobster Two';
-  font-size: $text-size-28;
-  display: block;
-  line-height: 1em;
-  margin: 0 0 gutter();
-}
-.book--series { font-size: $text-size-12; }
-.book--tags {
-  font-size: $text-size-09;
-  text-transform: lowercase;
-}
-.book--tags, .book--series { display: block; }
-.book--want-date {
-  color: $color-secondary;
-  background: color--shadow($color-primary);
-  line-height: 1em;
-  padding: (gutter() * 2);
-  //box-shadow: 0 4px 8px rgba(50,50,50,.5);
-  border-radius: 2em;
-  
+  div {
+    @extend %ribbon-div;
+  }
+
+  div:after {
+    @extend %ribbon-div-after;
+  }
   .month {
     display: block;
     padding: gutter() 0 0;
   }
 }
-.book--want-date,
-.book--last-read {
-  position: absolute;
-  bottom: .5em;
-  right: gutter();
-  text-transform: uppercase;
-  display: none;
-  text-align: center;
-  
-  @include breakpoint( min-width 785px ) { display: inline-block; }
+.book--last-date {
+  right: 3rem;
 }
-.book--last-read { top: 1em; }
 #show-full-list-button {
   @extend %button;
   margin-top: gutter();
