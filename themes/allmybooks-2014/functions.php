@@ -184,7 +184,7 @@ if ( ! function_exists( 'the_book_builder' ) ) {
     echo "<li id='$post_id' class='book $class' data-order='$list_order'>";
       //echo '<div class="book--shade"></div>';
       echo '<article>';
-        echo '<h1 class="book--title">' . get_the_title( $post_id ) . '</h1>';
+        echo '<h1 class="book--title '. ($time ? 'ribbons' : '') .'">' . get_the_title( $post_id ) . '</h1>';
         echo '<div class="book--details">';
           echo '<span class="book--author">by ' . get_the_post_authors_string( $post_id ) . '</span>';
           if ( '' != get_series_list( $post_id ) ) {
@@ -193,11 +193,11 @@ if ( ! function_exists( 'the_book_builder' ) ) {
           if ( '' != $cat_tag_string ) {
             echo ' <span class="book--tags">' . strtolower($cat_tag_string) . '</span>';
           }
-          if ( '' != $last_row_year ) {
-            echo "<span class='book--last-date ribbon'>last read '$last_row_year</span>";
+          if ( '' != $last_row_year && '' != $time ) {
+            echo "<div class='book--last-date ribbon'><div>'$last_row_year</div></div>";
           }
           if ( '' != $time ) {
-            echo "<span class='book--want-date ribbon'>$time</span>";
+            echo "<div class='book--want-date ribbon'><div>$time</div></div>";
           }
         echo '</div>';
         echo '<ul class="book--links">' . implode( ' ', get_book_links( $post_id ) ) . '</ul>';

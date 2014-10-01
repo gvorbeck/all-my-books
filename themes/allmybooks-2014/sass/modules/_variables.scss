@@ -3,6 +3,7 @@
 \*------------------------------------*/
 $font-title: 'Domine', serif;
 $font-text: 'Sintony', sans-serif;
+$font-fancy: 'Lobster Two', cursive;
 @font-face {
   font-family: 'Lobster Two';
   src:
@@ -11,6 +12,14 @@ $font-text: 'Sintony', sans-serif;
     url('fonts/LobsterTwo.woff') format('woff'), 
     url('fonts/LobsterTwo.ttf')  format('truetype'),
     url('fonts/LobsterTwo.svg#LobsterTwo') format('svg');
+}
+@font-face {
+  font-family: 'Domine';
+  src: url('fonts/Domine-Regular.ttf')  format('truetype');
+}
+@font-face {
+  font-family: 'Sintony';
+  src: url('fonts/Sintony-Regular.ttf')  format('truetype');
 }
 
 

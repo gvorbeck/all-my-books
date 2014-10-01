@@ -17,6 +17,7 @@
   padding: .5rem;
   text-decoration: none;
   text-align: center;
+  box-shadow: $drop-shadow;
 }
 %button-hover {
   background: color--shadow(#C0C0C0);

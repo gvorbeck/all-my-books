@@ -2,25 +2,12 @@
     #SITE-FOOTER
 \*------------------------------------*/
 #site-footer {
-  padding-bottom: (gutter() * 2);
-  text-align: center;
-  
-  @include breakpoint( 760px 1000px ) {
-    padding-left: gutter();
-  }
-  @include breakpoint( min-width 760px ) {
-    background: none;
-    margin-top: (gutter() * 2);
-    text-align: left;
-  }
+  padding: gutter() gutter() (gutter() * 2);
+  text-align: left;
 
   p {
     clear: both;
     line-height: 1.563em;
-    
-    @include breakpoint( min-width 760px ) {
-      color: color--shadow($color-tertiary);
-    }
   }
   svg {
     fill: $color-primary;
@@ -29,12 +16,12 @@
     vertical-align: bottom;
     margin-left: .25em;
     
-    @include breakpoint( min-width 760px ) { fill: $color-secondary; }
+    /*@include breakpoint( min-width 760px ) { fill: $color-secondary; }*/
   }
   a {
-    color: $color-primary;
+    color: $color-secondary;
     
-    @include breakpoint( min-width 760px ) { color: $color-secondary; }
+    /*@include breakpoint( min-width 760px ) { color: $color-secondary; }*/
   }
 }
 #github-link a {

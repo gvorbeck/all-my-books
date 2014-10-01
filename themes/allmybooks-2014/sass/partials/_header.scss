@@ -12,7 +12,7 @@
   @include breakpoint ( min-width $breakpoint-2 ) { min-height: 34rem; }
   
   h1 {
-    font-family: 'Lobster Two';
+    font-family: $font-fancy;
     text-align: center;
     text-shadow: $drop-shadow;
     padding: gutter() gutter() span(1);

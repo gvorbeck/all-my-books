@@ -27,20 +27,16 @@
       <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/favicon.ico">
     <![endif]-->
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
-    <!-- google fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Domine|Sintony' rel='stylesheet' type='text/css'>
     <!-- wordpress head functions -->
     <?php wp_head(); ?>
     <!-- end of wordpress head -->
-    <!-- drop Google Analytics Here -->
-    <!-- end analytics -->
   </head>
   <body <?php body_class(); ?>>
     <header id="site-header">
       <?php
       if ( ! is_user_logged_in() ) {
         $args = array(
-          'redirect' => home_url('/', 'relative'),
+          'redirect' => home_url(),
         );
         wp_login_form($args);
       }

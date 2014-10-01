@@ -2,13 +2,12 @@
   position: fixed;
   top: 0;
   left: 50%;
-  background: $color-secondary;
-  border-bottom: .313em solid color--shadow($color-secondary);
+  background: $color-quarternary;
   padding: gutter();
   width: span(4);
   @include pull(2);
   z-index: 3;
-  box-shadow: .626em .626em 1.252em $color-tertiary;
+  box-shadow: $drop-shadow;
   text-align: center;
   display: none;
   opacity: 0;
