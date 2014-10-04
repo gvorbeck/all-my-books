@@ -31,6 +31,21 @@
     display: block;
   }
 }
+.book--author {
+  margin: 0 0 (gutter() * 2) 0;
+}
+.book--tags {
+  font-size: $font-size-4;
+  
+  svg {
+    position: relative;
+    fill: $color-primary;
+    width: 1rem;
+    height: 1rem;
+    margin: 0 .5em 0 0;
+    top: .25em;
+  }
+}
 .book--links {
   padding: 0 gutter() gutter();
   li {

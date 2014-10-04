@@ -191,7 +191,7 @@ if ( ! function_exists( 'the_book_builder' ) ) {
             echo ' <span class="book--series">' . get_series_list( $post_id ) . '</span>';
           }
           if ( '' != $cat_tag_string ) {
-            echo ' <span class="book--tags">' . strtolower($cat_tag_string) . '</span>';
+            echo ' <span class="book--tags">' . svg_tag() . strtolower($cat_tag_string) . '</span>';
           }
           if ( '' != $last_row_year && '' != $time ) {
             echo "<div class='book--last-date ribbon'><div>'$last_row_year</div></div>";
@@ -442,5 +442,8 @@ function svg_plus_book() {
 }
 function svg_logout() {
   return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="512px" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve"><path d="M256 33C132.3 33 32 133.3 32 257c0 123.7 100.3 224 224 224c123.7 0 224-100.3 224-224C480 133.3 379.7 33 256 33z M364.3 332.5c1.5 1.5 2.3 3.5 2.3 5.6c0 2.1-0.8 4.2-2.3 5.6l-21.6 21.7c-1.6 1.6-3.6 2.3-5.6 2.3c-2 0-4.1-0.8-5.6-2.3L256 289.8 l-75.4 75.7c-1.5 1.6-3.6 2.3-5.6 2.3c-2 0-4.1-0.8-5.6-2.3l-21.6-21.7c-1.5-1.5-2.3-3.5-2.3-5.6c0-2.1 0.8-4.2 2.3-5.6l75.7-76 l-75.9-75c-3.1-3.1-3.1-8.2 0-11.3l21.6-21.7c1.5-1.5 3.5-2.3 5.6-2.3c2.1 0 4.1 0.8 5.6 2.3l75.7 74.7l75.7-74.7 c1.5-1.5 3.5-2.3 5.6-2.3c2.1 0 4.1 0.8 5.6 2.3l21.6 21.7c3.1 3.1 3.1 8.2 0 11.3l-75.9 75L364.3 332.5z"/></svg>';
+}
+function svg_tag() {
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M17.6 5.8C17.3 5.3 16.7 5 16 5L5 5C3.9 5 3 5.9 3 7v10c0 1.1 0.9 2 2 2l11 0c0.7 0 1.3-0.3 1.6-0.8L22 12L17.6 5.8z"/></g></svg>';
 }
 /* SVG CODE STOP */
