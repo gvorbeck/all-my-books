@@ -52,11 +52,11 @@ function updateFutureList() {
   // Get array of newly arranged LIs (updatedArray)
   var updatedArray = [];
   var expectedOrder = 1;
-  jQuery( '#future-read-list li' ).each( function() {
+  jQuery( '#future-read-list .book' ).each( function() {
     var readingOrder = jQuery( this ).data( 'order' );
-    if ( readingOrder != expectedOrder ) {
-      updatedArray.push( this.id + ':' + expectedOrder );
-    }
+    //if ( readingOrder != expectedOrder ) {
+    updatedArray.push( this.id + ':' + expectedOrder );
+    //}
     expectedOrder++;
   } );
   // Turn updatedArray into comma seperated list (updatedList)

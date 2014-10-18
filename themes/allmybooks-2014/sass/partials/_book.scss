@@ -9,6 +9,7 @@
   position: relative;
   line-height: 1.25em;
   box-shadow: $drop-shadow;
+  padding: gutter();
   
   h1 {
     background: $color-secondary;
