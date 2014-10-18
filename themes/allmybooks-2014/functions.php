@@ -205,15 +205,10 @@ if ( ! function_exists( 'the_book_builder' ) ) {
     echo '</li>';
   }
 }
-/**
- * Adds a box to the main column on the Post and Page edit screens.
- */
+
 function amb_add_meta_box() {
-
-  $screens = array( 'post', 'page' );
-
+  $screens = array( 'post' );
   foreach ( $screens as $screen ) {
-
     add_meta_box(
       'amb_sectionid',
       __( 'Reading List Position', 'amb_textdomain' ),
@@ -223,89 +218,56 @@ function amb_add_meta_box() {
   }
 }
 add_action( 'add_meta_boxes', 'amb_add_meta_box' );
-
-/**
- * Prints the box content.
- * 
- * @param WP_Post $post The object for the current post/page.
- */
 function amb_meta_box_callback( $post ) {
-
   // Add an nonce field so we can check for it later.
   wp_nonce_field( 'amb_meta_box', 'amb_meta_box_nonce' );
   global $wpdb;
   $current_place = $wpdb->get_results( "SELECT * FROM wp_reading_list WHERE bid = $post->ID" );
-  
+  $dropdown = $wpdb->get_results( "SELECT listorder FROM wp_reading_list ORDER BY listorder" );
   if ( 'auto-draft' == $post->post_status ) {
     // Is a draft. Not in WTR.
   } else {
-    echo "The book is #" . $current_place[0]->listorder;
+    echo "<p>The book is #" . $current_place[0]->listorder . "</p>";
+    echo "<select id='reading-order-dropdown'>";
+      foreach ( $dropdown as $d ) {
+        if ( $current_place[0]->listorder == $d->listorder ) {
+          echo "<option value='$d->listorder' selected='selected'>$d->listorder</option>";
+        } else {
+          echo "<option value='$d->listorder'>$d->listorder</option>";
+        }
+      }
+    echo "</select>";
   }
-  /*
-   * Use get_post_meta() to retrieve an existing value
-   * from the database and use the value for the form.
-   */
-  /*$value = get_post_meta( $post->ID, '_my_meta_value_key', true );
-  
-  echo '<label for="amb_new_field">';
-  _e( 'Description for this field', 'amb_textdomain' );
-  echo $post->ID;
-  var_dump($post);
-  echo '</label> ';
-  echo '<input type="text" id="amb_new_field" name="amb_new_field" value="' . esc_attr( $value ) . '" size="25" />';*/
 }
-
-/**
- * When the post is saved, saves our custom data.
- *
- * @param int $post_id The ID of the post being saved.
- */
 function amb_save_meta_box_data( $post_id ) {
-
-  /*
-   * We need to verify this came from our screen and with proper authorization,
-   * because the save_post action can be triggered at other times.
-   */
-
   // Check if our nonce is set.
   if ( ! isset( $_POST['amb_meta_box_nonce'] ) ) {
     return;
   }
-
   // Verify that the nonce is valid.
   if ( ! wp_verify_nonce( $_POST['amb_meta_box_nonce'], 'amb_meta_box' ) ) {
     return;
   }
-
   // If this is an autosave, our form has not been submitted, so we don't want to do anything.
   if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
     return;
   }
-
   // Check the user's permissions.
   if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
-
     if ( ! current_user_can( 'edit_page', $post_id ) ) {
       return;
     }
-
   } else {
-
     if ( ! current_user_can( 'edit_post', $post_id ) ) {
       return;
     }
   }
-
-  /* OK, it's safe for us to save the data now. */
-  
   // Make sure that it is set.
   if ( ! isset( $_POST['amb_new_field'] ) ) {
     return;
   }
-
   // Sanitize user input.
   $my_data = sanitize_text_field( $_POST['amb_new_field'] );
-
   // Update the meta field in the database.
   update_post_meta( $post_id, '_my_meta_value_key', $my_data );
 }
