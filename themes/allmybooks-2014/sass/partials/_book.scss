@@ -9,13 +9,13 @@
   position: relative;
   line-height: 1.25em;
   box-shadow: $drop-shadow;
-  padding: gutter();
+  padding: .5rem;
   
   h1 {
     background: $color-secondary;
     padding: gutter();
     color: $color-tertiary;
-    box-shadow: 0px 0px;
+    box-shadow: $drop-shadow;
     font-family: $font-fancy;
     line-height: 1em;
     font-size: $font-size-8;
@@ -30,20 +30,25 @@
   
   span {
     display: block;
+    margin: 0 0 gutter() 0;
+    
+    &:last-child {
+      margin: 0;
+    }
   }
-}
-.book--author {
-  margin: 0 0 (gutter() * 2) 0;
-}
-.book--tags {
-  font-size: $font-size-4;
-  
   svg {
     position: relative;
     fill: $color-primary;
     width: 1rem;
     height: 1rem;
     margin: 0 .5em 0 0;
+    top: .1em;
+  }
+}
+.book--tags {
+  font-size: $font-size-4;
+  
+  svg {
     top: .25em;
   }
 }
@@ -96,7 +101,7 @@
   margin: gutter() 0 0;
 }
 .ribbon {
-  right:0.25em;
+  right:0.5em;
   @extend %ribbon-prelim;
   
   .label {
@@ -115,7 +120,7 @@
   }
 }
 .book--last-date {
-  right: 3rem;
+  right: 3.5rem;
 }
 #show-full-list-button {
   @extend %button;
