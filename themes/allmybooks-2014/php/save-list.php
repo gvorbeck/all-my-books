@@ -52,6 +52,32 @@ if ( is_user_logged_in() ) {
         }
       }
       break;
+    case "fut_admin":
+      $book = $_POST['id'];
+      $orig = $_POST['orig'];
+      $place = $_POST['place'];
+      $wtr_ids = $wpdb->get_col( "SELECT bid FROM wp_reading_list" );
+      if ( in_array($book, $wtr_ids) ) {
+        $wtr_ids = $wpdb->get_results( "SELECT bid, listorder FROM wp_reading_list ORDER BY listorder" );
+        if ( $orig < $place ) {
+          $o = $orig + 1;
+          foreach ( $wtr_ids as $w ) {
+            if ( $w->listorder >= $o && $w->listorder <= $place ) {
+              $wpdb->update( 'wp_reading_list', array( 'listorder' => ($w->listorder - 1) ), array( 'bid' => $w->bid ) );
+              //echo $w->bid . ', ';
+            }
+          }
+        } else {
+          $o = $orig - 1;
+          foreach ( $wtr_ids as $w ) {
+            if ( $w->listorder >= $place && $w->listorder <= $o ) {
+              $wpdb->update( 'wp_reading_list', array( 'listorder' => ($w->listorder + 1) ), array( 'bid' => $w->bid ) );
+            } 
+          }
+        }
+        $wpdb->update( 'wp_reading_list', array( 'listorder' => $place ), array( 'bid' => $book ) );
+      }
+      break;
   }
 } else {
   echo 'You are not currently logged in.';

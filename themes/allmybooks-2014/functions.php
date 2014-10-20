@@ -52,6 +52,17 @@ if ( ! is_admin() && ! is_login_page() ) {
   add_action( 'wp_enqueue_scripts', 'site_scripts' );
 }
 
+if ( ! function_exists( 'amb_admin_script' ) ) {
+  function amb_admin_script() {
+    wp_register_script( 'admin-js', get_template_directory_uri() . '/javascripts/admin.min.js', array('jquery'), date('W.0'), true );
+    wp_enqueue_script( 'admin-js' );
+    $translation_array = array( 'templateUrl' => get_stylesheet_directory_uri() );
+    //after wp_enqueue_script
+    wp_localize_script( 'admin-js', 'amb_theme_directory', $translation_array );
+  }
+}
+add_action( 'admin_enqueue_scripts', 'amb_admin_script' );
+
 if ( ! function_exists( 'get_the_slug' ) ) {
   function get_the_slug( $phrase ) {
       $result = strtolower($phrase);
@@ -232,16 +243,17 @@ function amb_meta_box_callback( $post ) {
   if ( 'auto-draft' == $post->post_status ) {
     // Is a draft. Not in WTR.
   } else {
-    echo "<p>The book is #" . $current_place[0]->listorder . "</p>";
-    echo "<select id='wp-reading-order-dropdown'>";
-      foreach ( $dropdown as $d ) {
-        //if ( $current_place[0]->listorder == $d->listorder ) {
-          //echo "<option value='$d->listorder' selected='selected'>$d->listorder</option>";
-        //} else {
-          echo "<option value='$d->listorder'>$d->listorder</option>";
-        //}
-      }
-    echo "</select>";
+    echo "<p>The book is #";
+      echo "<select id='wp-reading-order-dropdown'>";
+        foreach ( $dropdown as $d ) {
+          if ( $current_place[0]->listorder == $d->listorder ) {
+            echo "<option value='$d->listorder' selected='selected'>$d->listorder</option>";
+          } else {
+            echo "<option value='$d->listorder'>$d->listorder</option>";
+          }
+        }
+      echo "</select>";
+    echo "</p>";
   }
 }
 function amb_save_meta_box_data( $post_id ) {
