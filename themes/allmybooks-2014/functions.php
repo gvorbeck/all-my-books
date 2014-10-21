@@ -56,6 +56,8 @@ if ( ! function_exists( 'amb_admin_script' ) ) {
   function amb_admin_script() {
     wp_register_script( 'admin-js', get_template_directory_uri() . '/javascripts/admin.min.js', array('jquery'), date('W.0'), true );
     wp_enqueue_script( 'admin-js' );
+    wp_register_style( 'admin', get_bloginfo( 'template_directory' ) . '/admin.css', false, date('W.0') );
+    wp_enqueue_style( 'admin' );
     $translation_array = array( 'templateUrl' => get_stylesheet_directory_uri() );
     //after wp_enqueue_script
     wp_localize_script( 'admin-js', 'amb_theme_directory', $translation_array );
