@@ -243,8 +243,11 @@ function amb_meta_box_callback( $post ) {
   if ( 'auto-draft' == $post->post_status ) {
     // Is a draft. Not in WTR.
   } else {
-    echo "<p>The book is #";
+    echo "<p>The book is # ";
       echo "<select id='wp-reading-order-dropdown'>";
+        if ( empty( $current_place) ) {
+          echo "<option value='NULL' selected='selected'>-</option>";
+        }
         foreach ( $dropdown as $d ) {
           if ( $current_place[0]->listorder == $d->listorder ) {
             echo "<option value='$d->listorder' selected='selected'>$d->listorder</option>";
