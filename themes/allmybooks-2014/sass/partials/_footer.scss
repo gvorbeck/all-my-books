@@ -2,19 +2,22 @@
     #SITE-FOOTER
 \*------------------------------------*/
 #site-footer {
-  padding: gutter() gutter() (gutter() * 2);
+  padding: 7rem gutter() (gutter() * 2);
   text-align: left;
+  background: $color-tertiary;
+  margin-top: -6rem;
+  color: #ffffff;
 
   p {
     clear: both;
     line-height: 1.563em;
   }
   svg {
-    fill: $color-primary;
-    height: 1.563em;
-    width: 1.563em;
+    fill: $color-secondary;
+    height: 1.563rem;
+    width: 1.563rem;
     vertical-align: bottom;
-    margin-left: .25em;
+    margin-left: .25rem;
     
     /*@include breakpoint( min-width 760px ) { fill: $color-secondary; }*/
   }

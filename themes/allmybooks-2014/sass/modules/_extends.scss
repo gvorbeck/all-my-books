@@ -42,7 +42,7 @@
 %ribbon-prelim {
   padding:0 0 $ribbon-tail 0;
   position:absolute;
-  top:-0.25em;
+  top: .5rem;
   width:$ribbon-w;
   font-size: 1rem;
 }
@@ -56,10 +56,9 @@
 }
 %ribbon-div {
   background: $color-tertiary;
-  color:#fff;
+  color:$color-quarternary;
   padding:0.5em 0;
   text-align:center;
-  text-shadow:-1px -1px 0 rgba(0, 0, 0, 0.5);
 }
 %ribbon-div-after {
   border-left: $ribbon-w/2 solid $color-tertiary;
