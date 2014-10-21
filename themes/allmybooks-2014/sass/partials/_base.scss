@@ -19,4 +19,5 @@ body {
 main {
   background: $color-quarternary;
   padding: gutter();
+  box-shadow: $drop-shadow;
 }

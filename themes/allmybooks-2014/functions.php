@@ -52,6 +52,19 @@ if ( ! is_admin() && ! is_login_page() ) {
   add_action( 'wp_enqueue_scripts', 'site_scripts' );
 }
 
+if ( ! function_exists( 'amb_admin_script' ) ) {
+  function amb_admin_script() {
+    wp_register_script( 'admin-js', get_template_directory_uri() . '/javascripts/admin.min.js', array('jquery'), date('W.0'), true );
+    wp_enqueue_script( 'admin-js' );
+    wp_register_style( 'admin', get_bloginfo( 'template_directory' ) . '/admin.css', false, date('W.0') );
+    wp_enqueue_style( 'admin' );
+    $translation_array = array( 'templateUrl' => get_stylesheet_directory_uri() );
+    //after wp_enqueue_script
+    wp_localize_script( 'admin-js', 'amb_theme_directory', $translation_array );
+  }
+}
+add_action( 'admin_enqueue_scripts', 'amb_admin_script' );
+
 if ( ! function_exists( 'get_the_slug' ) ) {
   function get_the_slug( $phrase ) {
       $result = strtolower($phrase);
@@ -184,20 +197,25 @@ if ( ! function_exists( 'the_book_builder' ) ) {
     echo "<li id='$post_id' class='book $class' data-order='$list_order'>";
       //echo '<div class="book--shade"></div>';
       echo '<article>';
-        echo '<h1 class="book--title '. ($time ? 'ribbons' : '') .'">' . get_the_title( $post_id ) . '</h1>';
+        echo '<h1 class="book--title ';
+        if ( $time || $last_row_year ) {
+          echo 'ribbons';
+        }
+        //echo ($time ? 'ribbon-1' : '');
+        echo '">' . get_the_title( $post_id ) . '</h1>';
+        if ($last_row_year) {
+          echo "<div class='book--last-date ribbon'><div>'$last_row_year</div></div>";
+        }
+        if ($time) {
+          echo "<div class='book--want-date ribbon'><div>$time</div></div>";
+        }
         echo '<div class="book--details">';
-          echo '<span class="book--author">by ' . get_the_post_authors_string( $post_id ) . '</span>';
+          echo '<span class="book--author">' . svg_author() . get_the_post_authors_string( $post_id ) . '</span>';
           if ( '' != get_series_list( $post_id ) ) {
-            echo ' <span class="book--series">' . get_series_list( $post_id ) . '</span>';
+            echo ' <span class="book--series">' . svg_series() . get_series_list( $post_id ) . '</span>';
           }
           if ( '' != $cat_tag_string ) {
-            echo ' <span class="book--tags">' . strtolower($cat_tag_string) . '</span>';
-          }
-          if ( '' != $last_row_year && '' != $time ) {
-            echo "<div class='book--last-date ribbon'><div>'$last_row_year</div></div>";
-          }
-          if ( '' != $time ) {
-            echo "<div class='book--want-date ribbon'><div>$time</div></div>";
+            echo ' <span class="book--tags">' . svg_tag() . strtolower($cat_tag_string) . '</span>';
           }
         echo '</div>';
         echo '<ul class="book--links">' . implode( ' ', get_book_links( $post_id ) ) . '</ul>';
@@ -205,6 +223,78 @@ if ( ! function_exists( 'the_book_builder' ) ) {
     echo '</li>';
   }
 }
+
+function amb_add_meta_box() {
+  $screens = array( 'post' );
+  foreach ( $screens as $screen ) {
+    add_meta_box(
+      'amb_sectionid',
+      __( 'Reading List Position', 'amb_textdomain' ),
+      'amb_meta_box_callback',
+      $screen
+    );
+  }
+}
+add_action( 'add_meta_boxes', 'amb_add_meta_box' );
+function amb_meta_box_callback( $post ) {
+  // Add an nonce field so we can check for it later.
+  wp_nonce_field( 'amb_meta_box', 'amb_meta_box_nonce' );
+  global $wpdb;
+  $current_place = $wpdb->get_results( "SELECT * FROM wp_reading_list WHERE bid = $post->ID" );
+  $dropdown = $wpdb->get_results( "SELECT listorder FROM wp_reading_list ORDER BY listorder" );
+  if ( 'auto-draft' == $post->post_status ) {
+    // Is a draft. Not in WTR.
+  } else {
+    echo "<p>The book is # ";
+      echo "<select id='wp-reading-order-dropdown'>";
+        if ( empty( $current_place) ) {
+          echo "<option value='NULL' selected='selected'>-</option>";
+        }
+        foreach ( $dropdown as $d ) {
+          if ( $current_place[0]->listorder == $d->listorder ) {
+            echo "<option value='$d->listorder' selected='selected'>$d->listorder</option>";
+          } else {
+            echo "<option value='$d->listorder'>$d->listorder</option>";
+          }
+        }
+      echo "</select>";
+    echo "</p>";
+  }
+}
+function amb_save_meta_box_data( $post_id ) {
+  // Check if our nonce is set.
+  if ( ! isset( $_POST['amb_meta_box_nonce'] ) ) {
+    return;
+  }
+  // Verify that the nonce is valid.
+  if ( ! wp_verify_nonce( $_POST['amb_meta_box_nonce'], 'amb_meta_box' ) ) {
+    return;
+  }
+  // If this is an autosave, our form has not been submitted, so we don't want to do anything.
+  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+    return;
+  }
+  // Check the user's permissions.
+  if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
+    if ( ! current_user_can( 'edit_page', $post_id ) ) {
+      return;
+    }
+  } else {
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+      return;
+    }
+  }
+  // Make sure that it is set.
+  if ( ! isset( $_POST['amb_new_field'] ) ) {
+    return;
+  }
+  // Sanitize user input.
+  $my_data = sanitize_text_field( $_POST['amb_new_field'] );
+  // Update the meta field in the database.
+  update_post_meta( $post_id, '_my_meta_value_key', $my_data );
+  //$wpdb->update( 'wp_reading_list',  );
+}
+add_action( 'save_post', 'amb_save_meta_box_data' );
 /* END THEME FUNCTIONS */
 
 /* CUSTOM FIELD CODE START */
@@ -442,5 +532,14 @@ function svg_plus_book() {
 }
 function svg_logout() {
   return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="512px" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve"><path d="M256 33C132.3 33 32 133.3 32 257c0 123.7 100.3 224 224 224c123.7 0 224-100.3 224-224C480 133.3 379.7 33 256 33z M364.3 332.5c1.5 1.5 2.3 3.5 2.3 5.6c0 2.1-0.8 4.2-2.3 5.6l-21.6 21.7c-1.6 1.6-3.6 2.3-5.6 2.3c-2 0-4.1-0.8-5.6-2.3L256 289.8 l-75.4 75.7c-1.5 1.6-3.6 2.3-5.6 2.3c-2 0-4.1-0.8-5.6-2.3l-21.6-21.7c-1.5-1.5-2.3-3.5-2.3-5.6c0-2.1 0.8-4.2 2.3-5.6l75.7-76 l-75.9-75c-3.1-3.1-3.1-8.2 0-11.3l21.6-21.7c1.5-1.5 3.5-2.3 5.6-2.3c2.1 0 4.1 0.8 5.6 2.3l75.7 74.7l75.7-74.7 c1.5-1.5 3.5-2.3 5.6-2.3c2.1 0 4.1 0.8 5.6 2.3l21.6 21.7c3.1 3.1 3.1 8.2 0 11.3l-75.9 75L364.3 332.5z"/></svg>';
+}
+function svg_tag() {
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M17.6 5.8C17.3 5.3 16.7 5 16 5L5 5C3.9 5 3 5.9 3 7v10c0 1.1 0.9 2 2 2l11 0c0.7 0 1.3-0.3 1.6-0.8L22 12L17.6 5.8z"/></g></svg>';
+}
+function svg_author() {
+  return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve"><path d="M59.287 43.191c4.765-3.063 7.93-8.398 7.93-14.482c0-9.508-7.709-17.217-17.215-17.217c-9.51 0-17.217 7.709-17.217 17.2 c0 6.1 3.2 11.4 7.9 14.482c-11.228 1.005-20.061 10.463-20.061 21.949V83.01l0.045 0.279l1.232 0.4 c11.598 3.6 21.7 4.8 30 4.834c16.199 0 25.59-4.621 26.172-4.914l1.15-0.584h0.121V65.141 C79.346 53.7 70.5 44.2 59.3 43.191z"/></svg>';
+}
+function svg_series() {
+  return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="26px" height="26px" viewBox="0 0 26 26" enable-background="new 0 0 26 26" xml:space="preserve"><path d="M8.984 11.157v9.558c0 0.425-0.268 0.803-0.668 0.943c-0.566 0.199-1.249 0.304-1.976 0.304c0 0 0 0 0 0 C4.249 22 2 21.1 2 19.22V6.99C1.953 6.2 2.2 4.7 3.7 3.863C4.306 3.5 7.7 1.3 9.5 0.2 c0.307-0.199 0.699-0.213 1.021-0.039C10.8 0.3 11 0.6 11 1.011v1.448c0 0.552-0.448 1-1 1c-0.43 0-0.797-0.271-0.938-0.653 c-1.556 1-3.848 2.468-4.417 2.793C4.133 5.9 4 6.4 4 6.722C4 7 4.1 7.3 4.2 7.4 C4.554 7.8 5.7 7.6 7 6.82c1.24-0.744 7.356-4.816 7.417-4.857c0.309-0.205 0.703-0.224 1.026-0.049 C15.797 2.1 16 2.4 16 2.796V2.91c0 0.334-0.167 0.646-0.444 0.832c0 0-4.246 2.834-4.622 3.1 C9.495 7.7 9 8.9 9 11.157z M24 6.331v12.982c0 0.343-0.177 0.663-0.468 0.846c0 0-5.83 4.528-7.013 5.2 c-0.622 0.379-1.414 0.579-2.289 0.579c-2.079 0-4.23-1.125-4.23-3.006V10.863V10.57c0-0.004 0.003-0.008 0.003-0.013 c0.02-0.732 0.191-1.777 1.552-2.781c0.816-0.602 5.676-3.916 5.882-4.056c0.307-0.208 0.704-0.23 1.03-0.058 C18.795 3.8 19 4.2 19 4.546v1.448c0 0.552-0.447 1-1 1c-0.413 0-0.768-0.25-0.92-0.608c-1.551 1.061-3.828 2.624-4.338 3 c-0.644 0.476-0.73 0.79-0.741 1.193c0.002 0.3 0.1 0.5 0.2 0.677c0.51 0.5 1.9 0.3 3.237-0.541 c1.002-0.602 5.32-3.936 6.898-5.17c0.303-0.234 0.711-0.277 1.055-0.11S24 5.9 24 6.331z M22 10.787l-5 3.879v2l5-3.879V10.787z"/></svg>';
 }
 /* SVG CODE STOP */
