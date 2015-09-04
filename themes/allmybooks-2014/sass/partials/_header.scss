@@ -3,26 +3,39 @@
 \*------------------------------------*/
 #site-header {
   background: $color-tertiary;
-  margin-bottom: -6em;
-  padding: 1rem gutter() 0;
-  min-height: 27rem;
+  /*margin-bottom: -6em;*/
+  /*min-height: 27rem;*/
   box-shadow: $drop-shadow;
   
-  @include breakpoint ( min-width $breakpoint-1 ) { min-height: 31rem; }
-  @include breakpoint ( min-width $breakpoint-2 ) { min-height: 34rem; }
+  /*@include breakpoint ( min-width $breakpoint-1 ) { min-height: 31rem; }
+  @include breakpoint ( min-width $breakpoint-2 ) { min-height: 34rem; }*/
+}
+
+.header-content {
+  /*padding-bottom: 2rem;*/
+  
+  & > * {
+    display: none;
+  }
+  
+  .site-logo {
+    display: block;
+  }
   
   h1 {
+    display: inline-block;
     font-family: $font-fancy;
-    text-align: center;
     text-shadow: $drop-shadow;
-    padding: gutter() gutter() span(1);
+    /*padding: gutter() gutter() span(1);*/
     color: $color-secondary;
-    font-size: $font-size-9;
+    /*font-size: $font-size-9;*/
+    font-size: em(42);
+    padding: rem(20) 0 0 rem(15);
 
     @include breakpoint( min-width $breakpoint-1 ) { font-size: $font-size-10; }
     @include breakpoint( min-width $breakpoint-2 ) { font-size: $font-size-11; }
     
-    svg {
+    /*svg {
       width: 3em;
       height: 3em;
       fill: $color-primary;
@@ -30,25 +43,55 @@
       left: 0;
       right: 0;
       margin: 0 auto;
-    }
+    }*/
     .first {
-      position: absolute;
+      /*position: absolute;
       margin: 0 auto;
       font-weight: bold;
       left: -.65em;
-      right: 0;
+      right: 0;*/
     }
     .last {
-      font-size: 3em;
+      /*font-size: 3em;
       display: block;
-      position: relative;
+      position: relative;*/
     }
   }
 }
 
-.logged-in #site-header {
+.site-logo {
+  
+  /*svg {
+    width: rem(30);
+    height: rem(30);
+    display: block;
+    transform: rotate(45deg);
+    position: absolute;
+    top: rem(45);
+    left: rem(50);
+    fill: $color-red;
+  }*/
+}
+
+.site-logo--img { 
+  float: left;
+  width: 25%;
+}
+
+.site-logo--action {
+  width: rem(30);
+  height: rem(30);
+  background: $color-red;
+  border: rem(2) solid white;
+  position: absolute;
+  top: rem(40);
+  left: rem(50);
+  border-radius: 50%;
+}
+
+/*.logged-in #site-header {
   min-height: 20rem;
   
   @include breakpoint ( min-width $breakpoint-1 ) { min-height: 24rem; }
   @include breakpoint ( min-width $breakpoint-2 ) { min-height: 27rem; }
-}
+}*/

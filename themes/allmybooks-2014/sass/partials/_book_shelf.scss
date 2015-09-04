@@ -11,7 +11,12 @@
     padding: .5em .5em .4em 1.5em; // In ems and not $gutter-padding because of sticky behavior.
     position: relative;
     box-shadow: $drop-shadow;
+    
+    &:hover {
+      cursor: pointer;
+    }
   }
+  
   svg {
     fill: $color-quarternary;
     width: 2.5rem;
@@ -31,22 +36,22 @@
   text-align: center;
   margin: 0 0 gutter();
 }
+
 #finished-read {
   display: none;
   margin-bottom: (gutter() * 2);
-  
-  .book-list {
-    border: .313em dashed $color-tertiary;
-    border-radius: .313em;
-    padding: gutter() gutter() (gutter() * 2);
-  }
 }
+
 #current-read {
   z-index: 1;
   @include breakpoint( max-width 760px ) {
     margin: 0 0 gutter();
   }
 }
-#finished-read-list {
-  margin: gutter() 0 0;
+#show-full-list-button {
+  @extend %button;
+  margin-top: gutter();
+  text-transform: capitalize;
+  
+  &:hover { @extend %button-hover; }
 }

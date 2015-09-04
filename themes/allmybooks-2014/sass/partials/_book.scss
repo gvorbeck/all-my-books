@@ -16,13 +16,30 @@
     padding: gutter();
     color: $color-tertiary;
     box-shadow: $drop-shadow;
-    font-family: $font-fancy;
+    //font-family: $font-fancy;
     line-height: 1em;
     font-size: $font-size-8;
     
     &.ribbons {
       padding: gutter() 6rem gutter() gutter();
     }
+  }
+}
+.book--options {
+  display: none;
+  background: $color-tertiary;
+  padding: gutter() 0;
+  margin: 0 gutter();
+  
+  a {
+    margin: gutter();
+    color: white;
+    text-decoration: none;
+    border: .125em solid $color-tertiary;
+  }
+  
+  .active {
+    border: .125em solid white;
   }
 }
 .book--details {
@@ -66,6 +83,7 @@
     position: static;
     width: 1.5rem;
     height: 1.5rem;
+    fill: $color-primary;
     
     &:hover {
       fill: $color-primary;
@@ -89,17 +107,13 @@
     @include transition( opacity 0s ease-in-out .05s );
   }
 }
+
 @include keyframes(popIn) {
   0% { @include transform( scale(0) ); }
   80% { @include transform( scale(1.1) ); }
   100% { @include transform( scale(1) ); }
-}/*------------------------------------*\
-    #SORTING
-\*------------------------------------*/
-.sortable-placeholder {
-  background: color--shadow($color-quarternary);
-  margin: gutter() 0 0;
 }
+
 .ribbon {
   right:0.5em;
   @extend %ribbon-prelim;
@@ -121,10 +135,4 @@
 }
 .book--last-date {
   right: 3.5rem;
-}
-#show-full-list-button {
-  @extend %button;
-  margin-top: gutter();
-  
-  &:hover { @extend %button-hover; }
 }

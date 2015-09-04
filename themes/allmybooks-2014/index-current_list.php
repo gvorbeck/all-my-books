@@ -16,7 +16,7 @@ if ( $current_query->have_posts() ) {
 ?>
   <section id="current-read" class="book-shelf sticky--cr">
     <h1><?php echo svg_bookmark(); ?>I'm Reading <?php echo $this_these; ?></h1>
-    <ul id="current-read-list" class="book-list connected sortable">
+    <ul id="current-read-list" class="book-list current">
 <?php
       while ( $current_query->have_posts() ) {
         $current_query->the_post();

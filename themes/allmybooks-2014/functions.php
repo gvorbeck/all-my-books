@@ -1,23 +1,23 @@
 <?php
 /* START GETTING THEME FUNCTIONALITY SET UP */
 // Add theme support for Post Formats.
-add_theme_support( 'post-formats', array( 'aside', 'gallery' ) );
+add_theme_support('post-formats', array('aside', 'gallery'));
 // Add theme support for Post Thumbnails.
-add_theme_support( 'post-thumbnails' );
+add_theme_support('post-thumbnails');
 // Add theme support for Automatic Feeds Links
-add_theme_support( 'automatic-feed-links' );
+add_theme_support('automatic-feed-links');
 
 // Define SITE_URL global variable for dev purposes.
 define('SITE_URL', $_SERVER['HTTP_HOST']);
 
 // Register Custom Menus
-if ( function_exists( 'register_nav_menus' ) ) {
-  register_nav_menus( );
+if (function_exists('register_nav_menus')) {
+  register_nav_menus();
 }
 
 // Custom mime types for uploading epubs
 add_filter('upload_mimes', 'custom_upload_mimes');
-function custom_upload_mimes ( $existing_mimes=array() ) {
+function custom_upload_mimes ($existing_mimes=array()) {
   // add the file extension to the array
   $existing_mimes['epub'] = 'mime/type';
    // call the modified list of extensions
@@ -194,7 +194,7 @@ if ( ! function_exists( 'the_book_builder' ) ) {
     $rows          = get_field( 'read_records', $post_id );
     $last_row      = is_array( $rows ) ? end( $rows ) : '';
     $last_row_year = is_array( $rows ) ? substr($last_row['read_year'], -2) : '';
-    echo "<li id='$post_id' class='book $class' data-order='$list_order'>";
+    echo "<li id='book-$post_id' class='book $class' data-order='$list_order'>";
       //echo '<div class="book--shade"></div>';
       echo '<article>';
         echo '<h1 class="book--title ';
@@ -203,6 +203,7 @@ if ( ! function_exists( 'the_book_builder' ) ) {
         }
         //echo ($time ? 'ribbon-1' : '');
         echo '">' . get_the_title( $post_id ) . '</h1>';
+        echo '<div class="book--options"><a class="finished" href="javascript:;">Finished</a><a class="current" href="javascript:;">Reading</a><a class="future" href="javascript:;">Want</a><a class="delete" href="javascript:;">Delete</a></div>';
         if ($last_row_year) {
           echo "<div class='book--last-date ribbon'><div>'$last_row_year</div></div>";
         }

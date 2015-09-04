@@ -1,81 +1,41 @@
-/**
- * Marks a book as finished.
- * @param {Integer} bid - Wordpress ID of the book to be marked as finished.
- * @param {String} templateDirectory - Absolute path to template directory on the server. Defined in header.php
- * @param {Mixed}  data - anything that is echoed in the called PHP file.
- */
-function updateFinishedList(bid) {
-  jQuery( '#loading-container' ).toggle();
-  jQuery.ajax( {
-    type: 'POST',
-    url: templateDirectory + '/php/save-list.php',
-    data: 'list=fin&id=' + bid,
-    success: function(data) {
-      jQuery( '#loading-container' ).toggle();
-      if (data.length) {
-        jQuery( '#logged-out-warning' ).addClass('animate-open').removeClass('animate-close').children( 'p' ).text( data );
-      }
+var bookFunctions = {
+  toggleOptions: function(id) {
+    if ($('#' + id).hasClass('show-options')) {
+      $('#' + id).find('.book--options').slideUp();
+      $('#' + id).removeClass('show-options');
     }
-  } );
-}
-
-/**
- * Marks a book as currently being read.
- * @param {Integer} bid - Wordpress ID of the book to be marked as being read.
- * @param {String} templateDirectory - Absolute path to template directory on the server. Defined in header.php
- * @param {Mixed}  data - anything that is echoed in the called PHP file.
- */
-function updateCurrentList(bid) {
-  jQuery( '#loading-container' ).toggle();
-  jQuery.ajax( {
-    type: 'POST',
-    url: templateDirectory + '/php/save-list.php',
-    data: 'list=cur&id=' + bid,
-    success: function(data) {
-      jQuery( '#loading-container' ).toggle();
-      if (data.length) {
-        jQuery( '#logged-out-warning' ).addClass('animate-open').removeClass('animate-close').children( 'p' ).text( data );
-      }
+    else {
+      $('#' + id).find('.book--options').slideDown();
+      $('#' + id).addClass('show-options');
     }
-  } );
-}
-
-/**
- * Saves the order of books marked as wanting to be read.
- * @param {Array}   updatedArray - An array of book LIs that have been moved. Formatted as ID:ORDER#
- * @param {Integer} expectedOrder - Integer of order number.
- * @param {Integer} readingOrder - value of the data-order attribute in the LI.
- * @param {String}  templateDirectory - Absolute path to template directory on the server. Defined in header.php
- * @param {Mixed}   data - anything that is echoed in the called PHP file.
- */
-function updateFutureList() {
-  // Get array of newly arranged LIs (updatedArray)
-  var updatedArray = [];
-  var expectedOrder = 1;
-  jQuery( '#future-read-list .book' ).each( function() {
-    var readingOrder = jQuery( this ).data( 'order' );
-    //if ( readingOrder != expectedOrder ) {
-    updatedArray.push( this.id + ':' + expectedOrder );
-    //}
-    expectedOrder++;
-  } );
-  // Turn updatedArray into comma seperated list (updatedList)
-  var updatedList = updatedArray.join(",");
-  // Send array to PHP
-  jQuery( '#loading-container' ).toggle();
-  jQuery.ajax( {
-    'type': 'POST',
-    'url': templateDirectory + '/php/save-list.php',
-    'data': 'list=fut&future_list=' + updatedList,
-    'success': function(data) {
-      // data variable is anything echoed in above php file.
-      jQuery( '#loading-container' ).toggle();
-      if (data.length) {
-        jQuery( '#logged-out-warning' ).addClass('animate-open').removeClass('animate-close').children( 'p' ).text( data );
-      }
+  },
+  updateList: function(list, bookID) {
+    var futureList = [],
+        readingOrder = 1;
+    if (list == 'future') {
+      $('#future-read-list .book').each( function() {
+        futureList.push(this.id.substring(5) + ':' + readingOrder);
+        readingOrder++;
+      });
+      futureList = futureList.join(',');
+      var data = 'list=future&future_list=' + futureList;
     }
-  } );
-}
+    else {
+      var data = 'list=' + list + '&id=' + bookID;
+    } 
+    $.ajax({
+      type: 'POST',
+      url: templateDirectory + '/php/save-list.php',
+      data: data,
+      success: function(data) {
+        if (data.length) {
+          console.log(data);
+          $('#logged-out-warning').addClass('animate-open').removeClass('animate-close').find( 'p' ).text( data );
+        }
+      }
+    });
+  }
+};
 
 /**
  * Checks to see if the specified element is on or above the screen.
@@ -83,14 +43,12 @@ function updateFutureList() {
  * @param {String} evalType - The type of check to perform - if empty, will default to visible
  * Source: https://stackoverflow.com/questions/5353934/check-if-element-is-visible-on-screen.
  */
-function checkVisible( elm, evalType ) {
+var checkVisible = function( elm, evalType ) {
     evalType = evalType || "visible";
-
     var vpH = $(window).height(), // Viewport Height
         st = $(window).scrollTop(), // Scroll Top
         y = $(elm).offset().top,
         elementHeight = $(elm).height();
-
     if (evalType === "visible") return ((y < (vpH + st)) && (y > (st - elementHeight)));
     if (evalType === "above") return ((y < (vpH + st)));
 }
@@ -98,95 +56,92 @@ function checkVisible( elm, evalType ) {
 /**
  * Goes through the expanded wtr list and appropriately calls the checkVisible function
  */
-function visibleLooper() {
+var visibleLooper = function() {
   // Make sure the list is in 'expanded' mode
-  if ( jQuery('#future-read-list.expanded').length ) {
+  if ($('#future-read-list').hasClass('expanded')) {
     // Only target 'overflow' items.
-    jQuery('#future-read-list .overflow').each( function() {
+    $('#future-read-list').find('.overflow').each(function() {
       // And of those, only target those without the 'animate' class.
-      if ( ! jQuery(this).hasClass('animate') ) {
+      if (!$(this).hasClass('animate')) {
         // Check to see if they are in the visible range.
-        if (checkVisible( jQuery(this), 'above' )) {
+        if (checkVisible($(this), 'above')) {
           var delay = Math.floor(Math.random() * 700);
           // Rabndomly add the animate class.
-          jQuery(this).delay(delay).queue( function() {
-            jQuery(this).addClass('animate').dequeue();
-          } );
+          $(this).delay(delay).queue(function() {
+            $(this).addClass('animate').dequeue();
+          });
         }
       }
-    } );
+    });
   }
 }
+
+// Allows me to use '$' instead of 'jQuery'
+// https://stackoverflow.com/a/24119140
+var $ = jQuery.noConflict();
+
 /* DOC READY START */
-jQuery( document ).ready( function() {
-  // Hide the bloat of the wtr list.
-  jQuery('#show-full-list-button').click(function() {
-    if ( jQuery('#future-read-list').hasClass('collapsed') ) {
-      jQuery('#future-read-list').addClass('expanded').removeClass('collapsed');
-      jQuery(this).text('Less Books');
-      visibleLooper();
-    } else {
-      jQuery('#future-read-list').addClass('collapsed').removeClass('expanded');
-      jQuery(this).text('More Books');
-      jQuery('#future-read-list .overflow').each( function() {
-        jQuery(this).removeClass('animate');
-      } );
+$(document).ready(function() {
+  
+  // Set up book--options' active options.
+  $('.book').each(function() {
+    var list = $(this).closest('.book-list');
+    $(this).find('.book--options a').each( function() {
+      if (list.hasClass($(this).attr('class'))) {
+        $(this).addClass('active');
+      }
+    });
+  })  
+  // Toggle book--options' visibility.
+  .on('click', 'h1', function() {
+    bookFunctions.toggleOptions($(this).closest('.book').attr('ID'));
+  });
+  
+  // Moving books between lists
+  $('.book--options').on('click', 'a', function() {
+    var book = $(this).closest('.book'),
+        bookClass = $(this).attr('class');
+    // If this a link to move the book to a new list and isn't already active.
+    if (!$(this).hasClass('active') && !$(this).hasClass('delete')) {
+      $(this).closest('.book--options').children('a').removeClass('active');
+      if ($(this).hasClass('finished') && !$(this).hasClass('active')) {
+        $('#finished-read').slideDown();
+      }
+      $(this).addClass('active');
+      book.css('opacity', '.5').slideUp(400, function() {
+        $('.book-list.' + bookClass).prepend(book);
+        bookFunctions.updateList(bookClass, book.attr('ID').substring(5));
+        bookFunctions.toggleOptions(book.attr('ID'));
+        $('#' + book.attr('ID')).delay(250).slideDown(400, function() {
+          $(this).css('opacity', '1');
+        });
+      });
+    }
+    // If this is the delete link.
+    else if ($(this).hasClass('delete')) {
+      if (confirm('Are you sure you want to delete ' + book.find('h1').text() + '?')) {
+        bookFunctions.updateList(bookClass, book.attr('ID').substring(5));
+        book.css('opacity', '.5').slideUp(400);
+      }
     }
   });
-  // Make lists sortable and connected to one another.
-  // SOURCE: https://github.com/voidberg/html5sortable
-  jQuery( '#finished-read-list, #current-read-list, #future-read-list' ).sortable( {
-    connectWith: '.connected',
-    forcePlaceholderSize: true,
-    items: ':not(.disabled)'
-  } ).bind( 'sortupdate', function(e, ui) {
-    var bid = ui.item[0].id;
-    switch ( jQuery( this ).attr( 'id' ) ) {
-      case 'future-read-list':
-        updateFutureList();
-        break;
-      case 'current-read-list':
-        updateCurrentList(bid);
-        break;
-      case 'finished-read-list':
-        updateFinishedList(bid);
-        break;
-    }
-  } );
-  // Detect the drag of a book.
-  var isDragging = false;
-  jQuery( "#current-read-list .book" )
-  .mousedown( function() {
-    jQuery( window ).mousemove( function() {
-      isDragging = true;
-      jQuery( window ).unbind( "mousemove" );
-      jQuery( "#finished-read" ).slideDown( "slow", function() {
-        // Animation complete.
-        jQuery('.sticky--cr').sticky('update');
-      } );
-    } );
-  } );
-  // Close the logged out warning popup.
-  jQuery( '#logged-out-warning a' ).click( function() {
-    jQuery( '#logged-out-warning' ).addClass('animate-close').removeClass('animate-open');
-  } );
   
-  // Sticky Headers.
-  // Source: https://github.com/garand/sticky
-  var footerHeight = Math.ceil(jQuery('#site-footer').outerHeight(true));
-  var containerBottomPaddingHeight = Math.ceil(parseInt(jQuery('#site-content').css('padding-bottom')));
-  var myBottomSpacing = footerHeight + containerBottomPaddingHeight;
-  jQuery('.sticky--wtr, .sticky--cr').outerWidth(jQuery('.sticky--wtr').outerWidth());
-  if (jQuery(window).width() > 745 ) {
-    jQuery('.sticky--cr').sticky({topSpacing:0, bottomSpacing:myBottomSpacing});
-  }
-  jQuery('.sticky--wtr').sticky({topSpacing:0, bottomSpacing:myBottomSpacing});
-  jQuery("#current-read-sticky-wrapper").css('height', 'auto');
-
+  // Toggles on the more/less button.
+  $('#show-full-list-button').on('click', function() {
+    var futureReadList = $('#future-read-list');
+    futureReadList.toggleClass('expanded').toggleClass('collapsed')
+    if (futureReadList.hasClass('expanded')) {
+      $(this).text('less books');
+      visibleLooper();
+    }
+    else {
+      $(this).text('more books');
+    }
+  });
   // Look again while scrolling.
-  jQuery(window).scroll(function() {
+  $(window).scroll(function() {
     // Check to see if overflow books are on screen.
     visibleLooper();
-  } );
-} );
+  });
+});
 /* DOC READY STOP */

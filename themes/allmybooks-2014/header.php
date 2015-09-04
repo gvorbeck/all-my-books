@@ -33,38 +33,65 @@
   </head>
   <body <?php body_class(); ?>>
     <header id="site-header">
-      <?php
-      if ( ! is_user_logged_in() ) {
-        $args = array(
-          'redirect' => home_url(),
-        );
-        wp_login_form($args);
-      }
-      else { ?>
-        <nav id="site-navigation">
-          <ul>
-            <li class="site-navigation--item">
-              <a class="site-navigation--link" href="<?php echo get_admin_url(); ?>" title="AMB Admin Area" target="_blank"><?php echo svg_cms(); ?></a>
-            </li>
-            <li class="site-navigation--item">
-              <a class="site-navigation--link" href="<?php echo get_admin_url(); ?>post-new.php" title="Add a New Book" target="_blank"><?php echo svg_plus_book(); ?></a>
-            </li>
-            <li class="site-navigation--item">
-              <a class="site-navigation--link" href="<?php echo wp_logout_url( home_url() ); ?>" title="Logout"><?php echo svg_logout(); ?></a>
-            </li>
-          </ul>
-        </nav>
-      <?php } ?>
-      <h1>
+      <div class="header-content">
         <?php
-        $title = explode( ' ', get_bloginfo('title') );
-        $title_last = end( explode( ' ', get_bloginfo('title') ) );
-        foreach (array_keys($title, $title_last) as $key) {
-          unset($title[$key]);
+        if ( ! is_user_logged_in() ) {
+          $args = array(
+            'redirect' => home_url(),
+          );
+          wp_login_form($args);
         }
-        $title = implode(' ', $title);
-        echo svg_book() . "<!--div class='shape'></div--><span class='first'>$title</span> <span class='last'>$title_last</span>";
-        ?>
-      </h1>
+        else { ?>
+          <nav id="site-navigation">
+            <ul>
+              <li class="site-navigation--item">
+                <a class="site-navigation--link" href="<?php echo get_admin_url(); ?>" title="AMB Admin Area" target="_blank"><?php echo svg_cms(); ?></a>
+              </li>
+              <li class="site-navigation--item">
+                <a class="site-navigation--link" href="<?php echo get_admin_url(); ?>post-new.php" title="Add a New Book" target="_blank"><?php echo svg_plus_book(); ?></a>
+              </li>
+              <li class="site-navigation--item">
+                <a class="site-navigation--link" href="<?php echo wp_logout_url( home_url() ); ?>" title="Logout"><?php echo svg_logout(); ?></a>
+              </li>
+            </ul>
+          </nav>
+        <?php } ?>
+        <form id="add-book-form" class="site-form">
+          <fieldset>
+            <legend>primary information</legend>
+            <div>
+              <label>title
+                <input id="add-book-form--title" name="add-book-form--title" type="text" placeholder="Lonesome Dove" required autofocus>
+              </label>
+            </div>
+            <div>
+              <label>author
+                <input id="add-book-form--author" name="add-book-form--author" type="text" placeholder="Harry Turtledove" required>
+              </label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>more details</legend>
+            <div>
+              <label>something else</label>
+            </div>
+          </fieldset>
+        </form>
+        <div class="site-logo">
+          <img class="site-logo--img" src="<?php echo get_template_directory_uri(); ?>/images/amb_logo_new.png">
+          <div class="site-logo--action"></div>
+        </div>
+        <h1>
+          <?php
+          $title = explode( ' ', get_bloginfo('title') );
+          $title_last = end( explode( ' ', get_bloginfo('title') ) );
+          foreach (array_keys($title, $title_last) as $key) {
+            unset($title[$key]);
+          }
+          $title = implode(' ', $title);
+          echo /*svg_book() . */"<!--div class='shape'></div--><span class='first'>$title</span> <span class='last'>$title_last</span>";
+          ?>
+        </h1>
+      </div>
     </header>
     <main id="site-content">

@@ -4,7 +4,7 @@ $list = $_POST['list'];
 $id   = $_POST['id'];
 if ( is_user_logged_in() ) {
   switch ( $list ) {
-    case "fin":
+    case "finished":
       if ( ! empty( $id ) ) {
         $row_count = count(get_field('read_records', $id));
         update_post_meta( $id, 'reading_state', 0 );
@@ -19,12 +19,12 @@ if ( is_user_logged_in() ) {
         }
       }
       break;
-    case "cur":
+    case "current":
       if ( ! empty( $id ) ) {
         update_post_meta( $id, 'reading_state', 1 );
       }
       break;
-    case "fut":
+    case "future":
       $future_list = $_POST['future_list'];
       if ( ! empty( $future_list ) ) {
         $books = explode( ',', $future_list );
@@ -88,6 +88,9 @@ if ( is_user_logged_in() ) {
         $wpdb->insert('wp_reading_list', array( 'time' => current_time('mysql'), 'bid' => $book, 'listorder' => $place ) );
       }
       break;
+    case "delete":
+      wp_delete_post($_POST['id']);
+      break; 
   }
 } else {
   echo 'You are not currently logged in.';
