@@ -13,20 +13,13 @@ Text Domain: allmybooks
 This theme is licensed under the MIT license.
 */
 
-// Compass
 @import "compass/css3";
 @import "susy";
 @import "breakpoint";
-@import "partials/grids";
 
-
-// Reset
 @import "partials/reset";
-
-// Modules and Variables
+@import "partials/grids";
 @import "partials/base";
-
-// Partials
 @import "partials/login";
 @import "partials/nav";
 @import "partials/header";

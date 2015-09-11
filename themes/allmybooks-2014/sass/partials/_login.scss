@@ -1,21 +1,16 @@
 #loginform {
   @extend %area-login;
   
-  input[type=text] {
-    @extend %input;
-    
-    &:focus { @extend %input-focus; }
-  }
+  input[type=text],
   input[type=password] {
     @extend %input;
-    
-    &:focus { @extend %input-focus; }
   }
   label {
-    display: none;
+    //display: none;
+    @extend %label;
   }
   p {
-    margin-bottom: 1rem;
+    margin-bottom: rem(16);
     
     &:last-child {
       margin: 0;
@@ -25,8 +20,7 @@
 .login-remember { display: none; }
 #wp-submit {
   @extend %button;
-  width: span(5);
-  margin: 0 auto;
+  width: 100%;
   
   &:hover { @extend %button-hover; }
 }

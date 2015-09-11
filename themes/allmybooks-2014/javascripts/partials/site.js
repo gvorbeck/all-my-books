@@ -34,6 +34,10 @@ var bookFunctions = {
         }
       }
     });
+  },
+  toggleLightbox: function() {
+    $('.lightbox').toggle();
+    $('body').toggleClass('no-scroll');
   }
 };
 
@@ -62,19 +66,16 @@ var visibleLooper = function() {
     // Only target 'overflow' items.
     $('#future-read-list').find('.overflow').each(function() {
       // And of those, only target those without the 'animate' class.
-      if (!$(this).hasClass('animate')) {
-        // Check to see if they are in the visible range.
-        if (checkVisible($(this), 'above')) {
-          var delay = Math.floor(Math.random() * 700);
-          // Rabndomly add the animate class.
-          $(this).delay(delay).queue(function() {
-            $(this).addClass('animate').dequeue();
-          });
-        }
+      if (!$(this).hasClass('animate') && checkVisible($(this), 'above')) {
+        var delay = Math.floor(Math.random() * 700);
+        // Rabndomly add the animate class.
+        $(this).delay(delay).queue(function() {
+          $(this).addClass('animate').dequeue();
+        });
       }
     });
   }
-}
+};
 
 // Allows me to use '$' instead of 'jQuery'
 // https://stackoverflow.com/a/24119140
@@ -82,6 +83,61 @@ var $ = jQuery.noConflict();
 
 /* DOC READY START */
 $(document).ready(function() {
+  
+  var $futureReadList = $('#future-read-list');
+  
+  // Bring up the lightbox
+  $('.site-logo--action, .lightbox--close').on('click', function() {
+    $($('body.logged-in').length ? $('#add-book-form') : $('#loginform')).appendTo('.lightbox--content');
+    bookFunctions.toggleLightbox();
+  });
+  
+  // Add a book
+  $('.add-a-book.site-form').on('click', '.button', function() {
+    var newBookForm   = $('.site-form.add-a-book'),
+        newBookTitle  = newBookForm.find('#add-book-form--title').val(),
+        newBookAuthor = newBookForm.find('#add-book-form--author').val(),
+        newBookData   = 'list=new&title=' + newBookTitle + '&author=' + newBookAuthor;
+    $.ajax({
+      type: 'POST',
+      url: templateDirectory + '/php/save-list.php',
+      data: newBookData,
+      success: function(data) {
+        newBookForm.find('input').val('');
+        bookFunctions.toggleLightbox();
+        // If ajax returns the post ID
+        if (!isNaN(data)) {
+          var $bookTemplate = $futureReadList.find('li').first().clone();
+          $bookTemplate
+            .css('opacity', '.5')
+            .attr('id', 'book-' + data)
+            .attr('data-order', '0')
+            .removeClass('shown')
+            .addClass('new-book')
+            .find('.book--series, .book--tags, .book--want-date, .book--links').remove();
+          $bookTemplate
+            .find('.book--title')
+            .text(newBookTitle);
+          $bookTemplate
+            .find('.book--author span')
+            .text(newBookAuthor);
+          $bookTemplate
+            .find('h1')
+            .removeClass('ribbons');
+          $futureReadList.prepend($bookTemplate);
+          bookFunctions.updateList('future', $bookTemplate.attr('ID').substring(5));
+          $bookTemplate.delay(250).slideDown(400, function() {
+            $(this).css('opacity', '1');
+          });
+        }
+        // If you are not logged in.
+        /*if (data.length) {
+          console.log(data);
+          $('#logged-out-warning').addClass('animate-open').removeClass('animate-close').find('p').text(data);
+        }*/
+      }
+    });
+  });
   
   // Set up book--options' active options.
   $('.book').each(function() {
@@ -91,46 +147,48 @@ $(document).ready(function() {
         $(this).addClass('active');
       }
     });
-  })  
-  // Toggle book--options' visibility.
-  .on('click', 'h1', function() {
-    bookFunctions.toggleOptions($(this).closest('.book').attr('ID'));
   });
   
-  // Moving books between lists
-  $('.book--options').on('click', 'a', function() {
-    var book = $(this).closest('.book'),
-        bookClass = $(this).attr('class');
-    // If this a link to move the book to a new list and isn't already active.
-    if (!$(this).hasClass('active') && !$(this).hasClass('delete')) {
-      $(this).closest('.book--options').children('a').removeClass('active');
-      if ($(this).hasClass('finished') && !$(this).hasClass('active')) {
-        $('#finished-read').slideDown();
-      }
-      $(this).addClass('active');
-      book.css('opacity', '.5').slideUp(400, function() {
-        $('.book-list.' + bookClass).prepend(book);
-        bookFunctions.updateList(bookClass, book.attr('ID').substring(5));
-        bookFunctions.toggleOptions(book.attr('ID'));
-        $('#' + book.attr('ID')).delay(250).slideDown(400, function() {
-          $(this).css('opacity', '1');
+  // Toggle book--options' visibility.
+  $('.book-list')
+    .on('click', 'h1', function() {
+      bookFunctions.toggleOptions($(this).closest('.book').attr('ID'));
+      console.log('click');
+    })
+    // Moving books between lists
+    .on('click', '.book--options a', function() {
+      console.log('clock');
+      var book = $(this).closest('.book'),
+          bookClass = $(this).attr('class');
+      // If this a link to move the book to a new list and isn't already active.
+      if (!$(this).hasClass('active') && !$(this).hasClass('delete')) {
+        $(this).closest('.book--options').children('a').removeClass('active');
+        if ($(this).hasClass('finished') && !$(this).hasClass('active')) {
+          $('#finished-read').slideDown();
+        }
+        $(this).addClass('active');
+        book.css('opacity', '.5').slideUp(400, function() {
+          $('.book-list.' + bookClass).prepend(book);
+          bookFunctions.updateList(bookClass, book.attr('ID').substring(5));
+          bookFunctions.toggleOptions(book.attr('ID'));
+          $('#' + book.attr('ID')).delay(250).slideDown(400, function() {
+            $(this).css('opacity', '1');
+          });
         });
-      });
-    }
-    // If this is the delete link.
-    else if ($(this).hasClass('delete')) {
-      if (confirm('Are you sure you want to delete ' + book.find('h1').text() + '?')) {
-        bookFunctions.updateList(bookClass, book.attr('ID').substring(5));
-        book.css('opacity', '.5').slideUp(400);
       }
-    }
-  });
+      // If this is the delete link.
+      else if ($(this).hasClass('delete')) {
+        if (confirm('Are you sure you want to delete ' + book.find('h1').text() + '?')) {
+          bookFunctions.updateList(bookClass, book.attr('ID').substring(5));
+          book.css('opacity', '.5').slideUp(400);
+        }
+      }
+    });
   
   // Toggles on the more/less button.
   $('#show-full-list-button').on('click', function() {
-    var futureReadList = $('#future-read-list');
-    futureReadList.toggleClass('expanded').toggleClass('collapsed')
-    if (futureReadList.hasClass('expanded')) {
+    $futureReadList.toggleClass('expanded').toggleClass('collapsed')
+    if ($futureReadList.hasClass('expanded')) {
       $(this).text('less books');
       visibleLooper();
     }
@@ -138,6 +196,7 @@ $(document).ready(function() {
       $(this).text('more books');
     }
   });
+  
   // Look again while scrolling.
   $(window).scroll(function() {
     // Check to see if overflow books are on screen.

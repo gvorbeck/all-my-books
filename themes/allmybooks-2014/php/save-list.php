@@ -91,6 +91,17 @@ if ( is_user_logged_in() ) {
     case "delete":
       wp_delete_post($_POST['id']);
       break; 
+    case "new":
+      $new_post = array(
+        'post_content' => '',
+        'post_title' => wp_strip_all_tags($_POST['title']),
+        'post_status' => 'publish',
+        'tax_input' => array(
+          'authors' => $_POST['author']
+        )
+      );
+      echo wp_insert_post($new_post, true);
+      break;
   }
 } else {
   echo 'You are not currently logged in.';

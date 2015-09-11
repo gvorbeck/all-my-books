@@ -16,13 +16,17 @@
     padding: gutter();
     color: $color-tertiary;
     box-shadow: $drop-shadow;
-    //font-family: $font-fancy;
+    font-family: $font-fancy;
     line-height: 1em;
     font-size: $font-size-8;
     
     &.ribbons {
       padding: gutter() 6rem gutter() gutter();
     }
+  }
+  
+  &.new-book {
+    display: none;
   }
 }
 .book--options {
@@ -35,11 +39,13 @@
     margin: gutter();
     color: white;
     text-decoration: none;
-    border: .125em solid $color-tertiary;
+    border: rem(1) solid $color-tertiary;
+    padding: 0 gutter();
+    font-size: em(15);
   }
   
   .active {
-    border: .125em solid white;
+    border-color: white;
   }
 }
 .book--details {
@@ -51,6 +57,10 @@
     
     &:last-child {
       margin: 0;
+    }
+    
+    & > * {
+      display: inline;
     }
   }
   svg {
@@ -83,7 +93,7 @@
     position: static;
     width: 1.5rem;
     height: 1.5rem;
-    fill: $color-primary;
+    fill: $color-red;
     
     &:hover {
       fill: $color-primary;

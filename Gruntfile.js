@@ -25,22 +25,14 @@ module.exports = function(grunt) {
     watch: {
       css: {
         files: ['themes/allmybooks-2014/sass/**/*.scss'],
-        tasks: ['compass:dist']
+        tasks: ['compass:dist'],
+        options: {
+          livereload: true,
+        }
       },
       js: {
         files: ['themes/allmybooks-2014/javascripts/partials/**/*.js'],
         tasks: ['jshint:all', 'uglify:min']
-      }
-    },
-    browserSync: {
-      dev: {
-        bsFiles: {
-          src : 'themes/allmybooks-2014/*.css'
-        },
-        options: {
-          proxy: "allmybooks.dev",
-          watchTask: true // < VERY important
-        }
       }
     }
   });
@@ -50,7 +42,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-browser-sync');
   
   // Default task(s).
   grunt.registerTask('default', ['watch']);
