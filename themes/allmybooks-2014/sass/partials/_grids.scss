@@ -12,6 +12,8 @@ $susy: (
 #site-header {
   @include container(100%);
 }
+
+.header-content,
 main,
 #site-footer-content {
   @include container(62.5rem);

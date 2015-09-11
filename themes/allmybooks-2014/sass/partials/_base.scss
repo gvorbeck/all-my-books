@@ -6,6 +6,10 @@
     #SITE-ARCHITECTURE
     Excluding Header and Footer.
 \*------------------------------------*/
+* + * {
+	margin-top: 1.5em;
+}
+
 body, html {
   height: 100%;
   margin: 0;
@@ -13,11 +17,42 @@ body, html {
   font-family: $font-text;
   color: $color-tertiary;
 }
+
 body {
   background: url(images/goot8xr.png) $color-primary repeat;
+  
+  &.no-scroll {
+    overflow: hidden;
+  }
 }
+
 main {
   background: $color-quarternary;
   padding: gutter();
   box-shadow: $drop-shadow;
+  margin-top: -(span(1));
+  
+  @include breakpoint(rem(760)) {
+    margin-top: 0;
+  }
+  
+  @include breakpoint(rem(1050)) {
+    margin-top: -6rem;
+  }
+}
+
+a:link {
+  color: $color-red;
+  text-decoration: none;
+}
+
+a:visited,
+a:focus,
+a:active,
+a:hover {
+  color: color--shadow($color-red);
+}
+
+*:focus {
+    outline: 0;
 }

@@ -1,23 +1,23 @@
 <?php
 /* START GETTING THEME FUNCTIONALITY SET UP */
 // Add theme support for Post Formats.
-add_theme_support( 'post-formats', array( 'aside', 'gallery' ) );
+add_theme_support('post-formats', array('aside', 'gallery'));
 // Add theme support for Post Thumbnails.
-add_theme_support( 'post-thumbnails' );
+add_theme_support('post-thumbnails');
 // Add theme support for Automatic Feeds Links
-add_theme_support( 'automatic-feed-links' );
+add_theme_support('automatic-feed-links');
 
 // Define SITE_URL global variable for dev purposes.
 define('SITE_URL', $_SERVER['HTTP_HOST']);
 
 // Register Custom Menus
-if ( function_exists( 'register_nav_menus' ) ) {
-  register_nav_menus( );
+if (function_exists('register_nav_menus')) {
+  register_nav_menus();
 }
 
 // Custom mime types for uploading epubs
 add_filter('upload_mimes', 'custom_upload_mimes');
-function custom_upload_mimes ( $existing_mimes=array() ) {
+function custom_upload_mimes ($existing_mimes=array()) {
   // add the file extension to the array
   $existing_mimes['epub'] = 'mime/type';
    // call the modified list of extensions
@@ -194,23 +194,23 @@ if ( ! function_exists( 'the_book_builder' ) ) {
     $rows          = get_field( 'read_records', $post_id );
     $last_row      = is_array( $rows ) ? end( $rows ) : '';
     $last_row_year = is_array( $rows ) ? substr($last_row['read_year'], -2) : '';
-    echo "<li id='$post_id' class='book $class' data-order='$list_order'>";
-      //echo '<div class="book--shade"></div>';
+    echo "<li id='book-$post_id' class='book $class' data-order='$list_order'>";
       echo '<article>';
         echo '<h1 class="book--title ';
-        if ( $time || $last_row_year ) {
+        /*if ( $time || $last_row_year ) {
           echo 'ribbons';
-        }
+        }*/
         //echo ($time ? 'ribbon-1' : '');
         echo '">' . get_the_title( $post_id ) . '</h1>';
-        if ($last_row_year) {
+        echo '<div class="book--options"><a class="finished" href="javascript:;">Finished</a><a class="current" href="javascript:;">Reading</a><a class="future" href="javascript:;">Want</a><a class="delete" href="javascript:;">Delete</a></div>';
+        /*if ($last_row_year) {
           echo "<div class='book--last-date ribbon'><div>'$last_row_year</div></div>";
         }
         if ($time) {
           echo "<div class='book--want-date ribbon'><div>$time</div></div>";
-        }
+        }*/
         echo '<div class="book--details">';
-          echo '<span class="book--author">' . svg_author() . get_the_post_authors_string( $post_id ) . '</span>';
+          echo '<span class="book--author">' . svg_author() . '<span>' . get_the_post_authors_string( $post_id ) . '</span></span>';
           if ( '' != get_series_list( $post_id ) ) {
             echo ' <span class="book--series">' . svg_series() . get_series_list( $post_id ) . '</span>';
           }
@@ -236,6 +236,7 @@ function amb_add_meta_box() {
   }
 }
 add_action( 'add_meta_boxes', 'amb_add_meta_box' );
+
 function amb_meta_box_callback( $post ) {
   // Add an nonce field so we can check for it later.
   wp_nonce_field( 'amb_meta_box', 'amb_meta_box_nonce' );
@@ -261,17 +262,17 @@ function amb_meta_box_callback( $post ) {
     echo "</p>";
   }
 }
-function amb_save_meta_box_data( $post_id ) {
+function amb_save_meta_box_data($post_id) {
   // Check if our nonce is set.
-  if ( ! isset( $_POST['amb_meta_box_nonce'] ) ) {
+  if (!isset( $_POST['amb_meta_box_nonce'])) {
     return;
   }
   // Verify that the nonce is valid.
-  if ( ! wp_verify_nonce( $_POST['amb_meta_box_nonce'], 'amb_meta_box' ) ) {
+  if (!wp_verify_nonce($_POST['amb_meta_box_nonce'], 'amb_meta_box')) {
     return;
   }
   // If this is an autosave, our form has not been submitted, so we don't want to do anything.
-  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+  if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
     return;
   }
   // Check the user's permissions.
@@ -474,29 +475,30 @@ array( 'hierarchical' => false,
 // Author
 add_action('init', 'cptui_register_my_taxes_authors');
 function cptui_register_my_taxes_authors() {
-register_taxonomy( 'authors',array (
-  0 => 'post',
-),
-array( 'hierarchical' => false,
-  'label' => 'Authors',
-  'show_ui' => true,
-  'query_var' => true,
-  'show_admin_column' => false,
-  'labels' => array (
-  'search_items' => 'Author',
-  'popular_items' => '',
-  'all_items' => '',
-  'parent_item' => '',
-  'parent_item_colon' => '',
-  'edit_item' => '',
-  'update_item' => '',
-  'add_new_item' => '',
-  'new_item_name' => '',
-  'separate_items_with_commas' => '',
-  'add_or_remove_items' => '',
-  'choose_from_most_used' => '',
-)
-) );
+  register_taxonomy('authors',
+    array(0 => 'post'),
+    array(
+      'hierarchical' => false,
+      'label' => 'Authors',
+      'show_ui' => true,
+      'query_var' => true,
+      'show_admin_column' => false,
+      'labels' => array (
+        'search_items' => 'Author',
+        'popular_items' => '',
+        'all_items' => '',
+        'parent_item' => '',
+        'parent_item_colon' => '',
+        'edit_item' => '',
+        'update_item' => '',
+        'add_new_item' => '',
+        'new_item_name' => '',
+        'separate_items_with_commas' => '',
+        'add_or_remove_items' => '',
+        'choose_from_most_used' => ''
+      )
+    )
+  );
 }
 /* CUSTOM TAXONOMY CODE STOP */
 /* SVG CODE START */
@@ -527,9 +529,6 @@ function svg_cms() {
 function svg_book() {
   return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="70px" height="96.737px" viewBox="0 0 70 96.737" xml:space="preserve" ><path d="M68.244 24.082L23.25 0.89C17.088-2.357 4.9 3.9 1.4 9.436c-1.559 2.466-1.443 4.249-1.443 5.256l0.555 52.4 c0.037 1.1 1.4 2.6 2.6 3.348c2.496 1.5 40.3 25.1 41.4 25.799c0.576 0.4 1.3 0.5 1.9 0.5 c0.572 0 1.146-0.127 1.666-0.385C49.293 95.8 50 94.7 50 93.532V38.523c0-1.145-0.668-2.203-1.756-2.775L7.348 12.9 c0.463-0.899 2.283-2.801 5.627-4.552c3.523-1.845 6.162-1.148 6.768-0.914c0 0 39.2 21 40.4 21.6 c1.195 0.6 1.2 0.7 1.2 1.786c0 1.1 0 52.2 0 52.2c0 2.6 2.6 3.7 4.6 3.67c1.938 0 4.006-1.9 4.006-3.67V26.858 C70 25.7 69.3 24.7 68.2 24.082z"/></svg>';
 }
-function svg_plus_book() {
-  return'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="70px" height="96.736px" viewBox="0 0 70 96.736" enable-background="new 0 0 70 96.736" xml:space="preserve"><g><path d="M15.668 54.703l7.772-0.134l0.102 7.814c-0.003 0.1 0.1 0.3 0.2 0.405c0.109 0.1 0.3 0.2 0.4 0.2 l2.23-0.021c0.155-0.002 0.303-0.069 0.405-0.174c0.103-0.104 0.173-0.249 0.166-0.409l-0.102-7.783l7.784-0.082 c0.154-0.002 0.303-0.069 0.405-0.174c0.102-0.104 0.167-0.244 0.165-0.409l-0.03-2.229c0.003-0.149-0.064-0.299-0.174-0.406 c-0.109-0.106-0.254-0.166-0.41-0.164l-7.803 0.07l-0.041-7.773c-0.003-0.319-0.27-0.58-0.588-0.576l-2.23 0 c-0.155 0.002-0.299 0.066-0.405 0.175c-0.107 0.11-0.168 0.254-0.166 0.409l0.035 7.747l-7.748 0.1 c-0.155 0.001-0.298 0.065-0.404 0.174c-0.107 0.11-0.167 0.254-0.166 0.409l0.03 2.23C15.083 54.4 15.3 54.7 15.7 54.7 z"/><path d="M68.2 24.082h0.044L23.25 0.89C17.088-2.357 4.9 3.9 1.4 9.436c-1.559 2.466-1.443 4.249-1.443 5.256l0.555 52.4 c0.037 1.1 1.4 2.6 2.6 3.348c2.496 1.5 40.3 25.1 41.4 25.8c0.576 0.4 1.3 0.5 1.9 0.5c0.572 0 1.146-0.128 1.666-0.386 C49.293 95.8 50 94.7 50 93.532v-55.01c0-1.145-0.668-2.203-1.756-2.774L7.348 12.9c0.463-0.898 2.283-2.801 5.627-4.552 c3.523-1.845 6.162-1.147 6.768-0.914c0 0 39.2 21 40.4 21.601c1.195 0.6 1.2 0.7 1.2 1.785c0 1.1 0 52.2 0 52.2 c0 2.6 2.6 3.7 4.6 3.67c1.938 0 4.006-1.899 4.006-3.67V26.858C70 25.7 69.3 24.7 68.2 24.082z M13.45 41.5 c6.301-6.442 16.635-6.558 23.078-0.256c6.442 6.3 6.6 16.6 0.3 23.078c-6.301 6.442-16.635 6.557-23.078 0.3 S7.149 47.9 13.4 41.487z"/></g></svg>';
-}
 function svg_logout() {
   return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="512px" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve"><path d="M256 33C132.3 33 32 133.3 32 257c0 123.7 100.3 224 224 224c123.7 0 224-100.3 224-224C480 133.3 379.7 33 256 33z M364.3 332.5c1.5 1.5 2.3 3.5 2.3 5.6c0 2.1-0.8 4.2-2.3 5.6l-21.6 21.7c-1.6 1.6-3.6 2.3-5.6 2.3c-2 0-4.1-0.8-5.6-2.3L256 289.8 l-75.4 75.7c-1.5 1.6-3.6 2.3-5.6 2.3c-2 0-4.1-0.8-5.6-2.3l-21.6-21.7c-1.5-1.5-2.3-3.5-2.3-5.6c0-2.1 0.8-4.2 2.3-5.6l75.7-76 l-75.9-75c-3.1-3.1-3.1-8.2 0-11.3l21.6-21.7c1.5-1.5 3.5-2.3 5.6-2.3c2.1 0 4.1 0.8 5.6 2.3l75.7 74.7l75.7-74.7 c1.5-1.5 3.5-2.3 5.6-2.3c2.1 0 4.1 0.8 5.6 2.3l21.6 21.7c3.1 3.1 3.1 8.2 0 11.3l-75.9 75L364.3 332.5z"/></svg>';
 }
@@ -541,5 +540,8 @@ function svg_author() {
 }
 function svg_series() {
   return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="26px" height="26px" viewBox="0 0 26 26" enable-background="new 0 0 26 26" xml:space="preserve"><path d="M8.984 11.157v9.558c0 0.425-0.268 0.803-0.668 0.943c-0.566 0.199-1.249 0.304-1.976 0.304c0 0 0 0 0 0 C4.249 22 2 21.1 2 19.22V6.99C1.953 6.2 2.2 4.7 3.7 3.863C4.306 3.5 7.7 1.3 9.5 0.2 c0.307-0.199 0.699-0.213 1.021-0.039C10.8 0.3 11 0.6 11 1.011v1.448c0 0.552-0.448 1-1 1c-0.43 0-0.797-0.271-0.938-0.653 c-1.556 1-3.848 2.468-4.417 2.793C4.133 5.9 4 6.4 4 6.722C4 7 4.1 7.3 4.2 7.4 C4.554 7.8 5.7 7.6 7 6.82c1.24-0.744 7.356-4.816 7.417-4.857c0.309-0.205 0.703-0.224 1.026-0.049 C15.797 2.1 16 2.4 16 2.796V2.91c0 0.334-0.167 0.646-0.444 0.832c0 0-4.246 2.834-4.622 3.1 C9.495 7.7 9 8.9 9 11.157z M24 6.331v12.982c0 0.343-0.177 0.663-0.468 0.846c0 0-5.83 4.528-7.013 5.2 c-0.622 0.379-1.414 0.579-2.289 0.579c-2.079 0-4.23-1.125-4.23-3.006V10.863V10.57c0-0.004 0.003-0.008 0.003-0.013 c0.02-0.732 0.191-1.777 1.552-2.781c0.816-0.602 5.676-3.916 5.882-4.056c0.307-0.208 0.704-0.23 1.03-0.058 C18.795 3.8 19 4.2 19 4.546v1.448c0 0.552-0.447 1-1 1c-0.413 0-0.768-0.25-0.92-0.608c-1.551 1.061-3.828 2.624-4.338 3 c-0.644 0.476-0.73 0.79-0.741 1.193c0.002 0.3 0.1 0.5 0.2 0.677c0.51 0.5 1.9 0.3 3.237-0.541 c1.002-0.602 5.32-3.936 6.898-5.17c0.303-0.234 0.711-0.277 1.055-0.11S24 5.9 24 6.331z M22 10.787l-5 3.879v2l5-3.879V10.787z"/></svg>';
+}
+function svg_login_key() {
+  return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="516.375px" height="516.375px" viewBox="0 0 516.375 516.375" xml:space="preserve"><g><path d="M353.812 0C263.925 0 191.2 72.7 191.2 162.562c0 19.1 3.8 38.2 9.6 57.375L0 420.75v95.625h95.625V459H153 v-57.375h57.375l86.062-86.062c17.213 5.7 36.3 9.6 57.4 9.562c89.888 0 162.562-72.675 162.562-162.562S443.7 0 353.8 0 z M401.625 172.125c-32.513 0-57.375-24.862-57.375-57.375s24.862-57.375 57.375-57.375S459 82.2 459 114.8 S434.138 172.1 401.6 172.125z"/></g></svg>';
 }
 /* SVG CODE STOP */

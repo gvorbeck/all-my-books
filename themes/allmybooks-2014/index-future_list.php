@@ -58,7 +58,7 @@ echo '<section id="future-read" class="book-shelf">';
   if ( $wtr_final ) {
     $i = 1;
     $class = '';
-    echo '<ul id="future-read-list" class="book-list [connected sortable] collapsed">';
+    echo '<ul id="future-read-list" class="book-list future collapsed">';
     foreach ($wtr_final as $wtr) {
       $listorder_stamper = $wpdb->update( 'wp_reading_list', array( 'listorder' => $i ),  array( 'bid' => $wtr->bid ) );
       if ( 10 >= $i ? $class = 'shown' : $class = 'overflow' );
@@ -71,5 +71,5 @@ echo '<section id="future-read" class="book-shelf">';
   echo '<p class="instructions">Error: Make sure that the Reading List plugin is activated <a href="' . get_admin_url() . 'plugins.php">here</a>.</p>';
 }
 ?>
-<a href="javascript:;" id="show-full-list-button" class="button">More Books</a>
+<a href="javascript:;" id="show-full-list-button" class="button">more books</a>
 </section>
