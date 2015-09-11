@@ -1,4 +1,3 @@
-require 'singularitygs'
 # Require any additional compass plugins here.
 require "breakpoint"
 
