@@ -96,11 +96,16 @@
     width: 100%;
     position: absolute;
     top: 28%;
-    opacity: .5;
+    
+    img {
+      opacity: .5;
+    }
   }
   
   @include breakpoint(rem(1050)) {
-    opacity: .6;
+    img {
+      opacity: .6;
+    }
   }
   
   span {
@@ -116,8 +121,21 @@
     font-size: em(42);
     text-align: center;
     line-height: rem(30);
+  
+    @include breakpoint(rem(760)) {
+      top: 0;
+      bottom: inherit;
+      left: inherit;
+      right: 7rem;
+      z-index: 1;
+    }
+    
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
+
 .action--login span {
   font-size: em(28);
 }
@@ -150,11 +168,11 @@
 .lightbox--content {
   max-width: rem(600);
   text-align: center;
-  width: 100%;
   padding: span(1);
   background: $color-quarternary;
   box-sizing: border-box;
   box-shadow: $drop-shadow;
+  margin: 0 auto;
   
   & > * {
     text-align: left;
