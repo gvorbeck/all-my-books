@@ -9,8 +9,9 @@
         </p>
       </div>
     </footer>
-    <div id="logged-out-warning"><a href="javascript:;"><?php echo svg_logout(); ?></a><p></p></div>
-    <div id="loading-container"><div class="loading-spinner"></div></div>
+    <?php if (!is_user_logged_in()) { ?>
+      <div id="logged-out-warning" class="site-message js-login-message"><p>You are not logged in. Any changes made are not permanent.</p><?php echo svg_logout(); ?></div>
+    <?php } ?>
     <?php wp_footer(); ?>
   </body>
 </html>

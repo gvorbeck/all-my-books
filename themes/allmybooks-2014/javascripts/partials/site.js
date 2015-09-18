@@ -30,7 +30,10 @@ var bookFunctions = {
       success: function(data) {
         if (data.length) {
           console.log(data);
-          $('#logged-out-warning').addClass('animate-open').removeClass('animate-close').find( 'p' ).text( data );
+          if ($('.js-login-message').is(':hidden')) {
+            $('.js-login-message').toggle();
+          }
+          //$('#logged-out-warning').addClass('animate-open').removeClass('animate-close').find( 'p' ).text( data );
         }
       }
     });
@@ -67,9 +70,8 @@ var visibleLooper = function() {
     $('#future-read-list').find('.overflow').each(function() {
       // And of those, only target those without the 'animate' class.
       if (!$(this).hasClass('animate') && checkVisible($(this), 'above')) {
-        var delay = Math.floor(Math.random() * 700);
         // Rabndomly add the animate class.
-        $(this).delay(delay).queue(function() {
+        $(this).delay(Math.floor(Math.random() * 700)).queue(function() {
           $(this).addClass('animate').dequeue();
         });
       }
@@ -131,10 +133,10 @@ $(document).ready(function() {
           });
         }
         // If you are not logged in.
-        /*if (data.length) {
+        if (data.length) {
           console.log(data);
-          $('#logged-out-warning').addClass('animate-open').removeClass('animate-close').find('p').text(data);
-        }*/
+          console.log('ur not logged in, dummy.');
+        }
       }
     });
   });
@@ -153,11 +155,9 @@ $(document).ready(function() {
   $('.book-list')
     .on('click', 'h1', function() {
       bookFunctions.toggleOptions($(this).closest('.book').attr('ID'));
-      console.log('click');
     })
     // Moving books between lists
     .on('click', '.book--options a', function() {
-      console.log('clock');
       var book = $(this).closest('.book'),
           bookClass = $(this).attr('class');
       // If this a link to move the book to a new list and isn't already active.
@@ -195,6 +195,11 @@ $(document).ready(function() {
     else {
       $(this).text('more books');
     }
+  });
+  
+  // Turn off "logged out" message.
+  $('.js-login-message').on('click', 'svg', function() {
+    $(this).closest('.js-login-message').toggle();
   });
   
   // Look again while scrolling.
