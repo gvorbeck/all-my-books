@@ -96,7 +96,7 @@
     fill: $color-red;
     
     &:hover {
-      fill: $color-primary;
+      fill: color--shadow($color-red);
     }
   }
 }
