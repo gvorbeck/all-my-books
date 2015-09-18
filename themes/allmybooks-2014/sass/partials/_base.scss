@@ -6,6 +6,11 @@
     #SITE-ARCHITECTURE
     Excluding Header and Footer.
 \*------------------------------------*/
+@viewport{
+    zoom: 1.0;
+    width: extend-to-zoom;
+}
+
 * + * {
 	margin-top: 1.5em;
 }

@@ -17,10 +17,6 @@
     position: relative;
     box-shadow: $drop-shadow;
     line-height: rem(36);
-    
-    &:hover {
-      cursor: pointer;
-    }
   }
   
   svg {
