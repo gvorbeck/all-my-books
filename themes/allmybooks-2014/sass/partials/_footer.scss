@@ -14,17 +14,9 @@
   }
   svg {
     fill: $color-secondary;
-    height: 1.563rem;
-    width: 1.563rem;
-    vertical-align: bottom;
-    margin-left: .25rem;
-    
-    /*@include breakpoint( min-width 760px ) { fill: $color-secondary; }*/
   }
   a {
     color: $color-secondary;
-    
-    /*@include breakpoint( min-width 760px ) { color: $color-secondary; }*/
   }
 }
 #github-link a {
@@ -33,6 +25,24 @@
   span {
     text-decoration: underline;
     vertical-align: middle;
+  }
+  
+  svg {
+    height: 1.563rem;
+    width: 1.563rem;
+    vertical-align: bottom;
+    margin-left: .25rem;
+  }
+}
+
+.site-footer--admin-link {
+  position: absolute;
+  top: 0;
+  right: 0;
+  
+  svg {
+    width: rem(50);
+    height: rem(50);
   }
 }
 
@@ -48,6 +58,13 @@
     float: left;
     line-height: rem(31);
     margin-right: rem(10);
+    max-width: 87%;
+    font-size: em(12);
+    
+    @include breakpoint(rem(650)) {
+      font-size: em(16);
+      max-width: 100%;
+    }
   }
   
   svg {

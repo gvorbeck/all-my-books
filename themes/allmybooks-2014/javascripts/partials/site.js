@@ -17,11 +17,16 @@ var bookFunctions = {
         futureList.push(this.id.substring(5) + ':' + readingOrder);
         readingOrder++;
       });
-      futureList = futureList.join(',');
-      var data = 'list=future&future_list=' + futureList;
+      var data = {
+        'list': 'future',
+        'future_list': futureList.join(',')
+      };
     }
     else {
-      var data = 'list=' + list + '&id=' + bookID;
+      var data = {
+        'list': list,
+        'id': bookID
+      };
     } 
     $.ajax({
       type: 'POST',
@@ -33,7 +38,6 @@ var bookFunctions = {
           if ($('.js-login-message').is(':hidden')) {
             $('.js-login-message').toggle();
           }
-          //$('#logged-out-warning').addClass('animate-open').removeClass('animate-close').find( 'p' ).text( data );
         }
       }
     });
@@ -98,12 +102,15 @@ $(document).ready(function() {
   $('.add-a-book.site-form').on('click', '.button', function() {
     var newBookForm   = $('.site-form.add-a-book'),
         newBookTitle  = newBookForm.find('#add-book-form--title').val(),
-        newBookAuthor = newBookForm.find('#add-book-form--author').val(),
-        newBookData   = 'list=new&title=' + newBookTitle + '&author=' + newBookAuthor;
+        newBookAuthor = newBookForm.find('#add-book-form--author').val();
     $.ajax({
       type: 'POST',
       url: templateDirectory + '/php/save-list.php',
-      data: newBookData,
+      data: {
+        'list': 'new',
+        'title': newBookTitle,
+        'author': newBookAuthor
+      },
       success: function(data) {
         newBookForm.find('input').val('');
         bookFunctions.toggleLightbox();

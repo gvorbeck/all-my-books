@@ -32,6 +32,7 @@
 
 .book--content {
   position: relative;
+  min-height: rem(36);
 }
 
 .book--options {
@@ -55,6 +56,20 @@
 }
 .book--details {
   padding: gutter();
+  
+  .book--detail {
+    max-width: 63%;
+    
+    @include breakpoint(rem(520)) {
+      max-width: 78%;
+    }
+    @include breakpoint(rem(760)) {
+      max-width: 69%;
+    }
+    @include breakpoint(rem(1050)) {
+      max-width: 78%;
+    }
+  }
   
   span {
     display: block;

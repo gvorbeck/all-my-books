@@ -221,16 +221,16 @@ if ( ! function_exists( 'the_book_builder' ) ) {
             </div>
           <?php } ?>
           <div class="book--details">
-            <span class="book--author"><?php echo svg_author(); ?>
+            <span class="book--author book--detail"><?php echo svg_author(); ?>
               <span><?php echo get_the_post_authors_string($post_id); ?></span>
             </span>
             <?php if ( '' != get_series_list( $post_id ) ) { ?>
-              <span class="book--series">
+              <span class="book--series book--detail">
                 <?php echo svg_series(); ?>
                 <?php echo get_series_list($post_id); ?>
               </span>
             <?php } if ( '' != $cat_tag_string ) { ?>
-              <span class="book--tags">
+              <span class="book--tags book--detail">
                 <?php echo svg_tag(); ?>
                 <?php echo strtolower($cat_tag_string); ?>
               </span>

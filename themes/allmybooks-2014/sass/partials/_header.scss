@@ -115,14 +115,24 @@
     display: block;
     position: fixed;
     border-radius: 50%;
-    bottom: rem(50);
-    right: rem(50);
+    //bottom: rem(25);
+    //right: rem(25);
     box-shadow: $drop-shadow;
     z-index: 1;
     color: white;
     line-height: rem(56);
     text-align: center;
     text-shadow: $drop-shadow;
+    font-size: em(50);
+    bottom: 50%;
+    right: -(rem(20));
+    margin-bottom: -(rem(28));
+    
+    @include breakpoint(rem(520)) {
+      bottom: rem(25);
+      right: rem(25);
+      margin: 0;
+    }
     
     &:hover {
       cursor: pointer;
