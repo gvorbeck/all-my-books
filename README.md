@@ -15,5 +15,3 @@ If you want to customize the theme, I recommend creating a child-theme of AMB so
 
 ## Credits
 * Layout framework: [Susy](http://susy.oddbird.net/)
-* Fixed columns/headers: [sticky.js](https://github.com/garand/sticky)
-* Drag & Drop: [voidberg/html5sortable.js](https://github.com/voidberg/html5sortable)
