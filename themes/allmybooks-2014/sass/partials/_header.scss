@@ -8,8 +8,8 @@
   z-index: 1;
   
   @include breakpoint(rem(760)) {
-    overflow: hidden;
     z-index: 0;
+    position: static;
   }
   
   @include breakpoint(rem(1050)) {
@@ -109,29 +109,24 @@
   }
   
   span {
-    width: rem(30);
-    height: rem(30);
+    width: rem(56);
+    height: rem(56);
     background-color: $color-red;
-    border: rem(2) solid white;
-    position: absolute;
-    bottom: 5%;
-    left: 16%;
+    display: block;
+    position: fixed;
     border-radius: 50%;
+    bottom: rem(23);
+    right: rem(12);
+    box-shadow: $drop-shadow;
+    z-index: 1;
     color: white;
-    font-size: em(42);
+    line-height: rem(56);
     text-align: center;
-    line-height: rem(30);
-  
-    @include breakpoint(rem(760)) {
-      top: 0;
-      bottom: inherit;
-      left: inherit;
-      right: 7rem;
-      z-index: 1;
-    }
+    text-shadow: $drop-shadow;
     
     &:hover {
       cursor: pointer;
+      background-color: color--shadow($color-red);
     }
   }
 }
