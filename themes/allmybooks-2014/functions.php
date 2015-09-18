@@ -193,34 +193,58 @@ if ( ! function_exists( 'the_book_builder' ) ) {
     // Last read date.
     $rows          = get_field( 'read_records', $post_id );
     $last_row      = is_array( $rows ) ? end( $rows ) : '';
-    $last_row_year = is_array( $rows ) ? substr($last_row['read_year'], -2) : '';
-    echo "<li id='book-$post_id' class='book $class' data-order='$list_order'>";
-      echo '<article>';
-        echo '<h1 class="book--title ';
-        /*if ( $time || $last_row_year ) {
-          echo 'ribbons';
-        }*/
-        //echo ($time ? 'ribbon-1' : '');
-        echo '">' . get_the_title( $post_id ) . '</h1>';
-        echo '<div class="book--options"><a class="finished" href="javascript:;">Finished</a><a class="current" href="javascript:;">Reading</a><a class="future" href="javascript:;">Want</a><a class="delete" href="javascript:;">Delete</a></div>';
-        /*if ($last_row_year) {
-          echo "<div class='book--last-date ribbon'><div>'$last_row_year</div></div>";
-        }
-        if ($time) {
-          echo "<div class='book--want-date ribbon'><div>$time</div></div>";
-        }*/
-        echo '<div class="book--details">';
-          echo '<span class="book--author">' . svg_author() . '<span>' . get_the_post_authors_string( $post_id ) . '</span></span>';
-          if ( '' != get_series_list( $post_id ) ) {
-            echo ' <span class="book--series">' . svg_series() . get_series_list( $post_id ) . '</span>';
-          }
-          if ( '' != $cat_tag_string ) {
-            echo ' <span class="book--tags">' . svg_tag() . strtolower($cat_tag_string) . '</span>';
-          }
-        echo '</div>';
-        echo '<ul class="book--links">' . implode( ' ', get_book_links( $post_id ) ) . '</ul>';
-      echo '</article>';
-    echo '</li>';
+    $last_row_year = is_array( $rows ) ? $last_row['read_year'] : '';
+    ?>
+    <li id="book-<?php echo $post_id; ?>" class="book <?php echo $class; ?>" data-order="<?php echo $list-order; ?>">
+      <article>
+        <header>
+          <h1 class="book--title"><?php echo get_the_title($post_id); ?></h1>
+          <div class="book--options">
+            <a class="finished" href="javascript:;">Finished</a>
+            <a class="current" href="javascript:;">Reading</a>
+            <a class="future" href="javascript:;">Want</a>
+            <a class="delete" href="javascript:;">Delete</a>
+          </div>
+        </header>
+        <div class="book--content">
+          <?php if ($last_row_year) { ?>
+            <div class='book--last-date book--meta'>
+              <div>
+                <span><?php echo $last_row_year; ?></span>
+              </div>
+              <span class='book--meta-label'>Last Read</span>
+            </div>
+          <?php } if ($time) { ?>
+            <div class='book--want-date book--meta'>
+              <div><?php echo $time; ?></div>
+              <span class='book--meta-label'>Added</span>
+            </div>
+          <?php } ?>
+          <div class="book--details">
+            <span class="book--author"><?php echo svg_author(); ?>
+              <span><?php echo get_the_post_authors_string($post_id); ?></span>
+            </span>
+            <?php if ( '' != get_series_list( $post_id ) ) { ?>
+              <span class="book--series">
+                <?php echo svg_series(); ?>
+                <?php echo get_series_list($post_id); ?>
+              </span>
+            <?php } if ( '' != $cat_tag_string ) { ?>
+              <span class="book--tags">
+                <?php echo svg_tag(); ?>
+                <?php echo strtolower($cat_tag_string); ?>
+              </span>
+            <?php } ?>
+          </div>
+        </div>
+        <footer>
+          <ul class="book--links">
+            <?php echo implode(' ', get_book_links($post_id)); ?>
+          </ul>
+        </footer>
+      </article>
+    </li>
+    <?php
   }
 }
 

@@ -7,9 +7,9 @@
   color: $color-tertiary;
   font-family: $font-text;
   position: relative;
-  line-height: 1.25em;
+  line-height: em(20);
   box-shadow: $drop-shadow;
-  padding: .5rem;
+  padding: rem(8);
   
   h1 {
     background: $color-secondary;
@@ -17,21 +17,23 @@
     color: $color-tertiary;
     box-shadow: $drop-shadow;
     font-family: $font-fancy;
-    line-height: 1em;
-    font-size: $font-size-8;
+    line-height: em(16);
+    font-size: rem(37);
     
     &:hover {
       cursor: pointer;
     }
-    /*&.ribbons {
-      padding: gutter() 6rem gutter() gutter();
-    }*/
   }
   
   &.new-book {
     display: none;
   }
 }
+
+.book--content {
+  position: relative;
+}
+
 .book--options {
   display: none;
   background: $color-tertiary;
@@ -69,19 +71,21 @@
   svg {
     position: relative;
     fill: $color-primary;
-    width: 1rem;
-    height: 1rem;
-    margin: 0 .5em 0 0;
+    width: rem(16);
+    height: rem(16);
+    margin: 0 em(8) 0 0;
     top: .1em;
   }
 }
 .book--tags {
-  font-size: $font-size-4;
+  font-size: rem(12);
   
   svg {
-    top: .25em;
+    top: em(4);
   }
 }
+
+/* book links */
 .book--links {
   padding: 0 gutter() gutter();
   li {
@@ -90,12 +94,12 @@
 }
 .book--link {
   display: inline;
-  margin: 0 1rem 0 0;
+  margin: 0 rem(16) 0 0;
   
   svg {
     position: static;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: rem(24);
+    height: rem(24);
     fill: $color-red;
     
     &:hover {
@@ -103,6 +107,8 @@
     }
   }
 }
+
+/* overflow books */
 .collapsed {
   .overflow {
     display: none;
@@ -127,25 +133,48 @@
   100% { @include transform( scale(1) ); }
 }
 
-.ribbon {
-  right:0.5em;
-  @extend %ribbon-prelim;
+/* book meta */
+.book--meta {
+  position: absolute;
+  top: rem(8);
+  right: gutter();
   
-  .label {
-    @extend %ribbon-label;
-  }
   div {
-    @extend %ribbon-div;
+    background: $color-primary;
+    width: rem(28);
+    height: rem(28);
+    padding: rem(8);
+    color: white;
+    line-height: rem(28);
+    font-size: em(12);
+    text-align: center;
+    box-shadow: $drop-shadow;
+    margin: 0 auto
   }
-
-  div:after {
-    @extend %ribbon-div-after;
-  }
-  .month {
+  
+  span {
     display: block;
-    padding: gutter() 0 0;
   }
 }
+
+.book--meta-label {
+  color: $color-primary;
+  font-size: em(10);
+  text-align: center;
+  margin-top: rem(6);
+}
+
+.book--want-date {
+  
+  div span {
+    line-height: rem(15);
+  }
+}
+
 .book--last-date {
-  right: 3.5rem;
+  right: rem(59);
+  
+  div {
+    font-size: em(11);
+  }
 }
