@@ -52,9 +52,9 @@ foreach ($reading_list_table_ids as $table_id) {
 }
 // 5]] NOW PRINT IT OUT.
 $wtr_final = $wpdb->get_results("SELECT * FROM wp_reading_list ORDER BY listorder");
-$this_these = ( count($future_list) > 1 ? 'These' : 'This');
+$this_these = ( count($wtr_final) > 1 ? 'These' : 'This');
 echo '<section id="future-read" class="book-shelf">';
-  echo '<h1 class="sticky--wtr">' . svg_bookmark() . 'I Want To Read ' . $this_these . '</h1>';
+  echo '<h1>' . svg_bookmark() . 'I Want To Read ' . $this_these . '</h1>';
   if ( $wtr_final ) {
     $i = 1;
     $class = '';

@@ -17,11 +17,16 @@ var bookFunctions = {
         futureList.push(this.id.substring(5) + ':' + readingOrder);
         readingOrder++;
       });
-      futureList = futureList.join(',');
-      var data = 'list=future&future_list=' + futureList;
+      var data = {
+        'list': 'future',
+        'future_list': futureList.join(',')
+      };
     }
     else {
-      var data = 'list=' + list + '&id=' + bookID;
+      var data = {
+        'list': list,
+        'id': bookID
+      };
     } 
     $.ajax({
       type: 'POST',
@@ -30,7 +35,9 @@ var bookFunctions = {
       success: function(data) {
         if (data.length) {
           console.log(data);
-          $('#logged-out-warning').addClass('animate-open').removeClass('animate-close').find( 'p' ).text( data );
+          if ($('.js-login-message').is(':hidden')) {
+            $('.js-login-message').toggle();
+          }
         }
       }
     });
@@ -67,9 +74,8 @@ var visibleLooper = function() {
     $('#future-read-list').find('.overflow').each(function() {
       // And of those, only target those without the 'animate' class.
       if (!$(this).hasClass('animate') && checkVisible($(this), 'above')) {
-        var delay = Math.floor(Math.random() * 700);
         // Rabndomly add the animate class.
-        $(this).delay(delay).queue(function() {
+        $(this).delay(Math.floor(Math.random() * 700)).queue(function() {
           $(this).addClass('animate').dequeue();
         });
       }
@@ -96,12 +102,15 @@ $(document).ready(function() {
   $('.add-a-book.site-form').on('click', '.button', function() {
     var newBookForm   = $('.site-form.add-a-book'),
         newBookTitle  = newBookForm.find('#add-book-form--title').val(),
-        newBookAuthor = newBookForm.find('#add-book-form--author').val(),
-        newBookData   = 'list=new&title=' + newBookTitle + '&author=' + newBookAuthor;
+        newBookAuthor = newBookForm.find('#add-book-form--author').val();
     $.ajax({
       type: 'POST',
       url: templateDirectory + '/php/save-list.php',
-      data: newBookData,
+      data: {
+        'list': 'new',
+        'title': newBookTitle,
+        'author': newBookAuthor
+      },
       success: function(data) {
         newBookForm.find('input').val('');
         bookFunctions.toggleLightbox();
@@ -131,10 +140,10 @@ $(document).ready(function() {
           });
         }
         // If you are not logged in.
-        /*if (data.length) {
+        if (data.length) {
           console.log(data);
-          $('#logged-out-warning').addClass('animate-open').removeClass('animate-close').find('p').text(data);
-        }*/
+          console.log('ur not logged in, dummy.');
+        }
       }
     });
   });
@@ -153,11 +162,9 @@ $(document).ready(function() {
   $('.book-list')
     .on('click', 'h1', function() {
       bookFunctions.toggleOptions($(this).closest('.book').attr('ID'));
-      console.log('click');
     })
     // Moving books between lists
     .on('click', '.book--options a', function() {
-      console.log('clock');
       var book = $(this).closest('.book'),
           bookClass = $(this).attr('class');
       // If this a link to move the book to a new list and isn't already active.
@@ -195,6 +202,11 @@ $(document).ready(function() {
     else {
       $(this).text('more books');
     }
+  });
+  
+  // Turn off "logged out" message.
+  $('.js-login-message').on('click', 'svg', function() {
+    $(this).closest('.js-login-message').toggle();
   });
   
   // Look again while scrolling.

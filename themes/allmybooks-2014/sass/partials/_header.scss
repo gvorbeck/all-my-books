@@ -8,8 +8,8 @@
   z-index: 1;
   
   @include breakpoint(rem(760)) {
-    overflow: hidden;
     z-index: 0;
+    position: static;
   }
   
   @include breakpoint(rem(1050)) {
@@ -109,29 +109,32 @@
   }
   
   span {
-    width: rem(30);
-    height: rem(30);
+    width: rem(56);
+    height: rem(56);
     background-color: $color-red;
-    border: rem(2) solid white;
-    position: absolute;
-    bottom: 5%;
-    left: 16%;
+    display: block;
+    position: fixed;
     border-radius: 50%;
+    box-shadow: $drop-shadow;
+    z-index: 1;
     color: white;
-    font-size: em(42);
+    line-height: rem(56);
     text-align: center;
-    line-height: rem(30);
-  
-    @include breakpoint(rem(760)) {
-      top: 0;
-      bottom: inherit;
-      left: inherit;
-      right: 7rem;
-      z-index: 1;
+    text-shadow: $drop-shadow;
+    font-size: em(50);
+    bottom: 50%;
+    right: -(rem(20));
+    margin-bottom: -(rem(28));
+    
+    @include breakpoint(rem(520)) {
+      bottom: rem(25);
+      right: rem(25);
+      margin: 0;
     }
     
     &:hover {
       cursor: pointer;
+      background-color: color--shadow($color-red);
     }
   }
 }
@@ -145,7 +148,7 @@
   background: rgba(0, 0, 0, .5);
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   padding: span(1);
   z-index: 2;
   box-sizing: border-box;
