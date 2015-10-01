@@ -1,4 +1,11 @@
-var bookFunctions = {
+
+
+// Allows me to use '$' instead of 'jQuery'
+// https://stackoverflow.com/a/24119140
+var $              = jQuery.noConflict(),
+    ajaxURL        = templateDirectory + '/php/save-list.php',
+    futureReadList = $('#future-read-list'),
+    bookFunctions  = {
   toggleOptions: function(id) {
     if ($('#' + id).hasClass('show-options')) {
       $('#' + id).find('.book--options').slideUp();
@@ -30,7 +37,7 @@ var bookFunctions = {
     } 
     $.ajax({
       type: 'POST',
-      url: templateDirectory + '/php/save-list.php',
+      url: ajaxURL,
       data: data,
       success: function(data) {
         if (data.length) {
@@ -83,14 +90,23 @@ var visibleLooper = function() {
   }
 };
 
-// Allows me to use '$' instead of 'jQuery'
-// https://stackoverflow.com/a/24119140
-var $ = jQuery.noConflict();
-
 /* DOC READY START */
 $(document).ready(function() {
   
-  var $futureReadList = $('#future-read-list');
+/*
+  $.ajax({
+    type: 'POST',
+    url: ajaxURL,
+    data: {
+      'list': 'initial',
+    },
+    success: function(data) {
+      console.log(data);
+      var bookList = document.getElementById('future-read-list');
+      bookList.innerHTML = data;
+    }
+  });
+*/
   
   // Bring up the lightbox
   $('.site-logo--action, .lightbox--close').on('click', function() {
@@ -105,7 +121,7 @@ $(document).ready(function() {
         newBookAuthor = newBookForm.find('#add-book-form--author').val();
     $.ajax({
       type: 'POST',
-      url: templateDirectory + '/php/save-list.php',
+      url: ajaxURL,
       data: {
         'list': 'new',
         'title': newBookTitle,
@@ -121,18 +137,19 @@ $(document).ready(function() {
             .css('opacity', '.5')
             .attr('id', 'book-' + data)
             .attr('data-order', '0')
-            .removeClass('shown')
+            //.removeClass('shown')
             .addClass('new-book')
-            .find('.book--series, .book--tags, .book--want-date, .book--links').remove();
-          $bookTemplate
+            .find('.book--series, .book--tags, .book--want-date, .book--links')
+              .remove()
+            .end()
             .find('.book--title')
-            .text(newBookTitle);
-          $bookTemplate
+              .text(newBookTitle)
+            .end()
             .find('.book--author span')
-            .text(newBookAuthor);
-          $bookTemplate
+              .text(newBookAuthor)
+            .end()
             .find('h1')
-            .removeClass('ribbons');
+              .removeClass('ribbons');
           $futureReadList.prepend($bookTemplate);
           bookFunctions.updateList('future', $bookTemplate.attr('ID').substring(5));
           $bookTemplate.delay(250).slideDown(400, function() {

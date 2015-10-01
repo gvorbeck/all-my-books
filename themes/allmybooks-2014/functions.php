@@ -20,6 +20,7 @@ add_filter('upload_mimes', 'custom_upload_mimes');
 function custom_upload_mimes ($existing_mimes=array()) {
   // add the file extension to the array
   $existing_mimes['epub'] = 'mime/type';
+  $existing_mimes['mobi'] = 'mime/type';
    // call the modified list of extensions
   return $existing_mimes;
 }
@@ -42,14 +43,26 @@ if ( ! is_admin() && ! is_login_page() ) {
   add_action( 'init', 'site_styles' );
 
   // Enqueue Scripts
-  if ( ! function_exists( 'site_scripts' ) ) {
+  if (!function_exists('site_scripts')) {
     function site_scripts() {
-      wp_register_script( 'site-js', get_template_directory_uri() . '/javascripts/site.min.js', array('jquery'), date('W.0'), true );
-      wp_enqueue_script( 'jquery' );
-      wp_enqueue_script( 'site-js' );
+      // Remove weird auto-added emoji script from site 
+      remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+      remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+      remove_action( 'wp_print_styles', 'print_emoji_styles' );
+      remove_action( 'admin_print_styles', 'print_emoji_styles' );
+      // Site js
+      wp_register_script('site-js', get_template_directory_uri() . '/javascripts/site.min.js', array('jquery'), date('W.0'), true);
+      // Handlebars
+      wp_register_script('handlebars', get_template_directory_uri() . '/javascripts/handlebars.min.js', '', false, true);
+      // jQuery
+      wp_deregister_script('jquery');
+      wp_register_script('jquery', ('https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'), false, '2.1.4', true);
+      wp_enqueue_script('jquery');
+      wp_enqueue_script('handlebars');
+      wp_enqueue_script('site-js');
     }
   }
-  add_action( 'wp_enqueue_scripts', 'site_scripts' );
+  add_action('wp_enqueue_scripts', 'site_scripts');
 }
 
 if ( ! function_exists( 'amb_admin_script' ) ) {
@@ -65,137 +78,103 @@ if ( ! function_exists( 'amb_admin_script' ) ) {
 }
 add_action( 'admin_enqueue_scripts', 'amb_admin_script' );
 
-if ( ! function_exists( 'get_the_slug' ) ) {
-  function get_the_slug( $phrase ) {
-      $result = strtolower($phrase);
-      $result = preg_replace("/[^a-z0-9\s-]/", "", $result);
-      $result = trim(preg_replace("/[\s-]+/", " ", $result));
-      $result = preg_replace("/\s/", "-", $result);
-      return $result;
+if (!function_exists('get_the_slug')) {
+  function get_the_slug($phrase) {
+    $result = strtolower($phrase);
+    $result = preg_replace("/[^a-z0-9\s-]/", "", $result);
+    $result = trim(preg_replace("/[\s-]+/", " ", $result));
+    $result = preg_replace("/\s/", "-", $result);
+    return $result;
   }
 }
 
-if ( ! function_exists( 'get_the_post_authors_string' ) ) {
-  function get_the_post_authors_string( $post_id ) {
-    $authors = wp_get_post_terms( $post_id, 'authors' );
-    $i = 0;
-    $authors_str = '';
-    if ( ! empty( $authors ) ) {
-      foreach ( $authors as $author ) {
-        if ( 0 < $i ) {
-          $authors_str .= ', ';
-        }
-        $authors_str .= $author->name;
-        $i++;
-      }
-    }
-    return $authors_str;
+/*
+  @function   get_the_post_authors_string
+  @parameters $post_id - The ID of the post whose authors are sought.
+  @returns    A comma-delimited list of authors associated with the post.
+*/
+if (!function_exists('get_the_post_authors_string')) {
+  function get_the_post_authors_string($post_id) {
+    return implode(', ', wp_get_post_terms($post_id, 'authors', array('fields' => 'names')));
   }
 }
 
-if ( ! function_exists( 'get_series_list' ) ) {
-  function get_series_list( $post_id ) {
-    if ( have_rows( 'series_info', $post_id ) ) {
-      $i = 0;
-      while ( have_rows( 'series_info', $post_id ) ) {
+/*
+  @function   get_series_list
+  @parameters $post_id - The ID of the post whose series data is sought.
+  @returns    A comma-delimited list of series data associated with the post.
+*/
+if (!function_exists( 'get_series_list')) {
+  function get_series_list($post_id) {
+    if (have_rows('series_info', $post_id)) {
+      $full_series_array = [];
+      while (have_rows('series_info', $post_id)) {
         the_row();
-        $series_id      = get_sub_field( 'series_name', $post_id );
-        $series_object  = get_term( $series_id, 'series', $post_id );
-        if ( $i > 0 ) {
-          $series_string .= ', ';
-        }
-        $series_string .= $series_object->name . ' #' . get_sub_field( 'series_position', $post_id );
-        $i++;
+        $full_series_array[] = get_sub_field('series_name', $post_id)->name . ' #' . get_sub_field('series_position', $post_id);
       }
-      return $series_string;
+      return implode(', ', $full_series_array);
     }
   }
 }
 
-if ( ! function_exists( 'get_book_links' ) ) {
-  function get_book_links( $post_id ) {
-    $ascii_title   = strtolower( urlencode( get_post( $post_id )->post_title ) );
-    $ascii_authors = strtolower( urlencode( str_replace( ', ', ' ', get_the_post_authors_string( $post_id ) ) ) );
-    $book_links    = array();
-    $book_links[]  = "<li><a class='amazon-link book--link' href='http://www.amazon.com/s/field-keywords=$ascii_title+$ascii_authors' target='_blank' title='Search Amazon'>" . svg_amazon() . "</a></li>";
-    $book_links[]  = "<li><a class='wiki-link book--link' href='http://en.wikipedia.org/wiki/Special:Search?search=$ascii_title+$ascii_authors' target='_blank' title='Search Wikipedia'>" . svg_wikipedia() . "</a></li>";
-    $book_links[]  = "<li><a class='luzme-link book--link' href='http://luzme.com/search_all?keyword=$ascii_title+$ascii_authors' target='_blank' title='Shop Luzme'>" . svg_store() . "</a></li>";
-    if ( is_user_logged_in() ) {
-      if( get_field('book_file', $post_id) ) {
-        $book_links[] = "<li><a class='download-link book--link' href='" . get_field('book_file', $post_id) . "' title='Download " . esc_attr( get_post( $post_id )->post_title ) . "'>" . svg_download() . "</a></li>";
+/*
+  @function   get_book_links
+  @parameters $post_id - The ID of the post to build links around.
+  @returns    A <UL> element filled with link <LI> elements.
+*/
+if (!function_exists('get_book_links')) {
+  function get_book_links($post_id) {
+    $ascii_title   = strtolower(urlencode(get_post($post_id)->post_title));
+    $ascii_authors = strtolower(urlencode(str_replace(', ', ' ', get_the_post_authors_string($post_id))));
+    $book_links_html = "<ul class='book--links'><li><a class='amazon-link book--link' href='http://www.amazon.com/s/field-keywords='$ascii_title+$ascii_authors' target='_blank' title='Search Amazon'>" . svg_amazon() . "</a></li><li><a class='wiki-link book--link' href='http://en.wikipedia.org/wiki/Special:Search?search=$ascii_title+$ascii_authors' target='_blank' title='Search Wikipedia'>" . svg_wikipedia() . "</a></li><li><a class='luzme-link book--link' href='http://luzme.com/search_all?keyword=$ascii_title+$ascii_authors' target='_blank' title='Shop Luzme'>" . svg_store() . "</a></li>";
+    if (is_user_logged_in()) {
+      if (get_field('book_file', $post_id)) {
+        $book_links_html .= "<li><a class='download-link book--link' href='" . get_field('book_file', $post_id) . "' title='Download " . esc_attr(get_post($post_id)->post_title) . "'>" . svg_download() . "</a></li>";
       }
-      $book_links[]  = '<li><a class="edit-link book--link" href="' . get_edit_post_link( $post_id ) . '" target="_blank" title="Edit ' . esc_attr( get_post( $post_id )->post_title ) . '">' . svg_edit() . '</a></li>';
+      $book_links_html .= '<li><a class="edit-link book--link" href="' . get_edit_post_link($post_id) . '" target="_blank" title="Edit ' . esc_attr(get_post($post_id)->post_title) . '">' . svg_edit() . '</a></li>';
     }
-    return $book_links;
+    return $book_links_html . '</ul>';
   }
 }
 
-if ( ! function_exists( 'cat_class_builder' ) ) {
-  function cat_class_builder( $post_id ) {
-    // Set up category data (ommiting Uncategorized, of course).
-    $cats = get_the_category( $post_id );
-    $cat_class = 'genre-';
-    if ( ! empty( $cats ) ) {
-      foreach ( $cats as $cat ) {
-        if ( 1 != $cat->cat_ID ) {
-          $cat_class .= $cat->slug;
-          break;
-        }
+/*
+  #function   amb_get_cats_tags
+  @parameters $post_id - The ID of the post to capture category and tag data from.
+  @returns    A comma-delimited list of categoryt and/or tag data associated with the post.
+*/
+if (!function_exists('amb_get_cats_tags')) {
+  function amb_get_cats_tags($post_id) {
+    
+    // Categories
+    $categories = get_the_category($post_id);
+    foreach ($categories as $key=>$value) {
+      $categories[$key] = $value->name;
+      if ($categories[$key] == 'Uncategorized') {
+        array_splice($categories, $key, 1);
       }
     }
-    return $cat_class;
+    $categories = implode(', ', $categories);
+    
+    // Tags
+    $tags = implode(', ', wp_get_post_terms($post_id, 'post_tag', array('fields' => 'names')));
+    
+    // Put it all together.
+    if ($categories && $tags) {
+      return $categories . ', ' . $tags;
+    } else {
+      return $categories . $tags;
+    }
   }
 }
 
-if ( ! function_exists( 'the_book_builder' ) ) {
-  function the_book_builder( $post_id, $list_order, $class = '', $time = '' ) {
-    // Set up category data (ommiting Uncategorized, of course)
-    $cats = get_the_category( $post_id );
-    $cat_list = '';
-    if ( ! empty( $cats ) ) {
-      $i = 0;
-      foreach ( $cats as $cat ) {
-        if ( 1 != $cat->cat_ID ) {
-          if ( $i > 0 ) {
-            $cat_list .= ', ';
-          }
-          $i++;
-          $cat_list .= trim( $cat->cat_name );
-        }
-      }
-    }
-    // Set up tag data.
-    $tags = wp_get_post_terms( $post_id, 'post_tag' );
-    $tag_list = '';
-    if ( ! empty( $tags ) ) {
-      $i = 0;
-      foreach ( $tags as $tag ) {
-        if ( $i > 0 ) {
-          $tag_list .= ', ';
-        }
-        $i++;
-        $tag_list .= trim( $tag->name );
-      }
-    }
-    // Combine category and tag data.
-    $cat_tag_string = '';
-    if ( ! empty( $cat_list ) || ! empty( $tag_list ) ) {
-      if ( ! empty( $cat_list ) ) {
-        $cat_tag_string .= $cat_list;
-      }
-      if ( ! empty( $cat_list ) && ! empty( $tag_list ) ) {
-        $cat_tag_string .= ', ';
-      }
-      if ( ! empty( $tag_list ) ) {
-        $cat_tag_string .= $tag_list;
-      }
-    }
-    // Last read date.
-    $rows          = get_field( 'read_records', $post_id );
-    $last_row      = is_array( $rows ) ? end( $rows ) : '';
-    $last_row_year = is_array( $rows ) ? $last_row['read_year'] : '';
+if (!function_exists('the_book_builder')) {
+  function the_book_builder($post_id, $list_order, $class = '', $time = '') {
+    // Last read data.
+    $rows          = get_field('read_records', $post_id);
+    $last_row      = is_array($rows) ? end($rows) : '';
+    $last_row_year = is_array($rows) ? $last_row['read_year'] : '';
     ?>
-    <li id="book-<?php echo $post_id; ?>" class="book <?php echo $class; ?>" data-order="<?php echo $list-order; ?>">
+    <li id="book-<?php echo $post_id; ?>" class="book <?php echo $class; ?>" data-order="<?php echo $list_order; ?>">
       <article>
         <header>
           <h1 class="book--title"><?php echo get_the_title($post_id); ?></h1>
@@ -216,31 +195,28 @@ if ( ! function_exists( 'the_book_builder' ) ) {
             </div>
           <?php } if ($time) { ?>
             <div class='book--want-date book--meta'>
-              <div><?php echo $time; ?></div>
+              <div><?php echo date('M \'y', strtotime($time)); ?></div>
               <span class='book--meta-label'>Added</span>
             </div>
           <?php } ?>
           <div class="book--details">
-            <span class="book--author book--detail"><?php echo svg_author(); ?>
-              <span><?php echo get_the_post_authors_string($post_id); ?></span>
-            </span>
-            <?php if ( '' != get_series_list( $post_id ) ) { ?>
-              <span class="book--series book--detail">
-                <?php echo svg_series(); ?>
-                <?php echo get_series_list($post_id); ?>
+            <?php if (get_the_post_authors_string($post_id)) { ?>
+              <span class="book--author book--detail">
+                <?php echo svg_author() . get_the_post_authors_string($post_id); ?>
               </span>
-            <?php } if ( '' != $cat_tag_string ) { ?>
+            <?php } if (get_series_list($post_id)) { ?>
+              <span class="book--series book--detail">
+                <?php echo svg_series() . get_series_list($post_id); ?>
+              </span>
+            <?php } if (amb_get_cats_tags($post_id)) { ?>
               <span class="book--tags book--detail">
-                <?php echo svg_tag(); ?>
-                <?php echo strtolower($cat_tag_string); ?>
+                <?php echo svg_tag() . strtolower(amb_get_cats_tags($post_id)); ?>
               </span>
             <?php } ?>
           </div>
         </div>
         <footer>
-          <ul class="book--links">
-            <?php echo implode(' ', get_book_links($post_id)); ?>
-          </ul>
+          <?php echo get_book_links($post_id); ?>
         </footer>
       </article>
     </li>
@@ -354,7 +330,7 @@ if(function_exists("register_field_group"))
             'field_type' => 'select',
             'allow_null' => 0,
             'load_save_terms' => 0,
-            'return_format' => 'id',
+            'return_format' => 'object',
             'multiple' => 0,
           ),
           array (

@@ -47,7 +47,11 @@
   }
 }
 
-#current-read {}
+#future-read-list {
+  @include breakpoint(rem(760)) {
+    min-height: rem(1000);
+  }
+}
 
 #show-full-list-button {
   @extend %button;

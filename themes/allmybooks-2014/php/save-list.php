@@ -4,6 +4,12 @@ $list = $_POST['list'];
 $id   = $_POST['id'];
 if ( is_user_logged_in() ) {
   switch ( $list ) {
+    case "initial":
+      $book_list = $wpdb->get_results('SELECT * FROM wp_reading_list ORDER BY listorder LIMIT 10');
+      foreach ($book_list as $b) {
+        the_book_builder($b->bid, $b->listorder, '', $b->time);
+      }
+      break;
     case "finished":
       if ( ! empty( $id ) ) {
         $row_count = count(get_field('read_records', $id));
