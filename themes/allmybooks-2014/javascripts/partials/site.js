@@ -58,6 +58,19 @@ var toggleLightbox = function() {
   //$('body').toggleClass('no-scroll');
 }
 
+var bookOptions = function()  {
+  // Set up book--options' active options.
+  // E.G. - Which book--option is highlighted.
+  $('.book').each(function() {
+    var list = $(this).closest('.book-list');
+    $(this).find('.book--options a').each( function() {
+      if (list.hasClass($(this).attr('class'))) {
+        $(this).addClass('active');
+      }
+    });
+  });
+}
+
 /**
  * Checks to see if the specified element is on or above the screen.
  * @param {String} elm - The specified element to check to see if it is on or above the screen.
@@ -95,6 +108,8 @@ var visibleLooper = function() {
 
 /* DOC READY START */
 $(document).ready(function() {
+  
+  bookOptions();
   
   // Bring up the lightbox
   $('.js-lightbox-toggle').on('click', function() {
@@ -151,17 +166,6 @@ $(document).ready(function() {
         }
       });
     }
-  });
-  
-  // Set up book--options' active options.
-  // E.G. - Which book--option is highlighted.
-  $('.book').each(function() {
-    var list = $(this).closest('.book-list');
-    $(this).find('.book--options a').each( function() {
-      if (list.hasClass($(this).attr('class'))) {
-        $(this).addClass('active');
-      }
-    });
   });
   
   // Toggle book--options' visibility.
@@ -225,6 +229,7 @@ $(document).ready(function() {
           $('.loader-inner').toggle();
         }
         showHideClicks++;
+        bookOptions();
         visibleLooper();
       }
     });
