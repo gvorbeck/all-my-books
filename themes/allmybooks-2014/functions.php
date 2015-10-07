@@ -54,11 +54,11 @@ if ( ! is_admin() && ! is_login_page() ) {
       remove_action( 'admin_print_styles', 'print_emoji_styles' );
       // Site js
       wp_register_script('site-js', get_template_directory_uri() . '/javascripts/site.min.js', array('jquery'), date('W.0'), true);
-      // Handlebars
+      // loaders.css
       wp_register_script('loaders', content_url() . '/node_modules/loaders.css/loaders.css.js', '', false, true);
       // jQuery
-      //wp_deregister_script('jquery');
-      //wp_register_script('jquery', ('https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'), false, '2.1.4', true);
+      wp_deregister_script('jquery');
+      wp_register_script('jquery', ('https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'), false, '2.1.4', true);
       wp_enqueue_script('jquery');
       wp_enqueue_script('site-js');
       wp_enqueue_script('loaders');
@@ -102,7 +102,6 @@ if (!function_exists('amb_reading_list_sanity_check')) {
       $wpdb->update( 'wp_reading_list', array('listorder' => $i), array('bid' => $r->bid));
       $i++;
     }
-    echo 'fuck';
   }
 }
 
