@@ -146,6 +146,4 @@ if (is_user_logged_in()) {
       echo wp_insert_post($new_post, true);
       break;
   }
-} else {
-  echo 'You are not currently logged in.';
 }
