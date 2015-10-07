@@ -1,9 +1,6 @@
 /*------------------------------------*\
     #EXTENDS
 \*------------------------------------*/
-%area-login {
-  text-align: center;
-}
 %button {
   background: $color-red;
   border-bottom: rem(5) solid color--shadow($color-red);
@@ -11,35 +8,43 @@
   border-radius: rem(3);
   border-right: none;
   border-top: none;
-  color: white;
+  color: white !important;
   display: block;
   font-size: em(16);
   padding: rem(8) rem(8) rem(5);
   text-decoration: none;
   text-align: center;
   box-shadow: $drop-shadow;
+  
+  &:hover {
+    background: color--shadow($color-red);
+    border-bottom: .312rem solid color--shadow(color--shadow($color-red));
+    cursor: pointer;
+  }
 }
-%button-hover {
-  background: color--shadow($color-red);
-  border-bottom: .312rem solid color--shadow(color--shadow($color-red));
-  cursor: pointer;
+
+%content-width {
+  @include container(62.5rem);
+  position: relative;
 }
+
 %input {
   box-shadow: $drop-shadow;
   border: none;
-  padding: gutter() * 2;
+  padding: rem(15);
   width: 100%;
   box-sizing: border-box;
   font-size: em(18);
   display: block;
-  margin-top: gutter();
+  margin: rem(15) 0 rem(25);
 }
+
 %label {
   display: block;
-  margin-bottom: gutter() * 2;
   text-transform: uppercase;
   font-size: em(12);
 }
+
 %ribbon-prelim {
   padding:0 0 $ribbon-tail 0;
   position:absolute;
@@ -47,6 +52,7 @@
   width:$ribbon-w;
   font-size: rem(16);
 }
+
 %ribbon-label {
   @include transform(rotate(-90deg));
   position: absolute;
@@ -55,12 +61,14 @@
   left: -(rem(22));
   top: rem(24);
 }
+
 %ribbon-div {
   background: $color-tertiary;
   color:$color-quarternary;
   padding:0.5em 0;
   text-align:center;
 }
+
 %ribbon-div-after {
   border-left: $ribbon-w/2 solid $color-tertiary;
   border-right: $ribbon-w/2 solid $color-tertiary;

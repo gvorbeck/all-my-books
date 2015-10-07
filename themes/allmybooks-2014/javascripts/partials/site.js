@@ -1,4 +1,12 @@
-var bookFunctions = {
+
+
+// Allows me to use '$' instead of 'jQuery'
+// https://stackoverflow.com/a/24119140
+var $              = jQuery.noConflict(),
+    ajaxURL        = templateDirectory + '/php/save-list.php',
+    futureReadList = $('#future-read-list'),
+    showHideClicks = 0,
+    bookFunctions  = {
   toggleOptions: function(id) {
     if ($('#' + id).hasClass('show-options')) {
       $('#' + id).find('.book--options').slideUp();
@@ -30,23 +38,38 @@ var bookFunctions = {
     } 
     $.ajax({
       type: 'POST',
-      url: templateDirectory + '/php/save-list.php',
+      url: ajaxURL,
       data: data,
       success: function(data) {
         if (data.length) {
-          console.log(data);
+          //console.log(data);
           if ($('.js-login-message').is(':hidden')) {
             $('.js-login-message').toggle();
           }
         }
       }
     });
-  },
-  toggleLightbox: function() {
-    $('.lightbox').toggle();
-    $('body').toggleClass('no-scroll');
   }
 };
+
+
+var toggleLightbox = function() {
+  $('.lightbox').toggle();
+  //$('body').toggleClass('no-scroll');
+}
+
+var bookOptions = function()  {
+  // Set up book--options' active options.
+  // E.G. - Which book--option is highlighted.
+  $('.book').each(function() {
+    var list = $(this).closest('.book-list');
+    $(this).find('.book--options a').each( function() {
+      if (list.hasClass($(this).attr('class'))) {
+        $(this).addClass('active');
+      }
+    });
+  });
+}
 
 /**
  * Checks to see if the specified element is on or above the screen.
@@ -54,14 +77,14 @@ var bookFunctions = {
  * @param {String} evalType - The type of check to perform - if empty, will default to visible
  * Source: https://stackoverflow.com/questions/5353934/check-if-element-is-visible-on-screen.
  */
-var checkVisible = function( elm, evalType ) {
-    evalType = evalType || "visible";
-    var vpH = $(window).height(), // Viewport Height
-        st = $(window).scrollTop(), // Scroll Top
-        y = $(elm).offset().top,
-        elementHeight = $(elm).height();
-    if (evalType === "visible") return ((y < (vpH + st)) && (y > (st - elementHeight)));
-    if (evalType === "above") return ((y < (vpH + st)));
+var checkVisible = function(elm, evalType) {
+  evalType = evalType || "visible";
+  var vpH  = $(window).height(), // Viewport Height
+      st   = $(window).scrollTop(), // Scroll Top
+      y    = $(elm).offset().top,
+      elementHeight = $(elm).height();
+  if (evalType === "visible") return ((y < (vpH + st)) && (y > (st - elementHeight)));
+  if (evalType === "above") return ((y < (vpH + st)));
 }
 
 /**
@@ -83,79 +106,66 @@ var visibleLooper = function() {
   }
 };
 
-// Allows me to use '$' instead of 'jQuery'
-// https://stackoverflow.com/a/24119140
-var $ = jQuery.noConflict();
-
 /* DOC READY START */
 $(document).ready(function() {
   
-  var $futureReadList = $('#future-read-list');
+  bookOptions();
   
   // Bring up the lightbox
-  $('.site-logo--action, .lightbox--close').on('click', function() {
-    $($('body.logged-in').length ? $('#add-book-form') : $('#loginform')).appendTo('.lightbox--content');
-    bookFunctions.toggleLightbox();
+  $('.js-lightbox-toggle').on('click', function() {
+    toggleLightbox();
+    if ($(this).hasClass('site-action')) {
+      $('.js-lightbox-content').empty().append($(this).parent().find('form').clone());
+    }
   });
   
   // Add a book
-  $('.add-a-book.site-form').on('click', '.button', function() {
-    var newBookForm   = $('.site-form.add-a-book'),
-        newBookTitle  = newBookForm.find('#add-book-form--title').val(),
-        newBookAuthor = newBookForm.find('#add-book-form--author').val();
-    $.ajax({
-      type: 'POST',
-      url: templateDirectory + '/php/save-list.php',
-      data: {
-        'list': 'new',
-        'title': newBookTitle,
-        'author': newBookAuthor
-      },
-      success: function(data) {
-        newBookForm.find('input').val('');
-        bookFunctions.toggleLightbox();
-        // If ajax returns the post ID
-        if (!isNaN(data)) {
-          var $bookTemplate = $futureReadList.find('li').first().clone();
-          $bookTemplate
-            .css('opacity', '.5')
-            .attr('id', 'book-' + data)
-            .attr('data-order', '0')
-            .removeClass('shown')
-            .addClass('new-book')
-            .find('.book--series, .book--tags, .book--want-date, .book--links').remove();
-          $bookTemplate
-            .find('.book--title')
-            .text(newBookTitle);
-          $bookTemplate
-            .find('.book--author span')
-            .text(newBookAuthor);
-          $bookTemplate
-            .find('h1')
-            .removeClass('ribbons');
-          $futureReadList.prepend($bookTemplate);
-          bookFunctions.updateList('future', $bookTemplate.attr('ID').substring(5));
-          $bookTemplate.delay(250).slideDown(400, function() {
-            $(this).css('opacity', '1');
-          });
+  $('.js-lightbox-content').on('click', '.button', function() {
+    if ($(this).hasClass('add-book-form--button')) {
+      var newBookForm   = $(this).closest('form'),
+          newBookTitle  = newBookForm.find('#add-book-form--title').val(),
+          newBookAuthor = newBookForm.find('#add-book-form--author').val();
+      $.ajax({
+        type: 'POST',
+        url: ajaxURL,
+        data: {
+          'list': 'new',
+          'title': newBookTitle,
+          'author': newBookAuthor
+        },
+        success: function(data) {
+          newBookForm.find('input').val('');
+          toggleLightbox();
+          // If ajax returns the post ID
+          if (!isNaN(data)) {
+            var bookTemplate = futureReadList.find('li').first().clone();
+            bookTemplate
+              .css('opacity', '.5')
+              .attr('id', 'book-' + data)
+              .attr('data-order', '0')
+              .addClass('new-book')
+              .find('.book--series, .book--tags, .book--want-date, .book--links, .book--meta')
+                .remove()
+              .end()
+              .find('.book--title')
+                .text(newBookTitle)
+              .end()
+              .find('.book--author span')
+                .text(newBookAuthor)
+              .end();
+            futureReadList.prepend(bookTemplate);
+            bookFunctions.updateList('future', bookTemplate.attr('ID').substring(5));
+            bookTemplate.delay(250).slideDown(400, function() {
+              $(this).css('opacity', '1');
+            });
+          }
+          if (data.length) {
+            // The ID of the newly created post.
+            //console.log(data);
+          }
         }
-        // If you are not logged in.
-        if (data.length) {
-          console.log(data);
-          console.log('ur not logged in, dummy.');
-        }
-      }
-    });
-  });
-  
-  // Set up book--options' active options.
-  $('.book').each(function() {
-    var list = $(this).closest('.book-list');
-    $(this).find('.book--options a').each( function() {
-      if (list.hasClass($(this).attr('class'))) {
-        $(this).addClass('active');
-      }
-    });
+      });
+    }
   });
   
   // Toggle book--options' visibility.
@@ -183,25 +193,46 @@ $(document).ready(function() {
           });
         });
       }
-      // If this is the delete link.
-      else if ($(this).hasClass('delete')) {
+    })
+    .on('click', '.book--link', function() {
+      var book = $(this).closest('.book')
+      if ($(this).hasClass('delete-link')) {
         if (confirm('Are you sure you want to delete ' + book.find('h1').text() + '?')) {
-          bookFunctions.updateList(bookClass, book.attr('ID').substring(5));
+          bookFunctions.updateList('delete', book.attr('ID').substring(5));
           book.css('opacity', '.5').slideUp(400);
         }
       }
     });
   
-  // Toggles on the more/less button.
+  // Toggles on the more/less button as well as the posts within it.
   $('#show-full-list-button').on('click', function() {
-    $futureReadList.toggleClass('expanded').toggleClass('collapsed')
-    if ($futureReadList.hasClass('expanded')) {
-      $(this).text('less books');
-      visibleLooper();
-    }
-    else {
-      $(this).text('more books');
-    }
+    futureReadList.toggleClass('expanded').toggleClass('collapsed')
+    futureReadList.hasClass('expanded') ? $(this).text('less books') : $(this).text('more books');
+    var stateChange = showHideClicks % 2 == 0 ? 'open' : 'close';
+    $.ajax({
+      type: 'POST',
+      url: ajaxURL,
+      data: {
+        'list': 'bookList',
+        'status': stateChange
+      },
+      beforeSend:function() {
+        if (showHideClicks % 2 == 0) {
+          $('.loader-inner').toggle();
+        }
+      },
+      success: function(data) {
+        stateChange == 'open' ? $('#future-read-list').append(data) : $('#future-read-list').html(data);
+      },
+      complete: function() {
+        if (showHideClicks % 2 == 0) {
+          $('.loader-inner').toggle();
+        }
+        showHideClicks++;
+        bookOptions();
+        visibleLooper();
+      }
+    });
   });
   
   // Turn off "logged out" message.

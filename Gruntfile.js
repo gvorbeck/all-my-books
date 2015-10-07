@@ -10,7 +10,7 @@ module.exports = function(grunt) {
     uglify: {
       min: {
         files: {
-          'themes/allmybooks-2014/javascripts/site.min.js': [/*'themes/allmybooks-2014/javascripts/partials/html.sortable.js', 'themes/allmybooks-2014/javascripts/partials/jquery.sticky.js',*/ 'themes/allmybooks-2014/javascripts/partials/site.js']
+          'themes/allmybooks-2014/javascripts/site.min.js': ['themes/allmybooks-2014/javascripts/partials/site.js']
         }
       }
     },

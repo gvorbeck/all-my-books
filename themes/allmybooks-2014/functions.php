@@ -20,6 +20,7 @@ add_filter('upload_mimes', 'custom_upload_mimes');
 function custom_upload_mimes ($existing_mimes=array()) {
   // add the file extension to the array
   $existing_mimes['epub'] = 'mime/type';
+  $existing_mimes['mobi'] = 'mime/type';
    // call the modified list of extensions
   return $existing_mimes;
 }
@@ -35,21 +36,35 @@ if ( ! is_admin() && ! is_login_page() ) {
   // Enqueue Styles
   if ( ! function_exists( 'site_styles' ) ) {
     function site_styles() {
-      wp_register_style( 'main', get_bloginfo( 'template_directory' ) . '/style.css', false, date('W.0') );
-      wp_enqueue_style( 'main' );
+      wp_register_style('loaders', content_url() . '/node_modules/loaders.css/loaders.min.css', false, false);
+      wp_register_style('main', get_bloginfo('template_directory') . '/style.css', false, date('W.0'));
+      wp_enqueue_style('loaders');
+      wp_enqueue_style('main');
     }
   }
   add_action( 'init', 'site_styles' );
 
   // Enqueue Scripts
-  if ( ! function_exists( 'site_scripts' ) ) {
+  if (!function_exists('site_scripts')) {
     function site_scripts() {
-      wp_register_script( 'site-js', get_template_directory_uri() . '/javascripts/site.min.js', array('jquery'), date('W.0'), true );
-      wp_enqueue_script( 'jquery' );
-      wp_enqueue_script( 'site-js' );
+      // Remove weird auto-added emoji script from site 
+      remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+      remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+      remove_action( 'wp_print_styles', 'print_emoji_styles' );
+      remove_action( 'admin_print_styles', 'print_emoji_styles' );
+      // Site js
+      wp_register_script('site-js', get_template_directory_uri() . '/javascripts/site.min.js', array('jquery'), date('W.0'), true);
+      // loaders.css
+      wp_register_script('loaders', content_url() . '/node_modules/loaders.css/loaders.css.js', '', false, true);
+      // jQuery
+      wp_deregister_script('jquery');
+      wp_register_script('jquery', ('https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'), false, '2.1.4', true);
+      wp_enqueue_script('jquery');
+      wp_enqueue_script('site-js');
+      wp_enqueue_script('loaders');
     }
   }
-  add_action( 'wp_enqueue_scripts', 'site_scripts' );
+  add_action('wp_enqueue_scripts', 'site_scripts');
 }
 
 if ( ! function_exists( 'amb_admin_script' ) ) {
@@ -65,137 +80,118 @@ if ( ! function_exists( 'amb_admin_script' ) ) {
 }
 add_action( 'admin_enqueue_scripts', 'amb_admin_script' );
 
-if ( ! function_exists( 'get_the_slug' ) ) {
-  function get_the_slug( $phrase ) {
-      $result = strtolower($phrase);
-      $result = preg_replace("/[^a-z0-9\s-]/", "", $result);
-      $result = trim(preg_replace("/[\s-]+/", " ", $result));
-      $result = preg_replace("/\s/", "-", $result);
-      return $result;
+if (!function_exists('get_the_slug')) {
+  function get_the_slug($phrase) {
+    $result = strtolower($phrase);
+    $result = preg_replace("/[^a-z0-9\s-]/", "", $result);
+    $result = trim(preg_replace("/[\s-]+/", " ", $result));
+    $result = preg_replace("/\s/", "-", $result);
+    return $result;
   }
 }
 
-if ( ! function_exists( 'get_the_post_authors_string' ) ) {
-  function get_the_post_authors_string( $post_id ) {
-    $authors = wp_get_post_terms( $post_id, 'authors' );
-    $i = 0;
-    $authors_str = '';
-    if ( ! empty( $authors ) ) {
-      foreach ( $authors as $author ) {
-        if ( 0 < $i ) {
-          $authors_str .= ', ';
-        }
-        $authors_str .= $author->name;
-        $i++;
-      }
+/*
+  
+*/
+if (!function_exists('amb_reading_list_sanity_check')) {
+  function amb_reading_list_sanity_check() {
+    // Get all the content from the reading_list table
+    $reading_list = $wpdb->get_results('SELECT * FROM wp_reading_list ORDER BY listorder');
+    $i = 1;
+    foreach ($reading_list as $r) {
+      $wpdb->update( 'wp_reading_list', array('listorder' => $i), array('bid' => $r->bid));
+      $i++;
     }
-    return $authors_str;
   }
 }
 
-if ( ! function_exists( 'get_series_list' ) ) {
-  function get_series_list( $post_id ) {
-    if ( have_rows( 'series_info', $post_id ) ) {
-      $i = 0;
-      while ( have_rows( 'series_info', $post_id ) ) {
+/*
+  @function   get_the_post_authors_string
+  @parameters $post_id - The ID of the post whose authors are sought.
+  @returns    A comma-delimited list of authors associated with the post.
+*/
+if (!function_exists('get_the_post_authors_string')) {
+  function get_the_post_authors_string($post_id) {
+    return implode(', ', wp_get_post_terms($post_id, 'authors', array('fields' => 'names')));
+  }
+}
+
+/*
+  @function   get_series_list
+  @parameters $post_id - The ID of the post whose series data is sought.
+  @returns    A comma-delimited list of series data associated with the post.
+*/
+if (!function_exists( 'get_series_list')) {
+  function get_series_list($post_id) {
+    if (have_rows('series_info', $post_id)) {
+      $full_series_array = [];
+      while (have_rows('series_info', $post_id)) {
         the_row();
-        $series_id      = get_sub_field( 'series_name', $post_id );
-        $series_object  = get_term( $series_id, 'series', $post_id );
-        if ( $i > 0 ) {
-          $series_string .= ', ';
-        }
-        $series_string .= $series_object->name . ' #' . get_sub_field( 'series_position', $post_id );
-        $i++;
+        $full_series_array[] = get_sub_field('series_name', $post_id)->name . ' #' . get_sub_field('series_position', $post_id);
       }
-      return $series_string;
+      return implode(', ', $full_series_array);
     }
   }
 }
 
-if ( ! function_exists( 'get_book_links' ) ) {
-  function get_book_links( $post_id ) {
-    $ascii_title   = strtolower( urlencode( get_post( $post_id )->post_title ) );
-    $ascii_authors = strtolower( urlencode( str_replace( ', ', ' ', get_the_post_authors_string( $post_id ) ) ) );
-    $book_links    = array();
-    $book_links[]  = "<li><a class='amazon-link book--link' href='http://www.amazon.com/s/field-keywords=$ascii_title+$ascii_authors' target='_blank' title='Search Amazon'>" . svg_amazon() . "</a></li>";
-    $book_links[]  = "<li><a class='wiki-link book--link' href='http://en.wikipedia.org/wiki/Special:Search?search=$ascii_title+$ascii_authors' target='_blank' title='Search Wikipedia'>" . svg_wikipedia() . "</a></li>";
-    $book_links[]  = "<li><a class='luzme-link book--link' href='http://luzme.com/search_all?keyword=$ascii_title+$ascii_authors' target='_blank' title='Shop Luzme'>" . svg_store() . "</a></li>";
-    if ( is_user_logged_in() ) {
-      if( get_field('book_file', $post_id) ) {
-        $book_links[] = "<li><a class='download-link book--link' href='" . get_field('book_file', $post_id) . "' title='Download " . esc_attr( get_post( $post_id )->post_title ) . "'>" . svg_download() . "</a></li>";
+/*
+  @function   get_book_links
+  @parameters $post_id - The ID of the post to build links around.
+  @returns    A <UL> element filled with link <LI> elements.
+*/
+if (!function_exists('get_book_links')) {
+  function get_book_links($post_id) {
+    $ascii_title   = strtolower(urlencode(get_post($post_id)->post_title));
+    $ascii_authors = strtolower(urlencode(str_replace(', ', ' ', get_the_post_authors_string($post_id))));
+    $book_links_html = "<ul class='book--links'><li><a class='amazon-link book--link' href='http://www.amazon.com/s/field-keywords=$ascii_title+$ascii_authors' target='_blank' title='Search Amazon'>" . svg_amazon() . "</a></li><li><a class='wiki-link book--link' href='http://en.wikipedia.org/wiki/Special:Search?search=$ascii_title+$ascii_authors' target='_blank' title='Search Wikipedia'>" . svg_wikipedia() . "</a></li><li><a class='luzme-link book--link' href='http://luzme.com/search_all?keyword=$ascii_title+$ascii_authors' target='_blank' title='Shop Luzme'>" . svg_store() . "</a></li>";
+    if (is_user_logged_in()) {
+      if (get_field('book_file', $post_id)) {
+        $book_links_html .= "<li><a class='download-link book--link' href='" . get_field('book_file', $post_id) . "' title='Download " . esc_attr(get_post($post_id)->post_title) . "'>" . svg_download() . "</a></li>";
       }
-      $book_links[]  = '<li><a class="edit-link book--link" href="' . get_edit_post_link( $post_id ) . '" target="_blank" title="Edit ' . esc_attr( get_post( $post_id )->post_title ) . '">' . svg_edit() . '</a></li>';
+      $book_links_html .= '<li><a class="edit-link book--link" href="' . get_edit_post_link($post_id) . '" target="_blank" title="Edit ' . esc_attr(get_post($post_id)->post_title) . '">' . svg_edit() . '</a></li><li><a class="delete-link book--link" href="javascript:;" title="Delete ' . esc_attr(get_post($post_id)->post_title) . '">' . svg_trash() . '</a></li>';
     }
-    return $book_links;
+    return $book_links_html . '</ul>';
   }
 }
 
-if ( ! function_exists( 'cat_class_builder' ) ) {
-  function cat_class_builder( $post_id ) {
-    // Set up category data (ommiting Uncategorized, of course).
-    $cats = get_the_category( $post_id );
-    $cat_class = 'genre-';
-    if ( ! empty( $cats ) ) {
-      foreach ( $cats as $cat ) {
-        if ( 1 != $cat->cat_ID ) {
-          $cat_class .= $cat->slug;
-          break;
-        }
+/*
+  @function   amb_get_cats_tags
+  @parameters $post_id - The ID of the post to capture category and tag data from.
+  @returns    A comma-delimited list of categoryt and/or tag data associated with the post.
+*/
+if (!function_exists('amb_get_cats_tags')) {
+  function amb_get_cats_tags($post_id) {
+    
+    // Categories
+    $categories = get_the_category($post_id);
+    foreach ($categories as $key=>$value) {
+      $categories[$key] = $value->name;
+      if ($categories[$key] == 'Uncategorized') {
+        array_splice($categories, $key, 1);
       }
     }
-    return $cat_class;
+    $categories = implode(', ', $categories);
+    
+    // Tags
+    $tags = implode(', ', wp_get_post_terms($post_id, 'post_tag', array('fields' => 'names')));
+    
+    // Put it all together.
+    if ($categories && $tags) {
+      return $categories . ', ' . $tags;
+    } else {
+      return $categories . $tags;
+    }
   }
 }
 
-if ( ! function_exists( 'the_book_builder' ) ) {
-  function the_book_builder( $post_id, $list_order, $class = '', $time = '' ) {
-    // Set up category data (ommiting Uncategorized, of course)
-    $cats = get_the_category( $post_id );
-    $cat_list = '';
-    if ( ! empty( $cats ) ) {
-      $i = 0;
-      foreach ( $cats as $cat ) {
-        if ( 1 != $cat->cat_ID ) {
-          if ( $i > 0 ) {
-            $cat_list .= ', ';
-          }
-          $i++;
-          $cat_list .= trim( $cat->cat_name );
-        }
-      }
-    }
-    // Set up tag data.
-    $tags = wp_get_post_terms( $post_id, 'post_tag' );
-    $tag_list = '';
-    if ( ! empty( $tags ) ) {
-      $i = 0;
-      foreach ( $tags as $tag ) {
-        if ( $i > 0 ) {
-          $tag_list .= ', ';
-        }
-        $i++;
-        $tag_list .= trim( $tag->name );
-      }
-    }
-    // Combine category and tag data.
-    $cat_tag_string = '';
-    if ( ! empty( $cat_list ) || ! empty( $tag_list ) ) {
-      if ( ! empty( $cat_list ) ) {
-        $cat_tag_string .= $cat_list;
-      }
-      if ( ! empty( $cat_list ) && ! empty( $tag_list ) ) {
-        $cat_tag_string .= ', ';
-      }
-      if ( ! empty( $tag_list ) ) {
-        $cat_tag_string .= $tag_list;
-      }
-    }
-    // Last read date.
-    $rows          = get_field( 'read_records', $post_id );
-    $last_row      = is_array( $rows ) ? end( $rows ) : '';
-    $last_row_year = is_array( $rows ) ? $last_row['read_year'] : '';
+if (!function_exists('the_book_builder')) {
+  function the_book_builder($post_id, $list_order, $class = '', $time = '') {
+    // Last read data.
+    $rows          = get_field('read_records', $post_id);
+    $last_row      = is_array($rows) ? end($rows) : '';
+    $last_row_year = is_array($rows) ? $last_row['read_year'] : '';
     ?>
-    <li id="book-<?php echo $post_id; ?>" class="book <?php echo $class; ?>" data-order="<?php echo $list-order; ?>">
+    <li id="book-<?php echo $post_id; ?>" class="book <?php echo $class; ?>" data-order="<?php echo $list_order; ?>">
       <article>
         <header>
           <h1 class="book--title"><?php echo get_the_title($post_id); ?></h1>
@@ -203,7 +199,6 @@ if ( ! function_exists( 'the_book_builder' ) ) {
             <a class="finished" href="javascript:;">Finished</a>
             <a class="current" href="javascript:;">Reading</a>
             <a class="future" href="javascript:;">Want</a>
-            <a class="delete" href="javascript:;">Delete</a>
           </div>
         </header>
         <div class="book--content">
@@ -216,31 +211,29 @@ if ( ! function_exists( 'the_book_builder' ) ) {
             </div>
           <?php } if ($time) { ?>
             <div class='book--want-date book--meta'>
-              <div><?php echo $time; ?></div>
+              <div><?php echo date('M \'y', strtotime($time)); ?></div>
               <span class='book--meta-label'>Added</span>
             </div>
           <?php } ?>
           <div class="book--details">
-            <span class="book--author book--detail"><?php echo svg_author(); ?>
-              <span><?php echo get_the_post_authors_string($post_id); ?></span>
-            </span>
-            <?php if ( '' != get_series_list( $post_id ) ) { ?>
-              <span class="book--series book--detail">
-                <?php echo svg_series(); ?>
-                <?php echo get_series_list($post_id); ?>
+            <?php if (get_the_post_authors_string($post_id)) { ?>
+              <span class="book--author book--detail">
+                <?php //The second span is for js ?>
+                <?php echo svg_author() . '<span>' . get_the_post_authors_string($post_id); ?></span>
               </span>
-            <?php } if ( '' != $cat_tag_string ) { ?>
+            <?php } if (get_series_list($post_id)) { ?>
+              <span class="book--series book--detail">
+                <?php echo svg_series() . get_series_list($post_id); ?>
+              </span>
+            <?php } if (amb_get_cats_tags($post_id)) { ?>
               <span class="book--tags book--detail">
-                <?php echo svg_tag(); ?>
-                <?php echo strtolower($cat_tag_string); ?>
+                <?php echo svg_tag() . strtolower(amb_get_cats_tags($post_id)); ?>
               </span>
             <?php } ?>
           </div>
         </div>
         <footer>
-          <ul class="book--links">
-            <?php echo implode(' ', get_book_links($post_id)); ?>
-          </ul>
+          <?php echo get_book_links($post_id); ?>
         </footer>
       </article>
     </li>
@@ -354,7 +347,7 @@ if(function_exists("register_field_group"))
             'field_type' => 'select',
             'allow_null' => 0,
             'load_save_terms' => 0,
-            'return_format' => 'id',
+            'return_format' => 'object',
             'multiple' => 0,
           ),
           array (
@@ -553,8 +546,8 @@ function svg_cms() {
 function svg_book() {
   return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="70px" height="96.737px" viewBox="0 0 70 96.737" xml:space="preserve" ><path d="M68.244 24.082L23.25 0.89C17.088-2.357 4.9 3.9 1.4 9.436c-1.559 2.466-1.443 4.249-1.443 5.256l0.555 52.4 c0.037 1.1 1.4 2.6 2.6 3.348c2.496 1.5 40.3 25.1 41.4 25.799c0.576 0.4 1.3 0.5 1.9 0.5 c0.572 0 1.146-0.127 1.666-0.385C49.293 95.8 50 94.7 50 93.532V38.523c0-1.145-0.668-2.203-1.756-2.775L7.348 12.9 c0.463-0.899 2.283-2.801 5.627-4.552c3.523-1.845 6.162-1.148 6.768-0.914c0 0 39.2 21 40.4 21.6 c1.195 0.6 1.2 0.7 1.2 1.786c0 1.1 0 52.2 0 52.2c0 2.6 2.6 3.7 4.6 3.67c1.938 0 4.006-1.9 4.006-3.67V26.858 C70 25.7 69.3 24.7 68.2 24.082z"/></svg>';
 }
-function svg_logout() {
-  return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="512px" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve"><path d="M256 33C132.3 33 32 133.3 32 257c0 123.7 100.3 224 224 224c123.7 0 224-100.3 224-224C480 133.3 379.7 33 256 33z M364.3 332.5c1.5 1.5 2.3 3.5 2.3 5.6c0 2.1-0.8 4.2-2.3 5.6l-21.6 21.7c-1.6 1.6-3.6 2.3-5.6 2.3c-2 0-4.1-0.8-5.6-2.3L256 289.8 l-75.4 75.7c-1.5 1.6-3.6 2.3-5.6 2.3c-2 0-4.1-0.8-5.6-2.3l-21.6-21.7c-1.5-1.5-2.3-3.5-2.3-5.6c0-2.1 0.8-4.2 2.3-5.6l75.7-76 l-75.9-75c-3.1-3.1-3.1-8.2 0-11.3l21.6-21.7c1.5-1.5 3.5-2.3 5.6-2.3c2.1 0 4.1 0.8 5.6 2.3l75.7 74.7l75.7-74.7 c1.5-1.5 3.5-2.3 5.6-2.3c2.1 0 4.1 0.8 5.6 2.3l21.6 21.7c3.1 3.1 3.1 8.2 0 11.3l-75.9 75L364.3 332.5z"/></svg>';
+function svg_logout($class) {
+  return '<svg class="' . $class . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="512px" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve"><path d="M256 33C132.3 33 32 133.3 32 257c0 123.7 100.3 224 224 224c123.7 0 224-100.3 224-224C480 133.3 379.7 33 256 33z M364.3 332.5c1.5 1.5 2.3 3.5 2.3 5.6c0 2.1-0.8 4.2-2.3 5.6l-21.6 21.7c-1.6 1.6-3.6 2.3-5.6 2.3c-2 0-4.1-0.8-5.6-2.3L256 289.8 l-75.4 75.7c-1.5 1.6-3.6 2.3-5.6 2.3c-2 0-4.1-0.8-5.6-2.3l-21.6-21.7c-1.5-1.5-2.3-3.5-2.3-5.6c0-2.1 0.8-4.2 2.3-5.6l75.7-76 l-75.9-75c-3.1-3.1-3.1-8.2 0-11.3l21.6-21.7c1.5-1.5 3.5-2.3 5.6-2.3c2.1 0 4.1 0.8 5.6 2.3l75.7 74.7l75.7-74.7 c1.5-1.5 3.5-2.3 5.6-2.3c2.1 0 4.1 0.8 5.6 2.3l21.6 21.7c3.1 3.1 3.1 8.2 0 11.3l-75.9 75L364.3 332.5z"/></svg>';
 }
 function svg_tag() {
   return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M17.6 5.8C17.3 5.3 16.7 5 16 5L5 5C3.9 5 3 5.9 3 7v10c0 1.1 0.9 2 2 2l11 0c0.7 0 1.3-0.3 1.6-0.8L22 12L17.6 5.8z"/></g></svg>';
@@ -567,5 +560,8 @@ function svg_series() {
 }
 function svg_login_key() {
   return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="516.375px" height="516.375px" viewBox="0 0 516.375 516.375" xml:space="preserve"><g><path d="M353.812 0C263.925 0 191.2 72.7 191.2 162.562c0 19.1 3.8 38.2 9.6 57.375L0 420.75v95.625h95.625V459H153 v-57.375h57.375l86.062-86.062c17.213 5.7 36.3 9.6 57.4 9.562c89.888 0 162.562-72.675 162.562-162.562S443.7 0 353.8 0 z M401.625 172.125c-32.513 0-57.375-24.862-57.375-57.375s24.862-57.375 57.375-57.375S459 82.2 459 114.8 S434.138 172.1 401.6 172.125z"/></g></svg>';
+}
+function svg_trash() {
+  return '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" width="900.5" height="900.5" viewBox="0 0 900.5 900.5" xml:space="preserve" enable-background="new 0 0 900.5 900.5"><path d="M176.4 880.5c0 11 9 20 20 20h507.7c11 0 20-9 20-20V232.5h-547.7V880.5L176.4 880.5zM562.8 342.8h75v436h-75V342.8zM412.8 342.8h75v436h-75V342.8zM262.8 342.8h75v436h-75V342.8zM618.8 91.9V20c0-11-9-20-20-20h-297.1c-11 0-20 9-20 20v71.9 12.5 12.5H141.9c-11 0-20 9-20 20v50.6c0 11 9 20 20 20h34.5 547.7 34.5c11 0 20-9 20-20v-50.6c0-11-9-20-20-20H618.8v-12.5V91.9zM543.8 112.8h-187.1v-8.4 -12.5V75h187.2v16.9 12.5V112.8z"/></svg>';
 }
 /* SVG CODE STOP */

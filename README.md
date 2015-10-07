@@ -15,3 +15,4 @@ If you want to customize the theme, I recommend creating a child-theme of AMB so
 
 ## Credits
 * Layout framework: [Susy](http://susy.oddbird.net/)
+* Loading gif: [loaders.css](https://github.com/ConnorAtherton/loaders.css)

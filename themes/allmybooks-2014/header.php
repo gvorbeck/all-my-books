@@ -33,53 +33,23 @@
   </head>
   <body <?php body_class(); ?>>
     <div class="lightbox lightbox--shade">
-      <a title="Close" href="javascript:;" class="lightbox--close"><?php echo svg_logout(); ?></a>
-      <div class="lightbox--content"></div>
+      <?php echo svg_logout('lightbox--close js-lightbox-toggle'); ?>
+      <div class="lightbox--content js-lightbox-content"></div>
     </div>
     <header id="site-header">
-      <div class="header-content">
-        <?php
-        if (!is_user_logged_in()) {
-          $args = array(
-            'redirect' => home_url(),
-          );
-          wp_login_form();
-        }
-        ?>
-        <form method="post" action="/the/post/url" name="add-book-form" id="add-book-form" class="site-form add-a-book">
-          <fieldset>
-            <legend>add a book</legend>
-            <div>
-              <label class="required">title
-                <input id="add-book-form--title" name="add-book-form--title" type="text" placeholder="Lonesome Dove" required autofocus>
-              </label>
-            </div>
-            <div>
-              <label class="required">author
-                <input id="add-book-form--author" name="add-book-form--author" type="text" placeholder="Harry Turtledove" required>
-              </label>
-            </div>
-            <div> 
-              <a title="submit" href="javascript:;" class="add-book-form--button button">submit</a> 
-            </div> 
-          </fieldset>
-        </form>
-        <a href="javascript:;" title="<?php echo is_user_logged_in() ? 'Add a book' : 'Sign in'; ?>" class="site-logo--action <?php echo is_user_logged_in() ? 'action--add-book' : 'action--login'; ?>">
-          <img class="site-logo--img" src="<?php echo get_template_directory_uri(); ?>/images/amb_logo_new.png">
-          <img class="site-logo--img-big" src="<?php echo get_template_directory_uri(); ?>/images/amb_logo_new_big.png">
-          <?php echo is_user_logged_in() ? '<span>+</span>' : '<span>></span>'; ?>
-        </a>
-        <h1>
+      <div>
+        <?php get_template_part('header', 'form'); ?>
+        <img class="site-logo--img site-logo--img-small" src="<?php echo get_template_directory_uri(); ?>/images/amb_logo_new.png">
+        <img class="site-logo--img site-logo--img-big" src="<?php echo get_template_directory_uri(); ?>/images/amb_logo_new_big.png">
+        <h1 class="site-logo--text">
           <?php
           $title = explode(' ', get_bloginfo('title'));
-          $title_last = end(explode(' ', get_bloginfo('title')));
-          foreach (array_keys($title, $title_last) as $key) {
-            unset($title[$key]);
-          }
-          $title = implode(' ', $title);
-          echo "<span class='first'>$title</span> <span class='last'>$title_last</span>";
+          echo '<span>' . $title[0] . ' ' . $title[1] . '</span> <span>' . $title[2] . '</span>';
           ?>
         </h1>
+        <a href="javascript:;" title="<?php echo is_user_logged_in() ? 'Add a book' : 'Sign in'; ?>" class="js-lightbox-toggle site-action <?php echo is_user_logged_in() ? 'site-action--add-book' : 'site-action--login'; ?>">
+          <?php echo is_user_logged_in() ? '+' : '>'; ?>
+        </a>
       </div>
     </header>
     <main id="site-content">
