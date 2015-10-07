@@ -53,10 +53,21 @@
   }
 }
 
+.loader-inner {
+  display: none;
+}
+.line-scale-pulse-out-rapid {
+  margin: gutter() auto;
+  width: rem(40);
+  
+  & > div {
+    background: $color-red;
+    border: none;
+  }
+}
+
 #show-full-list-button {
   @extend %button;
   margin-top: gutter();
   text-transform: capitalize;
-  
-  &:hover { @extend %button-hover; }
 }

@@ -1,0 +1,55 @@
+form {
+  
+  legend {
+    display: none;
+  }
+  
+  input[type=text],
+  input[type=password] {
+    @extend %input;
+  }
+  
+  label {
+    @extend %label;
+  }
+  
+  .button {
+    @extend %button;
+  }
+}
+
+.login-remember {
+  display: none;
+}
+
+#wp-submit {
+  @extend %button;
+  width: 100%;
+}
+
+.site-message {
+  background-color: $color-red;
+  bottom: 0;
+  color: white;
+  left: 0;
+  padding: rem(10) rem(43) rem(10) rem(10);
+  position: fixed;
+    
+  p {
+    line-height: rem(32);
+  }
+  
+  svg {
+    fill: white;
+    height: rem(28);
+    margin: 0;
+    position: absolute;
+    right: rem(10);
+    top: rem(10);
+    width: rem(28);
+    
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
