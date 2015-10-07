@@ -22,23 +22,24 @@ function amb_sanitize_reading_list() {
     $i++;
   }
 }
+
+if ($list == "bookList") {
+  $status = $_POST['status'];
+  $class = '';
+  if ($status == 'open') {
+    $book_list = $wpdb->get_results('SELECT * FROM ' . $reading_list_table . ' WHERE listorder > 10 ORDER BY listorder');
+    $class = 'overflow';
+  } else {
+    $book_list = $wpdb->get_results('SELECT * FROM ' . $reading_list_table . ' ORDER BY listorder LIMIT 10');
+    $class = 'shown';
+  }
+  foreach ($book_list as $b) {
+    the_book_builder($b->bid, $b->listorder, $class, $b->time);
+  }
+}
   
 if (is_user_logged_in()) {
   switch ($list) {
-    case "bookList":
-      $status = $_POST['status'];
-      $class = '';
-      if ($status == 'open') {
-        $book_list = $wpdb->get_results('SELECT * FROM ' . $reading_list_table . ' WHERE listorder > 10 ORDER BY listorder');
-        $class = 'overflow';
-      } else {
-        $book_list = $wpdb->get_results('SELECT * FROM ' . $reading_list_table . ' ORDER BY listorder LIMIT 10');
-        $class = 'shown';
-      }
-      foreach ($book_list as $b) {
-        the_book_builder($b->bid, $b->listorder, $class, $b->time);
-      }
-      break;
     case "finished":
       if (!empty($id)) {
         $row_count = count(get_field('read_records', $id));
