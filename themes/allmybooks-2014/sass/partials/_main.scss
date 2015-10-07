@@ -1,0 +1,15 @@
+main {
+  @extend %content-width;
+  background: $color-quarternary;
+  padding: gutter();
+  box-shadow: $drop-shadow;
+  margin-top: -(span(1));
+  
+  @include breakpoint(rem(760)) {
+    margin-top: 0;
+  }
+  
+  @include breakpoint(rem(1050)) {
+    margin-top: -(rem(96));
+  }
+}

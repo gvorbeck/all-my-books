@@ -26,6 +26,7 @@ $font-fancy: 'Lobster Two', cursive;
 /*------------------------------------*\
     #FONT-SIZES
     http://lifehacker.com/stick-to-these-font-sizes-to-simplify-designs-and-more-1531615325
+    @TODO: Phase this out for rem() and em()
 \*------------------------------------*/
 $font-size-1: 0.313rem; // 5px
 $font-size-2: 0.438rem; // 7px
@@ -42,8 +43,8 @@ $font-size-11: 5.188rem; // 83px
 /*------------------------------------*\
     #BREAKPOINTS
 \*------------------------------------*/
-$breakpoint-1: 540px;
-$breakpoint-2: 650px;
+$breakpoint-1: rem(760);
+$breakpoint-2: rem(1050);
 
 $drop-shadow: 0 2px 2px rgba(0,0,0,.25);
 

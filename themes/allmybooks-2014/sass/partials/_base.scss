@@ -1,18 +1,14 @@
-@import "../modules/colors";
-@import "../modules/variables";
-@import "../modules/mixins";
-@import "../modules/extends";
 /*------------------------------------*\
     #SITE-ARCHITECTURE
     Excluding Header and Footer.
 \*------------------------------------*/
 @viewport{
-    zoom: 1.0;
-    width: extend-to-zoom;
+  zoom: 1.0;
+  width: extend-to-zoom;
 }
 
 * + * {
-	margin-top: 1.5em;
+  margin-top: 1.5em;
 }
 
 body, html {
@@ -31,22 +27,7 @@ body {
   }
 }
 
-main {
-  background: $color-quarternary;
-  padding: gutter();
-  box-shadow: $drop-shadow;
-  margin-top: -(span(1));
-  
-  @include breakpoint(rem(760)) {
-    margin-top: 0;
-  }
-  
-  @include breakpoint(rem(1050)) {
-    margin-top: -6rem;
-  }
-}
-
-a:link {
+a {
   color: $color-red;
   text-decoration: none;
 }

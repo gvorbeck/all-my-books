@@ -2,79 +2,62 @@
     #SITE-FOOTER
 \*------------------------------------*/
 #site-footer {
-  padding: 7rem gutter() (gutter() * 2);
-  text-align: left;
-  background: $color-tertiary;
-  margin-top: -6rem;
-  color: #ffffff;
-
-  p {
-    clear: both;
-    line-height: 1.563em;
-  }
-  svg {
-    fill: $color-secondary;
-  }
-  a {
-    color: $color-secondary;
-  }
-}
-#github-link a {
-  text-decoration: none;
-  
-  span {
-    text-decoration: underline;
-    vertical-align: middle;
-  }
-  
-  svg {
-    height: 1.563rem;
-    width: 1.563rem;
-    vertical-align: bottom;
-    margin-left: .25rem;
-  }
-}
-
-.site-footer--admin-link {
-  position: absolute;
-  top: 0;
-  right: 0;
-  
-  svg {
-    width: rem(50);
-    height: rem(50);
-  }
-}
-
-.site-message {
-  position: fixed;
-  background-color: $color-red;
-  bottom: 0;
-  left: 0;
+  background-color: $color-tertiary;
   color: white;
-  padding: rem(8);
+  margin-top: -(rem(96));
+  padding: rem(112) 0 rem(95);
   
-  p {
-    float: left;
-    line-height: rem(31);
-    margin-right: rem(10);
-    max-width: 87%;
-    font-size: em(12);
+  .logged-in & {
+    padding-bottom: rem(16);
+  }
+  
+  > div {
+    @extend %content-width;
+    padding: 0 gutter();
     
-    @include breakpoint(rem(650)) {
-      font-size: em(16);
-      max-width: 100%;
+    @include breakpoint($breakpoint-2) {
+      padding: 0;
     }
   }
   
+  p {
+    line-height: rem(25);
+  }
+  
   svg {
-    fill: white;
-    width: rem(28);
-    height: rem(28);
-    margin: 0;
+    fill: $color-secondary;
+  }
+  
+  a {
+    color: $color-secondary;
     
-    &:hover {
-      cursor: pointer;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+  
+  &--github-link {
+    
+    svg {
+      height: rem(25);
+      margin: 0 0 0 rem(5);
+      vertical-align: bottom;
+      width: rem(25);
+    }
+  }
+  
+  &--admin-link {
+    position: absolute;
+    right: gutter();
+    top: 0;
+    
+    @include breakpoint($breakpoint-2) {
+      right: 0;
+    }
+    
+    svg {
+      height: rem(50);
+      width: rem(50);
     }
   }
 }
